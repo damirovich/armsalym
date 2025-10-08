@@ -16,11 +16,6 @@
                 </Grid>
                 <Grid ColumnDefinitions="*,auto">
                     <Button Text="{local:Translate txtFind}" Clicked="OnSaveNumberClicked" Margin="10, 10, 15, 0" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" Grid.Column="0"/>
-                    <Image x:Name="showPasswordIcon" Source="show_icon.png" WidthRequest="30" HeightRequest="30" Margin="0, 10, 15, 0" Grid.Column="1">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="HideProperty"/>
-                        </Image.GestureRecognizers>
-                    </Image>
                 </Grid>
                 <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="False" Color="#cc0000" IsEnabled="False" Margin="0, 15 , 0 , 0"
                     AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
@@ -36,19 +31,23 @@
                                 <StackLayout Spacing="0">
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="№ " FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" FontAttributes="Bold" TextColor="{DynamicResource PrimaryTextColor}"/>
-                                        <Label Text= "{Binding PositionalNumber}" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" FontAttributes="Bold" Margin="5, 1, 0, 0" TextColor="{DynamicResource PrimaryTextColor}" />
+                                        <Label Text= "{Binding DgNom}" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" FontAttributes="Bold" Margin="5, 1, 0, 0" TextColor="{DynamicResource PrimaryTextColor}" />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{local:Translate txtFIO}" FontAttributes="Bold"  Margin="1, 1, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
-                                        <Label Text= "{Binding LoanReferenceName}" Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                        <Label Text= "{Binding ContractName}" Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Позн №" FontAttributes="Bold"  Margin="1, 1, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                        <Label Text= "{Binding DgPozn}" Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{local:Translate txtDateOfZayavka}" FontAttributes="Bold"  Margin="1, 1, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
-                                        <Label Text= "{Binding ZV_DATE}"  Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                        <Label Text= "{Binding LoanIssuedDate}"  Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{local:Translate txtSumma}" FontAttributes="Bold" Margin="1, 1, 5, 5" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
-                                        <Label Text= "{Binding DisplaySecret}" Margin="10, 1, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                        <Label Text= "{Binding LoanSum}" Margin="10, 0, 0, 0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
                                     </StackLayout>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="OnFrameTapped"/>
