@@ -5,6 +5,7 @@ using ARMzalogApp.Constants;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ARMzalogApp.Views.DogkrPages;
 
@@ -23,7 +24,7 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
         }
     }
 
-    private long _savedNumber;
+    private string _savedNumber;
     private CancellationTokenSource _cancellationTokenSource;
     private bool _isLoading = false;
 
@@ -57,24 +58,26 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
         var selectedZavkr = ((sender as StackLayout)?.BindingContext as DogkrResponse);
         if (selectedZavkr != null)
         {
-            await Shell.Current.GoToAsync("ViewKredDog");
+            //await Shell.Current.GoToAsync("ViewKredDog");
+            await Navigation.PushAsync(new ViewKredDog(selectedZavkr));
         }
     }
 
     private void OnSaveNumberClicked(object sender, EventArgs e)
     {
-        if (long.TryParse(numberEntry.Text, out long number))
-        {
-            _savedNumber = number;
-            GetDataFromFilter(_savedNumber);
-        }
-        else
-        {
-            DisplayAlert("Ошибка", "Введите числа!", "OK");
-        }
+        //if (long.TryParse(numberEntry.Text, out long number))
+        //{
+        //    _savedNumber = number;
+        //}
+        //else
+        //{
+        //    DisplayAlert("Ошибка", "Введите числа!", "OK");
+        //}
+        _savedNumber = numberEntry.Text;
+        GetDataFromFilter(_savedNumber.ToString());
     }
 
-    private async void GetDataFromFilter(long pozn) // 1126321645
+    private async void GetDataFromFilter(string pozn) // 1126321645
     {
         try
         {
@@ -83,7 +86,7 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
             activityIndicator.IsEnabled = true;
 
             using var httpClient = new HttpClient();
-            string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanByPN?pn=" + pozn ;
+            string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanByCN?contractName=" + pozn ;
 
             HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -98,7 +101,7 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
                 }
                 if (dataList.Count > 0)
                 {
-                    DisplayAlert("Успешно", "Кредитный договор не найден", "OK");
+                    DisplayAlert("Успешно", "Кредитный договор найден", "OK");
                 }
                 OnPropertyChanged(nameof(DogkrList));
 

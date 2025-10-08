@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ARMzalogApp.Views.DogkrPages.ViewKredDog"
+             xmlns:localF="clr-namespace:ARMzalogApp"
              Title="ViewKredDog">
     <VerticalStackLayout>
         <Label 
-            Text="Выбранный кредитный договор: № "
+            Text="Выбранный кредитный договор:  "
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label x:Name="titleLabel" Margin="10" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
 
         <Button Text="УКЗ" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,20,0"/>
         <Button Text="Форма 3" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,10"/>

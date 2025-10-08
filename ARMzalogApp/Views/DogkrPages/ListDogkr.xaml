@@ -11,7 +11,7 @@
 
             <VerticalStackLayout Padding="20">
                 <Grid ColumnDefinitions="*,auto" BackgroundColor="{DynamicResource SecondTextColor}">
-                    <Entry x:Name="numberEntry" Placeholder="{local:Translate txtEnterPositionNumber}" Keyboard="Numeric" Grid.Column="0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="Grey"/>
+                    <Entry x:Name="numberEntry" Placeholder="Введите ФИО клиента"  Grid.Column="0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="Grey"/>
                     <Button Text="X" Clicked="ClearFilter" Padding="0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" BackgroundColor="#cc0000" BorderColor="Black" BorderWidth="3" Grid.Column="1"/>
                 </Grid>
                 <Grid ColumnDefinitions="*,auto">
@@ -24,7 +24,7 @@
 
             <Frame Margin="0,0,0,10">
 
-                <CollectionView ItemsSource="{Binding ZavkrList}">
+                <CollectionView ItemsSource="{Binding DogkrList}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="Yellow" BackgroundColor="{DynamicResource BackgroundColor}" Margin="0,0,0,10" Padding="10" >
