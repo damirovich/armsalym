@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Intro" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Главная страница</value>
+  </data>
+  <data name="txtAccountTab" xml:space="preserve">
+    <value>Аккаунт</value>
+  </data>
+  <data name="txtActivity1" xml:space="preserve">
+    <value>Деятельность № 1</value>
+  </data>
+  <data name="txtActivity2" xml:space="preserve">
+    <value>Деятельность № 2</value>
+  </data>
+  <data name="txtActivity3" xml:space="preserve">
+    <value>Деятельность № 3</value>
+  </data>
+  <data name="txtBuy" xml:space="preserve">
+    <value>Покупка</value>
+  </data>
+  <data name="txtChooseAndSendPhotoFromGallery" xml:space="preserve">
+    <value>Выбрать и отправить фото из галереи</value>
+  </data>
+  <data name="txtChooseAppLanguage" xml:space="preserve">
+    <value>Выберите язык приложения:</value>
+  </data>
+  <data name="txtChooseFontSize" xml:space="preserve">
+    <value>Выберите размер шрифта</value>
+  </data>
+  <data name="txtClientPhoto" xml:space="preserve">
+    <value>Фото клиента</value>
+  </data>
+  <data name="txtDateOfZayavka" xml:space="preserve">
+    <value>Дата заявки</value>
+  </data>
+  <data name="txtEnterPositionNumber" xml:space="preserve">
+    <value>Введите позиционный номер/Enter the code</value>
+  </data>
+  <data name="txtEnterToContinue" xml:space="preserve">
+    <value>Введите чтобы продолжить</value>
+  </data>
+  <data name="txtFind" xml:space="preserve">
+    <value>Найти/Search</value>
+  </data>
+  <data name="txtFIO" xml:space="preserve">
+    <value>Ф.И.О.</value>
+  </data>
+  <data name="txtKursValuta" xml:space="preserve">
+    <value>Курсы валют</value>
+  </data>
+  <data name="txtKursValutForCurrentDate" xml:space="preserve">
+    <value>Курсы валют на дату</value>
+  </data>
+  <data name="txtLoadingPleaseWait" xml:space="preserve">
+    <value>Идёт ЗАГРУЗКА. Пожайлуста, ПОДОЖДИТЕ</value>
+  </data>
+  <data name="txtLogIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="txtLogout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="txtMainTab" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="txtOther" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="txtPhotoResidence" xml:space="preserve">
+    <value>Фото с места жительства</value>
+  </data>
+  <data name="txtPhotosActivity" xml:space="preserve">
+    <value>Фото деятельностей</value>
+  </data>
+  <data name="txtPhotosFirstActivity" xml:space="preserve">
+    <value>Фото с первой месты деятельности</value>
+  </data>
+  <data name="txtPhotosSecondActivity" xml:space="preserve">
+    <value>Фото со второй месты деятельности</value>
+  </data>
+  <data name="txtPhotosThirdActivity" xml:space="preserve">
+    <value>Фото с третьей месты деятельности</value>
+  </data>
+  <data name="txtSaveChoosePhoto" xml:space="preserve">
+    <value>Сохранить выбранные фотографии</value>
+  </data>
+  <data name="txtSold" xml:space="preserve">
+    <value>Продажа</value>
+  </data>
+  <data name="txtSumma" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="txtTakePhoto" xml:space="preserve">
+    <value>Сделать фото</value>
+  </data>
+  <data name="txtTakePhotoAndSaveInGallery" xml:space="preserve">
+    <value>Сделать фото и сохранить в галерею</value>
+  </data>
+  <data name="txtTakePhotoAndSend" xml:space="preserve">
+    <value>Сделать фото и отправить</value>
+  </data>
+  <data name="txtTakePhotoPassportBackSide" xml:space="preserve">
+    <value>Сделать фото паспорта с обратной стороны</value>
+  </data>
+  <data name="txtTakePhotoPassportFrontSide" xml:space="preserve">
+    <value>Сделать фото паспорта с лицевой стороны</value>
+  </data>
+  <data name="txtTakePhotoWithPassportInHand" xml:space="preserve">
+    <value>Сделать фото клиента с паспортом в руке</value>
+  </data>
+  <data name="txtTakePhotoZalog" xml:space="preserve">
+    <value>Сделать фото залога и отправить</value>
+  </data>
+  <data name="txtTransport" xml:space="preserve">
+    <value>Транспорт</value>
+  </data>
+  <data name="txtTypeOfZalog" xml:space="preserve">
+    <value>Тип залога</value>
+  </data>
+  <data name="txtWelcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="txtZalog" xml:space="preserve">
+    <value>Фото залога</value>
+  </data>
+  <data name="txtZemelnyiUchastork" xml:space="preserve">
+    <value>Земельный участок</value>
+  </data>
+  <data name="txtZhilayNedvizhimost" xml:space="preserve">
+    <value>Жилая недвижимость</value>
+  </data>
+</root>

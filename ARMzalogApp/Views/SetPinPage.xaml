@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.SetPinPage"
+             Title="SetPinPage">
+    
+    <!--<StackLayout Padding="10">
+        <Entry x:Name="PinEntry" Placeholder="****" IsPassword="True"/>
+        <Button Text="Сохранить PIN-код" Clicked="OnSetPinButtonClicked" BackgroundColor="#d01f24"/>
+    </StackLayout>-->
+
+    <StackLayout Padding="30" Spacing="10" VerticalOptions="FillAndExpand" Margin="0,40,0,0" BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label Text="Введите ваш PIN-код" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource PrimaryTextColor}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Margin="10" StrokeShape="RoundRectangle 10" HeightRequest="75" Stroke="Transparent" Grid.Row="0" BackgroundColor="#f0f0f0">
+                <Entry x:Name="PinEntry1" Placeholder="****" IsPassword="True" MaxLength="4" Keyboard="Numeric" HorizontalTextAlignment="Center" VerticalOptions="Center" FontSize="40" TextColor="#cc0000"/>
+            </Border>
+            <Border Margin="10" StrokeShape="RoundRectangle 10" HeightRequest="75" Stroke="Transparent" Grid.Row="1" BackgroundColor="#f0f0f0">
+                <Entry x:Name="PinEntry2" Placeholder="****" IsPassword="True" MaxLength="4" Keyboard="Numeric" HorizontalTextAlignment="Center" VerticalOptions="Center" FontSize="40" TextColor="#cc0000"/>
+            </Border>
+            <Button Text="Сохранить PIN-код" Clicked="OnSetPinButtonClicked" Grid.Row="2" HeightRequest="50" Margin="10,40,10,0" VerticalOptions="Start" BackgroundColor="#cc0000" TextColor="White" FontSize="Medium" />
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

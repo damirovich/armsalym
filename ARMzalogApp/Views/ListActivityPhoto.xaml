@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ListActivityPhoto"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="Все деятельности"
+             Shell.BackgroundColor="#cc0000"
+             Shell.TitleColor="White">
+
+    <VerticalStackLayout BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label 
+        Text="Деятельности клиента"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+        <Button Text="{local:Translate txtActivity1}" Clicked="OnTakeFirstActivityButtonClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+        <Button Text="{local:Translate txtActivity2}" Clicked="OnTakeSecondActivityButtonClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+        <Button Text="{local:Translate txtActivity3}" Clicked="OnTakeThirdActivityButtonClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+    </VerticalStackLayout>
+
+</ContentPage>

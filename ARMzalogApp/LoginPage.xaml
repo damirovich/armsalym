@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.LoginPage"
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid BackgroundColor="{DynamicResource SecondTextColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="240" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <!--<Path Stroke="#000" Data="m-47,1l423.99996,0l0,221.76674c-198.51744,-99.99547 -215.37061,71.01466 -423.99996,9.52236l0,-231.2891z" Fill="black"/>-->
+        <Border StrokeThickness="-3" StrokeShape="RoundRectangle 0, 0, 10, 10" Background="#cc0000"/>
+
+        <StackLayout>
+            <Frame BackgroundColor="white" HeightRequest="120" WidthRequest="120" Margin="0,60,0,0" Padding="0" CornerRadius="25" HorizontalOptions="Center">
+                <Image Source="salym_logo_l.png" Grid.Row="0" Margin="10, 5, 10, 10"/>
+            </Frame>
+            <Label Grid.Row="2" Text="Салым АРМ" HorizontalOptions="Center" FontSize="25" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+
+        <Grid RowSpacing="5" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Text="Добро пожаловать!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0" TextColor="{DynamicResource PrimaryTextColor}"/>
+            <Label Grid.Row="2" Text="Войдите чтобы продолжить" HorizontalOptions="Center" FontSize="Subtitle" TextColor="{DynamicResource PrimaryTextColor}"/>
+
+            <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                <Frame BackgroundColor="{DynamicResource SecondTextColor}" BorderColor="{DynamicResource PrimaryTextColor}" Padding="0" Margin="0, 15, 0, 0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame BackgroundColor="#cc0000" HeightRequest="45" WidthRequest="45" CornerRadius="30" Padding="0" Margin="3">
+                            <Image Source="account.png" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry Text="{Binding UserName}" Placeholder="Логин/Login" PlaceholderColor="Gray" TextColor="{DynamicResource PrimaryTextColor}" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" HeightRequest="48"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="{DynamicResource SecondTextColor}" BorderColor="{DynamicResource PrimaryTextColor}" Padding="0" Margin="0, 15, 0, 0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame BackgroundColor="#cc0000" HeightRequest="45" WidthRequest="45" CornerRadius="30" Padding="0" Margin="3">
+                            <Image Source="key.png" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry x:Name="passwordEntry" Text="{Binding Password}" PlaceholderColor="Gray" Placeholder="Пароль/Password" TextColor="{DynamicResource PrimaryTextColor}" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand"  HeightRequest="48" Margin="0,0,5,0"/>
+                        <Image x:Name="showPasswordIcon" Source="show_icon.png" WidthRequest="25" HeightRequest="25" Margin="0, 0, 10, 0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnShowPassword"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </Frame>
+
+                <Button Text="Войти/Login" BackgroundColor="#cc0000" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="320" HeightRequest="50" Margin="0,15,0,0" Command="{Binding LoginCommand}"/>
+                <Button Text="Регистрация/Registration" BackgroundColor="#cc0000" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="320" Margin="0,15,0,0" Clicked="OnButtonRegisterClicked" HeightRequest="50"/>
+                <!--<StackLayout>
+                    <Label Text="Новый пользователь" TextColor="DarkGrey" FontSize="Small"  />
+                </StackLayout>-->
+
+            </StackLayout>
+
+
+        </Grid>
+
+    </Grid>
+
+
+</ContentPage>

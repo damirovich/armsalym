@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPages.OpiuPage"
+             Title="OpiuPage">
+    <ScrollView Orientation="Both">
+        <VerticalStackLayout >
+            <Grid Padding="20" RowSpacing="0" ColumnSpacing="5"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              ColumnDefinitions="Auto,Auto,Auto,Auto">
+
+                <Label Text="ОПиУ:" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" TextColor="Blue"/>
+
+                <Label Text="Заработная плата:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="1" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+
+                <Label Text="Доп.доходы:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
+                <Picker Grid.Row="2" Grid.Column="1" WidthRequest="150"/>
+
+                <Label Text="Расходы:" Grid.Row="3" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="3" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+                <Label Text="Чистый доход:" Grid.Row="4" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" TextColor="Green"/>
+                <Entry Grid.Row="4" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+
+                <Label Text="Обслуж.парал.кредита:" Grid.Row="5" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="5" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+                <Entry Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="Fill" Placeholder="Введите текст Обслуж.парал.кредита" PlaceholderColor="Gray"/>
+
+                <Label Text="Обслуживание кредитов СФ:" Grid.Row="7" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="7" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+
+                <Label Text="Остаток свободных средств:" Grid.Row="8" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" TextColor="Green"/>
+                <Entry Grid.Row="8" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+
+                <Label Text="Просроченные дни по КИБу:" Grid.Row="9" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="9" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+                <Entry Grid.Row="10" Grid.ColumnSpan="2" HorizontalOptions="Fill" Placeholder="Введите текст макс.дни с КИБа" PlaceholderColor="Gray"/>
+
+                <Label Text="Удержание остатков в СФ:" Grid.Row="11" Grid.Column="0" VerticalOptions="Center"/>
+                <Entry Grid.Row="11" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+                <Entry Grid.Row="12" Grid.Column="0" WidthRequest="150" Keyboard="Numeric"/>
+                <Entry Grid.Row="12" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
+
+                <!-- Даты + названия
+            
+            <Label Text="моё название" Grid.Row="6" Grid.Column="0"/>
+            <DatePicker Grid.Row="6" Grid.Column="1" BackgroundColor="Violet"/>
+            <Label Text="моё название" Grid.Row="6" Grid.Column="2"/>
+            <DatePicker Grid.Row="6" Grid.Column="3" BackgroundColor="Violet"/>
+            
+            -->
+
+
+
+            </Grid>
+
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="Утвердить" Grid.Column="0" BackgroundColor="Green" TextColor="White"/>
+                <Button Text="Выход" Grid.Column="1" BackgroundColor="Black" TextColor="White"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

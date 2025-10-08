@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPage"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="Текущая заявка"
+             Shell.BackgroundColor="#cc0000"
+             Shell.TitleColor="White">
+
+
+    <StackLayout BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label x:Name="titleLabel" Margin="10" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+        <!--<Label x:Name="descriptionLabel" />-->
+
+        <Button Text="{local:Translate txtClientPhoto}" Clicked="OnButtonPhotoClientClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+            <Button.ImageSource>
+                <FileImageSource File="account.png" />
+            </Button.ImageSource>
+        </Button>
+        <Button Text="{local:Translate txtPhotoResidence}" Clicked="OnButtonZhitelstvaClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+            <Button.ImageSource>
+                <FileImageSource File="home_n.png"/>
+            </Button.ImageSource>
+        </Button>
+        <Button Text="{local:Translate txtPhotosActivity}" Clicked="OnButtonDeatelnostiClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+            <Button.ImageSource>
+                <FileImageSource File="deatelnost_n.png"/>
+            </Button.ImageSource>
+        </Button>
+        <Button Text="{local:Translate txtZalog}" Clicked="OnButtonZalogClicked" Margin="10" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+            <Button.ImageSource>
+                <FileImageSource File="zalog_n1.png"/>
+            </Button.ImageSource>
+        </Button>
+
+    </StackLayout>
+</ContentPage>

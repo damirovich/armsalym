@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ResidencePhoto"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             xmlns:localP="clr-namespace:ARMzalogApp.Views"
+             Title="Фото места жительства"
+             Shell.BackgroundColor="#cc0000"
+             Shell.TitleColor="White">
+    <StackLayout>
+    <VerticalStackLayout BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label 
+           Text="{local:Translate txtPhotoResidence}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+
+        <Button Text="{local:Translate txtTakePhotoAndSend}" Clicked="OnTakePhotoButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+        <ActivityIndicator x:Name="loadingIndicator"
+                   IsRunning="False"
+                   IsVisible="False"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+        <Button Text="{local:Translate txtTakePhotoAndSaveInGallery}" Clicked="OnTakeGalleryPhotoClicked" Margin="20, 20, 20, 0" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+            <Button Text="{local:Translate txtChooseAndSendPhotoFromGallery}" Clicked="OnUploadPhotoClicked" Margin="20,15,20,0" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+
+    </VerticalStackLayout>
+        <Label  x:Name="totalNum"
+                VerticalOptions="EndAndExpand"  HorizontalOptions="Center" Margin="5,0,0,20" TextColor="#4f9ff0"
+                FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+    </StackLayout>
+
+</ContentPage>

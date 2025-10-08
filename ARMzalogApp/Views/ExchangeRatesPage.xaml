@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ExchangeRatesPage"
+             xmlns:models="clr-namespace:ARMzalogApp.Models"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="ExchangeRatesPage">
+
+    <StackLayout>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="{local:Translate txtKursValutForCurrentDate}"  FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"  VerticalOptions="Center" />
+            <Label Text="{Binding Today, StringFormat='{0:F}'}" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" Margin="10"  VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView ItemsSource="{Binding CurrentExchangeRates}" VerticalOptions="FillAndExpand">
+            <CollectionView.Header>
+                <Grid BackgroundColor="#cc0000" Padding="2, 6, 6, 2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="5,0,0,0" TextColor="White"
+                        Text="Валюта"
+                        FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center"
+                        Grid.Column="0"/>
+                    <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="1"/>
+                    <Label Margin="5,0,0,0" TextColor="White"
+                        Text="{local:Translate txtBuy}"
+                        FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" Grid.Column="2"/>
+                    <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="3"/>
+
+                    <Label Margin="5,0,0,0" TextColor="White"
+                        Text="{local:Translate txtSold}"
+                        FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" Grid.Column="4"/>
+                    <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="5"/>
+
+                    <Label Margin="5,0,0,0" TextColor="White"
+                        Text="НБКР"
+                        FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" Grid.Column="6"/>
+                </Grid>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ExchangeRates">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Margin="10,0,0,0"
+                                Text="{Binding V_SIMV}"
+                                FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                                FontAttributes="Bold" 
+                                HorizontalOptions="Center"
+                                Grid.Column="0"/>
+                            <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="1"/>
+                            <Label Margin="10,0,0,0"
+                                Text="{Binding KV_CURS_POK}"
+                                FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                                FontAttributes="Bold" 
+                                HorizontalOptions="Center" Grid.Column="2"/>
+                            <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="3"/>
+
+                            <Label Margin="10,0,0,0"
+                                Text="{Binding KV_CURS_PROD}"
+                                FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                                FontAttributes="Bold" 
+                                HorizontalOptions="Center" Grid.Column="4"/>
+                            <BoxView HeightRequest="20" WidthRequest="1" Grid.Column="5"/>
+
+                            <Label Margin="10,0,0,0"
+                                Text="{Binding KURS_NBKR}"
+                                FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                                FontAttributes="Bold" 
+                                HorizontalOptions="Center" Grid.Column="6"/>
+
+                        </Grid>
+                        <BoxView HeightRequest="1" VerticalOptions="FillAndExpand"/>
+
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </StackLayout>
+
+
+</ContentPage>

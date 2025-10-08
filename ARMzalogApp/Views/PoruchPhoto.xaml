@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.PoruchPhoto"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="PoruchPhoto">
+    <VerticalStackLayout>
+        <Label Text="Фото поручителя " VerticalOptions="Center" HorizontalOptions="Center" 
+               FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}" FontAttributes="Bold" Margin="0,15,0,0" />
+
+        <Button Text="Сделать фото поручителя с паспортом в руке" Clicked="OnTakePhotoSelfieButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        <Button Text="{local:Translate txtTakePhotoPassportFrontSide}" Clicked="OnTakePhotoFrontPassButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        <Button Text="{local:Translate txtTakePhotoPassportBackSide}" Clicked="OnTakePhotoBackPassButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        
+        <ActivityIndicator x:Name="loadingIndicator"
+           IsRunning="False" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center" />
+        
+    </VerticalStackLayout>
+</ContentPage>

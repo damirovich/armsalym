@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ARMzalogApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ARMzalogApp"
+    xmlns:views="clr-namespace:ARMzalogApp.Views"
+    xmlns:local1="clr-namespace:ARMzalogApp.Resources.Localization"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Cалым Финанс"
+    BackgroundColor="#cc0000">
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="auto,*,auto">
+            <Image Grid.Column="0" Margin="5, 10, 0, 10" HorizontalOptions="Start" Source="salym_arm_horizontal_white.png"/>
+            <HorizontalStackLayout Grid.Column="2">
+                <!--<Label Text="Icon" BackgroundColor="Red"></Label>-->
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="MainPage" />
+
+    <TabBar>
+
+
+
+        <ShellContent
+            Title="{local1:Translate txtMainTab}"
+            Icon="home_icon.png"
+            ContentTemplate="{DataTemplate views:ChosePage}"
+            Route="ChosePage"
+            Shell.NavBarIsVisible="True"
+        />
+
+        <ShellContent
+            Title="{local1:Translate txtAccountTab}"
+            Icon="account_icon.png"
+            ContentTemplate="{DataTemplate views:AboutPage}"
+            Shell.NavBarIsVisible="False"
+            Route="AccountPage"
+        />
+    </TabBar>
+
+</Shell>

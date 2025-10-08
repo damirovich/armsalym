@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937185505679",
+    "project_id": "push-app-fa8d4",
+    "storage_bucket": "push-app-fa8d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937185505679:android:ceede8eb4d1403d48e1bfa",
+        "android_client_info": {
+          "package_name": "com.companyname.armzalogapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnTtOs-kcgwL619TY1HUuttNI1oJZuBkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

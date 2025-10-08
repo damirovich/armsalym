@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.RegistPage"
+             Title="RegistPage">
+    
+    <Grid VerticalOptions="CenterAndExpand" 
+          HorizontalOptions="CenterAndExpand"
+          Padding="20">
+
+        <BoxView Color="#f2f2f2"
+                 WidthRequest="350"
+                 HeightRequest="450"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"/>
+
+        <VerticalStackLayout 
+            Padding="20"
+            Spacing="15"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <Label Text="Регистрация" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Large"></Label>
+            <Entry x:Name="LastNameEntry" 
+                   Placeholder="Введите Фамилию" 
+                   TextColor="Black" PlaceholderColor="Gray"
+                   FontAttributes="Bold" 
+                   WidthRequest="300"
+                   HorizontalOptions="Center"/>
+
+            <Entry x:Name="FirstNameEntry" 
+                   Placeholder="Введите Имя" 
+                   TextColor="Black" PlaceholderColor="Gray"
+                   FontAttributes="Bold" 
+                   WidthRequest="300"
+                   HorizontalOptions="Center"/>
+
+            <DatePicker x:Name="BirthDatePicker" 
+                        Format="D" 
+                        WidthRequest="300"
+                        HorizontalOptions="Center"/>
+
+            <Entry x:Name="PhoneNumberEntry" 
+                   Placeholder="Введите номер телефона 996xxxxxxxxx" 
+                   TextColor="Black" PlaceholderColor="Gray"
+                   FontAttributes="Bold" 
+                   WidthRequest="300"
+                   HorizontalOptions="Center"/>
+
+            <Button Text="Отправить/Send" 
+                    BackgroundColor="#cc0000" 
+                    TextColor="White" 
+                    FontAttributes="Bold" Clicked="OnButtonSendClicked"
+                    CornerRadius="30" 
+                    WidthRequest="320"  HeightRequest="50"
+                    HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.AboutPage"
+             xmlns:localization="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="AboutPage">
+    <VerticalStackLayout BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label 
+            Text="Профиль"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+            FontAttributes="Bold"
+            Margin="10, 15,0,0" TextColor="{DynamicResource PrimaryTextColor}"/>
+        <Label x:Name="titleLabel" Margin="10, 10,0,0" VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+            FontAttributes="Bold"
+            TextColor="#cc0000"/>
+
+        <!--<Label Text="{local:Translate Intro}" FontAttributes="Bold" FontSize="Large" />
+
+        <Label x:Name="CodeBehindTranslator" />
+        <Label x:Name="CodeBehindTranslator2" />-->
+        <Grid ColumnDefinitions="*,auto" Margin="2, 10, 20, 0">
+            <Label Text="{local:Translate txtChooseAppLanguage}" Margin="10, 10,0,0" VerticalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource PrimaryTextColor}" Grid.Column="0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+
+            <Picker x:Name="LanguagePicker" SelectedIndexChanged="LanguageChanged" VerticalOptions="Center" Grid.Column="1" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,auto" Margin="2, 10, 20, 0">
+            <Label Text="{local:Translate txtChooseFontSize}" Margin="10, 10,0,0" VerticalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource PrimaryTextColor}" Grid.Column="0" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+            <Picker x:Name="FontSizePicker" SelectedIndexChanged="OnFontSizePickerSelectedIndexChanged" Grid.Column="1" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+                <Picker.Items>
+                    <x:String>Маленький</x:String>
+                    <x:String>Большой</x:String>
+                </Picker.Items>
+            </Picker>
+        </Grid>
+        <Button Text="{local:Translate txtKursValuta}" Margin="20, 20, 20, 10" Clicked="ShowValuta" TextColor="White" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+
+        <Button Text="{local:Translate txtLogout}" Margin="20, 20, 20, 10" Clicked="OnExit" TextColor="White" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+        <Button Text="Удалить аккаунт" Margin="20, 20, 20, 10" Clicked="OnDelete" TextColor="White" BackgroundColor="Grey" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"/>
+
+        <Label x:Name="versionLabel" Margin="10, 10,0,0" VerticalOptions="Center" HorizontalOptions="Center" 
+            FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="Gray"/>
+        
+    </VerticalStackLayout>
+</ContentPage>

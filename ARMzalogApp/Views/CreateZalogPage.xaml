@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.CreateZalogPage"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="CreateZalogPage">
+    <VerticalStackLayout Margin="10,10,10,10">
+        <Label Text="Создать залог"  FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+            VerticalOptions="Center" HorizontalOptions="Center" />
+        <Border BackgroundColor="{DynamicResource BackgroundColor}"  Margin="0,20,0,20">
+            <Picker x:Name="zalPicker"  FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+                Title="Выберите вид залога " VerticalOptions="Center" HorizontalOptions="Center" TextColor="{DynamicResource PrimaryTextColor}">
+                <Picker.Items>
+                    <x:String>Земельный участок</x:String>
+                    <x:String>Жилая недвижимость</x:String>
+                    <x:String>Транспортное средство</x:String>
+                    <x:String>Другие</x:String>
+                </Picker.Items>
+            </Picker>
+        </Border>
+        <Button Text="Сохранить" VerticalOptions="Center" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}"
+            HorizontalOptions="Center" Clicked="OnSaveButtonClicked"  BackgroundColor="#cc0000" />
+        
+        <ActivityIndicator x:Name="loadingIndicator"
+           IsRunning="False"
+           IsVisible="False"
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

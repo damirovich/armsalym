@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.PinVerificationPage"
+             Title="PinVerificationPage">
+
+    <StackLayout Padding="10" Spacing="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource SecondTextColor}">
+        
+        <VerticalStackLayout>
+            <Image Source="salym_logo_l.png" Grid.Row="0"  HeightRequest="110"/>
+            <Label Text="Введите PIN-код" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,0" TextColor="{DynamicResource PrimaryTextColor}"/>
+        </VerticalStackLayout>
+        
+        <!--<HorizontalStackLayout HorizontalOptions="FillAndExpand">
+            <Entry x:Name="PinEntry" IsPassword="True" IsEnabled="False" HorizontalOptions="Center"   MaxLength="4" HeightRequest="100" 
+                FontSize="75" TextColor="#d01f24" TextChanged="OnPinEntryTextChanged"/>
+            <Button Text="←" Clicked="OnBackspaceButtonClicked" Margin="5" FontSize="35" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+        </HorizontalStackLayout>-->
+        <Grid ColumnDefinitions="*,auto">
+            <Entry x:Name="PinEntry" IsPassword="True" IsEnabled="False" HorizontalOptions="Center" VerticalOptions="Center"
+                   MaxLength="4" HeightRequest="100" FontSize="75" TextColor="#cc0000" TextChanged="OnPinEntryTextChanged"
+                   Grid.Column="0"/>
+            <Button Text="х" Clicked="OnBackspaceButtonClicked" Margin="5" FontSize="35" BackgroundColor="LightGray"
+                    TextColor="#cc0000" FontAttributes="Bold"  VerticalOptions="Center" 
+                    Grid.Column="1"/>
+        </Grid>
+        
+        <StackLayout VerticalOptions="StartAndExpand">
+
+            <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="False" Color="Blue"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Text="1" Grid.Row="0" Grid.Column="0" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="2" Grid.Row="0" Grid.Column="1" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="3" Grid.Row="0" Grid.Column="2" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="4" Grid.Row="1" Grid.Column="0" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="5" Grid.Row="1" Grid.Column="1" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="6" Grid.Row="1" Grid.Column="2" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="7" Grid.Row="2" Grid.Column="0" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="8" Grid.Row="2" Grid.Column="1" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="9" Grid.Row="2" Grid.Column="2" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <Button Text="0" Grid.Row="3" Grid.Column="1" Clicked="OnNumberButtonClicked" Margin="5" FontSize="35"  BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>
+                <!--<Button Text="←" Grid.Row="3" Grid.Column="0" Clicked="OnBackspaceButtonClicked" Margin="5" FontSize="35" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>-->
+                <Button x:Name="FingerprintButton" Grid.Row="3" Grid.Column="0" Clicked="OnFingerprintButtonClicked" Margin="5" FontSize="20" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold" HeightRequest="70">
+                    <Button.ImageSource>
+                        <FileImageSource File="security.png" />
+                    </Button.ImageSource>
+                </Button>
+                <!--<Button Text="✔" Grid.Row="3" Grid.Column="2" Clicked="OnSubmitButtonClicked" Margin="5" FontSize="35" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold"/>-->
+
+                <Button Grid.Row="3" Grid.Column="2" Clicked="OnSubmitExitClicked" Margin="5" FontSize="20" BackgroundColor="LightGray" TextColor="Black" FontAttributes="Bold" HeightRequest="70">
+                    <Button.ImageSource>
+                        <FileImageSource File="logout_strelka.png" />
+                    </Button.ImageSource>
+                </Button>
+
+            </Grid>
+            <Button Text="Выйти" Clicked="OnSubmitExitClicked" FontSize="25" BackgroundColor="#cc0000" TextColor="White" Margin="0,15,0,0" Opacity="0" IsEnabled="False"/>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

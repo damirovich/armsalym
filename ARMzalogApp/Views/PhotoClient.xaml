@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.PhotoClient"
+             xmlns:local="clr-namespace:ARMzalogApp.Resources.Localization"
+             xmlns:localF="clr-namespace:ARMzalogApp"
+             Title="Фото клиента"
+             Shell.BackgroundColor="#cc0000"
+             Shell.TitleColor="White">
+    <VerticalStackLayout BackgroundColor="{DynamicResource SecondTextColor}">
+        <Label 
+            Text="{local:Translate txtClientPhoto}"
+            VerticalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0"
+            HorizontalOptions="Center" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
+        <Button Text="{local:Translate txtTakePhotoWithPassportInHand}" Clicked="OnTakePhotoSelfieButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        <Button Text="{local:Translate txtTakePhotoPassportFrontSide}" Clicked="OnTakePhotoFrontPassButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        <Button Text="{local:Translate txtTakePhotoPassportBackSide}" Clicked="OnTakePhotoBackPassButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold"/>
+        <Button  Text="Список поручителей" Clicked="OnListPochButtonClicked" Margin="20" BackgroundColor="#cc0000" FontAttributes="Bold" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}">
+            <Button.ImageSource>
+                <FileImageSource File="poruch_1.png" />
+            </Button.ImageSource>
+        </Button>
+        
+        <ActivityIndicator x:Name="loadingIndicator"
+                   IsRunning="False"
+                   IsVisible="False"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

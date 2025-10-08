@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.DogkrPages.ViewKredDog"
+             Title="ViewKredDog">
+    <VerticalStackLayout>
+        <Label 
+            Text="Выбранный кредитный договор: № "
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button Text="УКЗ" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,20,0"/>
+        <Button Text="Форма 3" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,10"/>
+        <Button Text="Уведомление" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,10,0"/>
+
+
+    </VerticalStackLayout>
+</ContentPage>
