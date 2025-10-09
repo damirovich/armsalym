@@ -70,4 +70,10 @@ public partial class ZavkrPage : ContentPage
     {
         Navigation.PushAsync(new PhotoClient(_selectedZavkr));
     }
+
+    private async void OnOpiuPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("OpiuPage");
+    }
+
 }

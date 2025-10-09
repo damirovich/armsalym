@@ -124,17 +124,7 @@
             </VerticalStackLayout>
 
             <!-- Кнопки -->
-            <HorizontalStackLayout Spacing="10">
-                <Button Text="Анкета" Clicked="OnOpiuPage" BackgroundColor="#de8b43" TextColor="Black"/>
-                <Button Text="Соц фонд" BackgroundColor="Gray" TextColor="Black"/>
-                <Button Text="Паспорт" BackgroundColor="Gray" TextColor="Black"/>
-                <Button Text="КИБ" BackgroundColor="Gray" TextColor="Black"/>
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10">
-                <Button Text="Фото клиента" BackgroundColor="Gray" TextColor="Black"/>
-                <Button Text="Резюме" BackgroundColor="Gray" TextColor="Black"/>
-            </HorizontalStackLayout>
+  
 
             <BoxView HeightRequest="1" BackgroundColor="Red" HorizontalOptions="Fill"/>
 
