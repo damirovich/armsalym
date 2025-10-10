@@ -48,29 +48,29 @@
 
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Клиент:" VerticalOptions="Center"/>
-                <Picker WidthRequest="200"/>
-                <Button Text="Обновить" BackgroundColor="#5BCCEB" TextColor="Black"/>
+                <Entry x:Name="clientEntry" Placeholder="Введите ФИО клиента" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="Grey" WidthRequest="200"/>
+                <Button Text="Обновить" Clicked="OnSaveNumberClicked" BackgroundColor="#5BCCEB" TextColor="Black"/>
             </HorizontalStackLayout>
 
             <!-- Паспортные данные -->
             <VerticalStackLayout Spacing="3">
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Документ:" VerticalOptions="Center"/>
-                    <Entry WidthRequest="120"/>
+                    <Entry WidthRequest="120" Text="{Binding SelectedKlient.KlDok}"/>
                     <Label Text="Серия:" VerticalOptions="Center"/>
-                    <Entry WidthRequest="120"/>
+                    <Entry WidthRequest="120" Text="{Binding SelectedKlient.KlSrdok}"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="№:" VerticalOptions="Center"/>
-                    <Entry WidthRequest="120"/>
+                    <Entry WidthRequest="120" Text="{Binding SelectedKlient.KlNdok}"/>
                     <Label Text="Дата выд.:" VerticalOptions="Center" Margin="30,0,0,0"/>
-                    <DatePicker/>
+                    <Entry Text="{Binding SelectedKlient.KlDatevp}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Орган выд.:" VerticalOptions="Center"/>
-                    <Entry WidthRequest="120"/>
+                    <Entry WidthRequest="120"  Text="{Binding SelectedKlient.KlNdok}" />
                     <Label Text="Годен до:" VerticalOptions="Center" Margin="4,0,0,0"/>
-                    <DatePicker/>
+                    <Entry Text="{Binding SelectedKlient.KlSrdok}" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 

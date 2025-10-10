@@ -12,6 +12,8 @@ public partial class CreateLoanZarp : ContentPage
 		InitializeComponent();
         CurrencyList = new ObservableCollection<CurrencyResponse>();
         LoanTypeList = new ObservableCollection<LoanTypeResponse>();
+        KlientList = new ObservableCollection<Klient>();
+
         SubProductList = new ObservableCollection<Spr>();
         PurposesList = new ObservableCollection<Spr>();
 
@@ -24,6 +26,8 @@ public partial class CreateLoanZarp : ContentPage
 
     public ObservableCollection<CurrencyResponse> CurrencyList { get; set; }
     public ObservableCollection<LoanTypeResponse> LoanTypeList { get; set; }
+    public ObservableCollection<Klient> KlientList { get; set; }
+
     public ObservableCollection<Spr> SubProductList { get; set; }
     public ObservableCollection<Spr> PurposesList { get; set; }
 
@@ -38,8 +42,8 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private CurrencyResponse _selectedLoanType;
-    public CurrencyResponse SelectedLoanType
+    private LoanTypeResponse _selectedLoanType;
+    public LoanTypeResponse SelectedLoanType
     {
         get => _selectedLoanType;
         set
@@ -49,8 +53,8 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private CurrencyResponse _selectedSubProduct;
-    public CurrencyResponse SelectedSubProduct
+    private Spr _selectedSubProduct;
+    public Spr SelectedSubProduct
     {
         get => _selectedSubProduct;
         set
@@ -59,8 +63,8 @@ public partial class CreateLoanZarp : ContentPage
             OnPropertyChanged();
         }
     }
-    private CurrencyResponse _selectedPurpose;
-    public CurrencyResponse SelectedPurpose
+    private Spr _selectedPurpose;
+    public Spr SelectedPurpose
     {
         get => _selectedPurpose;
         set
@@ -70,6 +74,35 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
+    private Klient _selectedKlient;
+    public Klient SelectedKlient
+    {
+        get => _selectedKlient;
+        set
+        {
+            _selectedKlient = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string _typedFIO;
+    private async void OnSaveNumberClicked(object sender, EventArgs e)
+    {
+        _typedFIO = clientEntry.Text;
+        using var httpClient = new HttpClient();
+        string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetClientByFullName?fullName=" + _typedFIO;
+        HttpResponseMessage response = await httpClient.GetAsync(url);
+
+        if (response.IsSuccessStatusCode)
+        {
+            string responseData = await response.Content.ReadAsStringAsync();
+            //var dataList = JsonConvert.DeserializeObject<Klient>(responseData);
+            //_selectedKlient = dataList;
+            //KlientList.Add(dataList);
+            SelectedKlient = JsonConvert.DeserializeObject<Klient>(responseData);
+            OnPropertyChanged(nameof(SelectedKlient));
+        }
+    }
 
     private async void OnOpiuPage(object sender, EventArgs e)
     {
@@ -144,6 +177,32 @@ public partial class CreateLoanZarp : ContentPage
             }
         }
     }
+
+    private async void OnSaveButtonClicked(object sender, EventArgs e)
+    {
+        //string selectedTeam = zalPicker.SelectedItem?.ToString();
+
+        //if (!string.IsNullOrEmpty(selectedTeam) && zalValues.ContainsKey(selectedTeam))
+        //{
+        //    loadingIndicator.IsRunning = true;
+        //    loadingIndicator.IsVisible = true;
+        //    string _otNom = await SecureStorage.Default.GetAsync("otNom");
+
+        //    loadingIndicator.IsRunning = false;
+        //    loadingIndicator.IsVisible = false;
+        //    if (result == "OK")
+        //    {
+        //        await DisplayAlert("Успех", "Новый залог создан", "OK");
+        //        await Navigation.PushAsync(new ZavkrPage(_selectedZavkr));
+        //    }
+        //}
+        //else
+        //{
+        //    DisplayAlert("Ошибка", "Пожалуйста, выберите команду", "OK");
+        //}
+    }
+
+
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string name) =>
