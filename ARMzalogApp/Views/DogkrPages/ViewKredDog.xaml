@@ -11,8 +11,8 @@
             HorizontalOptions="Center" />
         <Label x:Name="titleLabel" Margin="10" FontSize="{Binding Source={x:Static localF:App.Settings}, Path=FontSize}" TextColor="{DynamicResource PrimaryTextColor}"/>
 
-        <Button Text="УКЗ" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,20,0"/>
-        <Button Text="Форма 3" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,10"/>
+        <Button Text="УКЗ" Clicked="OnUkzClicked" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,20,0"/>
+        <Button Text="Форма 3" Clicked="OnForma3Clicked" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,10"/>
         <Button Text="Уведомление" Margin="15" BackgroundColor="#FFC391" TextColor="Black" FontAttributes="Bold" Padding="10,0,10,0"/>
 
 

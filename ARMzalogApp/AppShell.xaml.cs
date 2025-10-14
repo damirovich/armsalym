@@ -24,6 +24,8 @@ namespace ARMzalogApp
             Routing.RegisterRoute("CreateLoanZarp", typeof(CreateLoanZarp));
             Routing.RegisterRoute("OpiuPage", typeof(OpiuPage));
             Routing.RegisterRoute("ViewKredDog", typeof(ViewKredDog));
+            Routing.RegisterRoute("Forma3Page", typeof(Forma3Page));
+            Routing.RegisterRoute("UkzPage", typeof(UkzPage));
         }
     }
 }

@@ -187,6 +187,12 @@
 	  <MauiXaml Update="Views\CreateZalogPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\DogkrPages\Forma3Page.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DogkrPages\UkzPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DogkrPages\ViewKredDog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
