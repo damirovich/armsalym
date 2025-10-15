@@ -26,6 +26,7 @@ namespace ARMzalogApp
             Routing.RegisterRoute("ViewKredDog", typeof(ViewKredDog));
             Routing.RegisterRoute("Forma3Page", typeof(Forma3Page));
             Routing.RegisterRoute("UkzPage", typeof(UkzPage));
+            Routing.RegisterRoute("AnketaPage", typeof(AnketaPage));
         }
     }
 }

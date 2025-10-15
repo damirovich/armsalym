@@ -1,24 +1,11 @@
-using ARMzalogApp.Models;
-
-
 namespace ARMzalogApp.Views.ZavkrPages;
 
-public partial class OpiuPage : ContentPage
+public partial class AnketaPage : ContentPage
 {
-    private ZmainView _selectedZavkr;
-
-    public OpiuPage(ZmainView selectedZavkr)
+	public AnketaPage()
 	{
 		InitializeComponent();
-        _selectedZavkr = selectedZavkr;
-
-    }
-
-    public OpiuPage()
-    {
-        InitializeComponent();
-
-    }
+	}
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
@@ -28,4 +15,5 @@ public partial class OpiuPage : ContentPage
             await Navigation.PopAsync();
         }
     }
+
 }

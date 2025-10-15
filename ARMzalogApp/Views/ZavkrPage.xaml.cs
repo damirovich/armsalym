@@ -1,15 +1,18 @@
 using ARMzalogApp.Models;
+using ARMzalogApp.Views.ZavkrPages;
 
 namespace ARMzalogApp.Views;
 
 public partial class ZavkrPage : ContentPage
 {
     private Zavkr _selectedZavkr;
+    //private ZmainView _selectedZmainView;
 
     public ZavkrPage(Zavkr selectedZavkr)
     {
         InitializeComponent();
         _selectedZavkr = selectedZavkr;
+        //_selectedZmainView = selectedZavkr;
 
         titleLabel.Text = _selectedZavkr.Title;
         //descriptionLabel.Text = _selectedZavkr.LoanReferenceName;
@@ -74,6 +77,12 @@ public partial class ZavkrPage : ContentPage
     private async void OnOpiuPage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("OpiuPage");
+        //Navigation.PushAsync(new OpiuPage(_selectedZmainView));
+    }
+
+    private async void OnAnketaPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("AnketaPage");
     }
 
 }

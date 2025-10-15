@@ -175,11 +175,6 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private async void OnOpiuPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("OpiuPage");
-    }
-
     private async Task GetDataCurrencies()
     {
         using var httpClient = new HttpClient();

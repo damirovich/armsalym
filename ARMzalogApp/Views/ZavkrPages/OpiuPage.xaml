@@ -41,17 +41,6 @@
                 <Entry Grid.Row="12" Grid.Column="0" WidthRequest="150" Keyboard="Numeric"/>
                 <Entry Grid.Row="12" Grid.Column="1" WidthRequest="150" Keyboard="Numeric"/>
 
-                <!-- Даты + названия
-            
-            <Label Text="моё название" Grid.Row="6" Grid.Column="0"/>
-            <DatePicker Grid.Row="6" Grid.Column="1" BackgroundColor="Violet"/>
-            <Label Text="моё название" Grid.Row="6" Grid.Column="2"/>
-            <DatePicker Grid.Row="6" Grid.Column="3" BackgroundColor="Violet"/>
-            
-            -->
-
-
-
             </Grid>
 
             <Grid ColumnSpacing="10">
@@ -60,7 +49,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Text="Утвердить" Grid.Column="0" BackgroundColor="Green" TextColor="White"/>
-                <Button Text="Выход" Grid.Column="1" BackgroundColor="Black" TextColor="White"/>
+                <Button Text="Выход"  Clicked="OnBackButtonClicked" Grid.Column="1" BackgroundColor="Black" TextColor="White"/>
             </Grid>
 
         </VerticalStackLayout>

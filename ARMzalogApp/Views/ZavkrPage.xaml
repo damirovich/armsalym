@@ -36,7 +36,7 @@
 
         <HorizontalStackLayout Spacing="10" Margin="10">
             <Button Text="ОПиУ" Clicked="OnOpiuPage" BackgroundColor="#de8b43" TextColor="Black"/>
-            <Button Text="Анкета" Clicked="OnOpiuPage" BackgroundColor="Gray" TextColor="Black"/>
+            <Button Text="Анкета ФЛ" Clicked="OnAnketaPage" BackgroundColor="#aed930" TextColor="Black"/>
             <Button Text="Соц фонд" BackgroundColor="Gray" TextColor="Black"/>
         </HorizontalStackLayout>
 

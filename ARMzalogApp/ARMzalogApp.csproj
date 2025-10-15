@@ -217,6 +217,9 @@
 	  <MauiXaml Update="Views\ChosePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ZavkrPages\AnketaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ZavkrPages\CreateLoanZarp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

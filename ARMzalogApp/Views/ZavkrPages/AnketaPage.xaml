@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPages.AnketaPage"
+             Title="AnketaPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Вопрос 1 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="1. Является ли клиент ПДЛ?" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                            <CheckBox x:Name="Q1Yes" Color="Green"/>
+                            <Label Text="Да" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                            <CheckBox x:Name="Q1No" Color="Red"/>
+                            <Label Text="Нет" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вопрос 2 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="2. Сведеняи о наличии у клиента бенефициарного владельца:" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                            <CheckBox x:Name="Q2Has" Color="Green"/>
+                            <Label Text="Имеется" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                            <CheckBox x:Name="Q2NotHas" Color="Red"/>
+                            <Label Text="Не имеется" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вопрос 3 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="3. Сведения о проведении верификации?" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                            <CheckBox x:Name="Q3Yes" Color="Green"/>
+                            <Label Text="Проведена" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                            <CheckBox x:Name="Q3No" Color="Red"/>
+                            <Label Text="Не проведена" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вопрос 4 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="4. Сведения о проведении клиента в Санкционных перечнях:" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                        <CheckBox x:Name="Q4Has" Color="Green"/>
+                        <Label Text="Отстствует в Перечьне" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                        <CheckBox x:Name="Q4NotHas" Color="Red"/>
+                        <Label Text="Присутствует в Перечьне" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вопрос 5 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="5. Сведения о проведении клиента в перечнях?" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                        <CheckBox x:Name="Q5Yes" Color="Green"/>
+                        <Label Text="Отстствует в Перечьне" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                        <CheckBox x:Name="Q5No" Color="Red"/>
+                        <Label Text="Присутствует в Перечьне" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вопрос 6 -->
+            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="6. Уровень риска:" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                            <CheckBox x:Name="Q6Has" Color="Green"/>
+                            <Label Text="Низкий" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                            <CheckBox x:Name="Q6NotHas" Color="Orange"/>
+                            <Label Text="Средний" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                    </Grid>
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="Q6Maybe" Color="Red"/>
+                        <Label Text="Высокий" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кнопки -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15" Margin="0,20,0,0">
+                <Button Grid.Column="0" Text="Сохранить" x:Name="SaveButton" BackgroundColor="Green" TextColor="White"/>
+                <Button Grid.Column="1" Text="Выход"  Clicked="OnBackButtonClicked" BackgroundColor="Black" TextColor="White"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
