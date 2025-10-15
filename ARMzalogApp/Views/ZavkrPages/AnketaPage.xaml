@@ -27,7 +27,7 @@
             
             <!-- Элементы которые ПОКАЗЫВАЮТСЯ когда выбран "Нет" -->
             <!-- Вопрос 2 -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="{Binding Source={x:Reference Q1No}, Path=IsChecked}">
+            <Frame x:Name="FrameQ2" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="false">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="2. Сведеняи о наличии у клиента бенефициарного владельца:" 
                            FontSize="16" 
@@ -46,7 +46,7 @@
             </Frame>
 
             <!-- Вопрос 3 -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="{Binding Source={x:Reference Q1No}, Path=IsChecked}">
+            <Frame x:Name="FrameQ3" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="false">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="3. Сведения о проведении верификации?" 
                            FontSize="16" 
@@ -65,7 +65,7 @@
             </Frame>
 
             <!-- Вопрос 4 -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="{Binding Source={x:Reference Q1No}, Path=IsChecked}">
+            <Frame x:Name="FrameQ4" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="false">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="4. Сведения о проведении клиента в Санкционных перечнях:" 
                            FontSize="16" 
@@ -82,7 +82,7 @@
             </Frame>
 
             <!-- Вопрос 5 -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="{Binding Source={x:Reference Q1No}, Path=IsChecked}">
+            <Frame x:Name="FrameQ5" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="false">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="5. Сведения о проведении клиента в перечнях?" 
                            FontSize="16" 
@@ -123,9 +123,8 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Вопрос 7 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                   IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 7 - ДА-->
+            <Frame x:Name="FrameQ7" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="7. Тип анкеты:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
@@ -140,9 +139,8 @@
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
-            <!-- Вопрос 8 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                   IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 8 - ДА-->
+            <Frame x:Name="FrameQ8" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="8. Персональные данные:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
@@ -158,9 +156,8 @@
                 </VerticalStackLayout>
             </Frame>
             
-            <!-- Вопрос 9 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 9 - ДА-->
+            <Frame x:Name="FrameQ9" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="0">
                     <Label Text="9. Занимаемая должность:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*" ColumnSpacing="16">
@@ -171,9 +168,8 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Вопрос 10 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                 IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 10 - ДА-->
+            <Frame x:Name="FrameQ10" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="0">
                     <Label Text="10. Дата назначения на должность:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*" ColumnSpacing="16">
@@ -184,9 +180,8 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Вопрос 11 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 11 - ДА-->
+            <Frame x:Name="FrameQ11" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="0">
                     <Label Text="11. Дата освобоения от должности:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*" ColumnSpacing="16">
@@ -197,9 +192,8 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Вопрос 12 - ДА -->
-            <Frame BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" 
-                IsVisible="{Binding Source={x:Reference Q1Yes}, Path=IsChecked, Converter={StaticResource InverseBoolConverter}}">
+             <!--Вопрос 12 - ДА-->
+            <Frame x:Name="FrameQ12" BackgroundColor="#f0f8ff" Padding="15" CornerRadius="10" IsVisible="true">
                 <VerticalStackLayout Spacing="0">
                     <Label Text="12. Сведения об источнике происхождения денежных средстви и имущества ПДЛ:" FontSize="16" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="*" ColumnSpacing="16">
