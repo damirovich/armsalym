@@ -395,10 +395,10 @@ public partial class CreateLoanZarp : ContentPage
 
         string _otNom = await SecureStorage.Default.GetAsync("otNom");
         var service = new SavingService();
-       // string result = await service.SaveNewLoan(_otNom, SelectedKlient); 
+        string result = await service.SaveNewLoan(_otNom, SelectedKlient); 
         //if (result == "OK")
         //{
-        //    await DisplayAlert("Ответ", result, "OK");
+            await DisplayAlert("Ответ", result, "OK");
             await Shell.Current.GoToAsync("HomePage");
         //}
 
