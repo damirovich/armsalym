@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ARMzalogApp.Models;
 
 namespace ARMzalogApp.Sevices
 {
@@ -10,5 +11,7 @@ namespace ARMzalogApp.Sevices
     {
         Task<string> SaveAbsFile(string clientInn, string ZvPozn, string longitude, string latitude, byte[] photoData, string type, string IdZalog, int OtNom, string token);
         Task<string> SaveNewZalog(int vidZal, string pozn, string otNom);
+        Task<string> SaveNewLoan(string otNom, ZmainView newLoan);
+
     }
 }

@@ -81,5 +81,29 @@ namespace ARMzalogApp.Sevices
             }
         }
 
+        public async Task<string> SaveNewLoan(string otNom, ZmainView newLoan)
+        {
+            var client = new HttpClient();
+            string url = ServerConstants.SERVER_ROOT_URL + $"api/LoanReference/CreateLoanApplication?employeeNum={otNom}";
+            client.BaseAddress = new Uri(url);
+
+
+            var content = new StringContent(JsonConvert.SerializeObject(newLoan), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                //result = "OK";
+                return result;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Ошибка при сохранении", "OK");
+                return null;
+            }
+        }
+
+
     }
 }

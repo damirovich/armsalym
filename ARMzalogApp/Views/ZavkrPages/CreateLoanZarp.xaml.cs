@@ -1,35 +1,80 @@
 using ARMzalogApp.Constants;
+using ARMzalogApp.Models;
 using ARMzalogApp.Models.Responses;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using ARMzalogApp.Sevices;
+
 namespace ARMzalogApp.Views.ZavkrPages;
 
 public partial class CreateLoanZarp : ContentPage
 {
-	public CreateLoanZarp()
-	{
-		InitializeComponent();
-        CurrencyList = new ObservableCollection<CurrencyResponse>();
-        LoanTypeList = new ObservableCollection<LoanTypeResponse>();
-        KlientList = new ObservableCollection<Klient>();
-
-        SubProductList = new ObservableCollection<Spr>();
-        PurposesList = new ObservableCollection<Spr>();
-
-        GetDataCurrencies();
-        GetDataLoanType();
-        GetDataSubProduct();
-        GetDataPurpose();
+    public CreateLoanZarp()
+    {
+        InitializeComponent();
+        SelectedKlient = new ZmainView();
+        _ = InitializeDataAsync();
         BindingContext = this;
+
     }
+
+
+    private async Task InitializeDataAsync()
+    {
+        IsLoading = true;
+
+        try
+        {
+            CurrencyList = new ObservableCollection<CurrencyResponse>();
+            LoanTypeList = new ObservableCollection<LoanTypeResponse>();
+            KlientList = new ObservableCollection<ZmainView>();
+
+            SubProductList = new ObservableCollection<Spr>();
+            PurposesList = new ObservableCollection<Spr>();
+
+            await GetDataCurrencies();
+            await GetDataLoanType();
+            await GetDataSubProduct();
+            await GetDataPurpose();
+            FamilyStatusList = new ObservableCollection<FamilyStatus>
+        {
+            new FamilyStatus { Code = 1, Name = "женат" },
+            new FamilyStatus { Code = 2, Name = "не женат" },
+            new FamilyStatus { Code = 3, Name = "замужем" },
+            new FamilyStatus { Code = 4, Name = "не замужем" }
+        };
+            // Любые другие методы из вашего конструктора
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ошибка", $"Ошибка загрузки: {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
 
     public ObservableCollection<CurrencyResponse> CurrencyList { get; set; }
     public ObservableCollection<LoanTypeResponse> LoanTypeList { get; set; }
-    public ObservableCollection<Klient> KlientList { get; set; }
+    public ObservableCollection<ZmainView> KlientList { get; set; }
 
     public ObservableCollection<Spr> SubProductList { get; set; }
     public ObservableCollection<Spr> PurposesList { get; set; }
+    public ObservableCollection<FamilyStatus> FamilyStatusList { get; set; }
+
+    private bool _isLoading = false;
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged();
+        }
+    }
 
     private CurrencyResponse _selectedCurrency;
     public CurrencyResponse SelectedCurrency
@@ -38,7 +83,7 @@ public partial class CreateLoanZarp : ContentPage
         set
         {
             _selectedCurrency = value;
-            OnPropertyChanged(); // если INotifyPropertyChanged
+            OnPropertyChanged(nameof(CurrencyList)); // если INotifyPropertyChanged
         }
     }
 
@@ -74,13 +119,23 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private Klient _selectedKlient;
-    public Klient SelectedKlient
+    private ZmainView _selectedKlient;
+    public ZmainView SelectedKlient
     {
         get => _selectedKlient;
         set
         {
             _selectedKlient = value;
+            OnPropertyChanged();
+        }
+    }
+    private FamilyStatus _selectedFamilyStatus;
+    public FamilyStatus SelectedFamilyStatus
+    {
+        get => _selectedFamilyStatus;
+        set
+        {
+            _selectedFamilyStatus = value;
             OnPropertyChanged();
         }
     }
@@ -99,8 +154,24 @@ public partial class CreateLoanZarp : ContentPage
             //var dataList = JsonConvert.DeserializeObject<Klient>(responseData);
             //_selectedKlient = dataList;
             //KlientList.Add(dataList);
-            SelectedKlient = JsonConvert.DeserializeObject<Klient>(responseData);
-            OnPropertyChanged(nameof(SelectedKlient));
+            var klientFind = JsonConvert.DeserializeObject<Klient>(responseData);
+            if (klientFind != null)
+            {
+                SelectedKlient = new ZmainView
+                {
+                    ZvNdok = klientFind.KlNdok,
+                    ZvSrdok = klientFind.KlSrdok,
+                    ZvDok = klientFind.KlDok != null ? klientFind.KlDok.Trim() : null,
+                    ZvMvd = klientFind.KlMvd,
+                    ZvDatevp = klientFind.KlDatevp,
+                    ZvDokend = klientFind.KlDokend,
+                };
+                OnPropertyChanged(nameof(SelectedKlient));
+            }
+            else
+            {
+                await DisplayAlert("Информация", "Клиент не найден", "OK");
+            }
         }
     }
 
@@ -109,7 +180,7 @@ public partial class CreateLoanZarp : ContentPage
         await Shell.Current.GoToAsync("OpiuPage");
     }
 
-    private async void GetDataCurrencies()
+    private async Task GetDataCurrencies()
     {
         using var httpClient = new HttpClient();
         string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetCurrencies";
@@ -126,7 +197,7 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private async void GetDataLoanType()
+    private async Task GetDataLoanType()
     {
         using var httpClient = new HttpClient();
         string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanTypes";
@@ -144,7 +215,7 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private async void GetDataSubProduct()
+    private async Task GetDataSubProduct()
     {
         using var httpClient = new HttpClient();
         string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanSubProducts";
@@ -161,7 +232,7 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private async void GetDataPurpose()
+    private async Task GetDataPurpose()
     {
         using var httpClient = new HttpClient();
         string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanPurposes";
@@ -180,28 +251,167 @@ public partial class CreateLoanZarp : ContentPage
 
     private async void OnSaveButtonClicked(object sender, EventArgs e)
     {
-        //string selectedTeam = zalPicker.SelectedItem?.ToString();
+        if (SelectedKlient == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите клиента", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvNom == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите № заявления", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvSum == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, введите сумму", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvSum == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите сумму", "OK");
+            return;
+        }
 
-        //if (!string.IsNullOrEmpty(selectedTeam) && zalValues.ContainsKey(selectedTeam))
-        //{
-        //    loadingIndicator.IsRunning = true;
-        //    loadingIndicator.IsVisible = true;
-        //    string _otNom = await SecureStorage.Default.GetAsync("otNom");
+        if (SelectedCurrency != null)
+            SelectedKlient.ZvKodv = SelectedCurrency.Code;
+        else
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите валюту", "OK");
+            return;
+        }
 
-        //    loadingIndicator.IsRunning = false;
-        //    loadingIndicator.IsVisible = false;
-        //    if (result == "OK")
-        //    {
-        //        await DisplayAlert("Успех", "Новый залог создан", "OK");
-        //        await Navigation.PushAsync(new ZavkrPage(_selectedZavkr));
-        //    }
-        //}
-        //else
+        if (SelectedKlient.ZvSrok == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите срок в месяцах", "OK");
+            return;
+        }
+
+        if (SelectedLoanType != null)
+            SelectedKlient.ZvKom = SelectedLoanType.Code;
+        else
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите вид займа", "OK");
+            return;
+        }
+
+        if (SelectedSubProduct != null)
+            SelectedKlient.BvSubProd = SelectedSubProduct.SKod;
+        else
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите суб продукт", "OK");
+            return;
+        }
+        if (SelectedPurpose != null)
+            SelectedKlient.CelKr = SelectedPurpose.SKod;
+        else
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите цель", "OK");
+            return;
+        }
+
+        if (clientEntry == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, введите клиента", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvDok == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите документ", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvSrdok == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите серию", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvNdok == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите № документа", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvDatevp == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите дату выдачи", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvMvd == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите орган выдачи", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvDokend == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите годен до", "OK");
+            return;
+        }
+        if (SelectedKlient.BvRabStaj == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите общий стаж работы", "OK");
+            return;
+        }
+        if (SelectedKlient.ZvInn == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите ИНН", "OK");
+            return;
+        }
+        if (SelectedKlient.Doljnoct == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите место работы и должность", "OK");
+            return;
+        }
+        if (SelectedKlient.FaktAdres == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите место факт.проживания", "OK");
+            return;
+        }
+        if (SelectedFamilyStatus != null)
+            SelectedKlient.BvFamSt = SelectedFamilyStatus.Code.ToString();
+        else
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выберите семейное пол-е", "OK");
+            return;
+        }
+
+        if (SelectedKlient.FioCupr == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите ФИО супруга(и)", "OK");
+            return;
+        }
+        if (SelectedKlient.RabCupr == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите место работы супруга(и)", "OK");
+            return;
+        }
+        if (SelectedKlient.DoljCup == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите должность супруга(и)", "OK");
+            return;
+        }
+        if (SelectedKlient.BvTelefSupr == null)
+        {
+            await DisplayAlert("Ошибка", "Пожалуйста, выведите телефон супруга(и)", "OK");
+            return;
+        }
+
+        string _otNom = await SecureStorage.Default.GetAsync("otNom");
+        var service = new SavingService();
+       // string result = await service.SaveNewLoan(_otNom, SelectedKlient); 
+        //if (result == "OK")
         //{
-        //    DisplayAlert("Ошибка", "Пожалуйста, выберите команду", "OK");
+        //    await DisplayAlert("Ответ", result, "OK");
+            await Shell.Current.GoToAsync("HomePage");
         //}
+
     }
 
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? Несохраненные данные будут потеряны.", "Да", "Нет");
+        if (result)
+        {
+            await Navigation.PopAsync();
+        }
+    }
 
 
     public event PropertyChangedEventHandler PropertyChanged;
