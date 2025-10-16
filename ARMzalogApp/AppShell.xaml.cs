@@ -1,6 +1,7 @@
 ﻿using ARMzalogApp.Views;
 using ARMzalogApp.Views.ZavkrPages;
 using ARMzalogApp.Views.DogkrPages;
+using ARMzalogApp.Views.ZavkrPages.ResumePages;
 
 namespace ARMzalogApp
 {
@@ -27,6 +28,7 @@ namespace ARMzalogApp
             Routing.RegisterRoute("Forma3Page", typeof(Forma3Page));
             Routing.RegisterRoute("UkzPage", typeof(UkzPage));
             Routing.RegisterRoute("AnketaPage", typeof(AnketaPage));
+            Routing.RegisterRoute("ResumeZarplPage", typeof(ResumeZarplPage));
         }
     }
 }

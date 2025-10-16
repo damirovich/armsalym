@@ -46,8 +46,7 @@
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Spacing="10" Margin="10">
-            <Button Text="Фото клиента" BackgroundColor="Gray" TextColor="Black"/>
-            <Button Text="Резюме" BackgroundColor="Gray" TextColor="Black"/>
+            <Button Text="Резюме" Clicked="OnResumePage" BackgroundColor="#30cbd9" TextColor="Black"/>
         </HorizontalStackLayout>
 
     </StackLayout>

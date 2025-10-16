@@ -1,5 +1,6 @@
 using ARMzalogApp.Models;
 using ARMzalogApp.Views.ZavkrPages;
+using ARMzalogApp.Views.ZavkrPages.ResumePages;
 
 namespace ARMzalogApp.Views;
 
@@ -83,6 +84,11 @@ public partial class ZavkrPage : ContentPage
     private async void OnAnketaPage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("AnketaPage");
+    }
+
+    private async void OnResumePage(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ResumeZarplPage(_selectedZavkr.PositionalNumber.ToString() ));
     }
 
 }
