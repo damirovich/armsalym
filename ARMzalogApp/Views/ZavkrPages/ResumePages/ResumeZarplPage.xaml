@@ -3,10 +3,93 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ARMzalogApp.Views.ZavkrPages.ResumePages.ResumeZarplPage"
              Title="ResumeZarplPage">
-    <VerticalStackLayout>
-        <Label x:Name="poznLabel" Margin="10, 10,0,0" VerticalOptions="Center" 
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+                <Label x:Name="poznLabel" Margin="10, 10,0,0" VerticalOptions="Center" 
             HorizontalOptions="Center" 
             FontAttributes="Bold"
             TextColor="#cc0000"/>
-    </VerticalStackLayout>
+            <!-- Раздел 1: Основная информация -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Основная информация" FontAttributes="Bold" FontSize="18" />
+                    <Entry Placeholder="Кредитный продукт (например, Ипотека)" />
+                    <Picker Title="Вид клиента">
+                        <Picker.Items>
+                            <x:String>Сотрудник</x:String>
+                            <x:String>Частное лицо</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Entry Placeholder="Спр. доходов" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 2: Доходы и расходы -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="ОПиУ" FontAttributes="Bold" FontSize="18" />
+                    <Entry Placeholder="Заработная плата (сом/мес)" Keyboard="Numeric" />
+                    <Entry Placeholder="Комментарий (Айлык аксы)" />
+                    <Entry Placeholder="Доп. доходы" Keyboard="Numeric" />
+                    <Entry Placeholder="Комментарий по доп. доходу" />
+                    <Entry Placeholder="Расходы" Keyboard="Numeric" />
+                    <Entry Placeholder="Комментарий по расходам" />
+                    <Entry Placeholder="Чистый доход" IsReadOnly="True" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 3: Обслуживание кредитов -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Обслуживание кредитов" FontAttributes="Bold" FontSize="18" />
+                    <Entry Placeholder="Обслуживание парал. кредита" Keyboard="Numeric" />
+                    <Entry Placeholder="Банки (Оптима, Мбанк, Бакай...)" />
+                    <Entry Placeholder="Обслуживание кредитов СФ" Keyboard="Numeric" />
+                    <Entry Placeholder="ОАО МФК (название)" />
+                    <Entry Placeholder="Остаток свободных средств" IsReadOnly="True" />
+                    <Entry Placeholder="DSR (Чистый доход / обслуживание долга)" IsReadOnly="True" />
+                    <Entry Placeholder="Макс дни с КИБа" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 4: Проверки -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Проверки" FontAttributes="Bold" FontSize="18" />
+                    <Button Text="Отправить в конвейер" BackgroundColor="#007bff" TextColor="White" CornerRadius="10" />
+                    <Button Text="Список КД" BackgroundColor="#007bff" TextColor="White" CornerRadius="10" />
+                    <Button Text="Проверить удержание остатков" BackgroundColor="#007bff" TextColor="White" CornerRadius="10" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 5: Комментарии -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Комментарии" FontAttributes="Bold" FontSize="18" />
+                    <Entry Placeholder="Примечание к ОПИУ" />
+                    <Entry Placeholder="Комментарий по кредиту" />
+                    <Entry Placeholder="Кредитный специалист (ФИО)" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 6: Таблица (Остаток ОД с КИБа) -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Остаток ОД с КИБа" FontAttributes="Bold" FontSize="18" />
+                    <Label Text="Нет данных для отображения" TextColor="Gray" FontSize="14" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Раздел 7: Действия -->
+            <Frame BorderColor="#ddd" CornerRadius="12" Padding="14" BackgroundColor="White">
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Button Text="Рассчитать" BackgroundColor="#28a745" TextColor="White" WidthRequest="110" CornerRadius="8" />
+                    <Button Text="Решение КК" BackgroundColor="#ffc107" TextColor="Black" WidthRequest="110" CornerRadius="8" />
+                    <Button Text="Сохранить" BackgroundColor="#007bff" TextColor="White" WidthRequest="110" CornerRadius="8" />
+                </HorizontalStackLayout>
+                <Button Text="Выход" BackgroundColor="#dc3545" Clicked="OnBackButtonClicked" TextColor="White" CornerRadius="8" Margin="0,10,0,0"/>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

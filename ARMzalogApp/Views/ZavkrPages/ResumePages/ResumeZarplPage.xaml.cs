@@ -12,4 +12,14 @@ public partial class ResumeZarplPage : ContentPage
         BindingContext = this;
 
     }
+
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? ", "Да", "Нет");
+        if (result)
+        {
+            await Navigation.PopAsync();
+        }
+    }
+
 }

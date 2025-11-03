@@ -18,23 +18,25 @@
                     <HorizontalStackLayout Spacing="10">
                         <Label Text="Сумма:" VerticalOptions="Center"/>
                         <Entry Text="{Binding SelectedKlient.ZvSum}" Keyboard="Numeric" WidthRequest="120" Margin="30,0,0,0"/>
-                        <Label Text="Валюта:" VerticalOptions="Center" Margin="30,0,0,0"/>
-                        <Picker WidthRequest="150" ItemsSource="{Binding CurrencyList}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCurrency, Mode=TwoWay}"/>
                     </HorizontalStackLayout>
-
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Валюта:" VerticalOptions="Center" Margin="0,0,0,0"/>
+                        <Picker WidthRequest="150" ItemsSource="{Binding CurrencyList}"
+     ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCurrency, Mode=TwoWay}"/>
+                    </HorizontalStackLayout>
                     <!-- Срок в мес + списки -->
                     <HorizontalStackLayout Spacing="10">
                         <Label Text="Срок в мес:" VerticalOptions="Center"/>
-                        <Entry Text="{Binding SelectedKlient.ZvSrok}" Keyboard="Numeric" WidthRequest="120"/>
+                        <Entry Text="{Binding SelectedKlient.ZvSrok}" Keyboard="Numeric" WidthRequest="120"/> 
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
                         <Label Text="Вид кредита:" VerticalOptions="Center"/>
                         <Picker  WidthRequest="150" VerticalOptions="Center" HorizontalOptions="Fill" ItemsSource="{Binding LoanTypeList}" 
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedLoanType, Mode=TwoWay}"/>
-
+               ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedLoanType, Mode=TwoWay}"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="10">
-                        <Label Text="Суб.продукт:" VerticalOptions="Center" Margin="210,0,0,0"/>
+                        <Label Text="Суб.продукт:" VerticalOptions="Center" Margin="0,0,0,0"/>
                         <Picker WidthRequest="150" VerticalOptions="Center" HorizontalOptions="Fill" ItemsSource="{Binding SubProductList}" 
                         ItemDisplayBinding="{Binding SNam}" SelectedItem="{Binding SelectedSubProduct, Mode=TwoWay}"/>
                     </HorizontalStackLayout>
@@ -57,19 +59,25 @@
                 <VerticalStackLayout Spacing="3">
                     <HorizontalStackLayout Spacing="10">
                         <Label Text="Документ:" VerticalOptions="Center"/>
-                        <Entry WidthRequest="120" Text="{Binding SelectedKlient.ZvDok}"/>
+                        <Entry WidthRequest="120" Text="{Binding SelectedKlient.ZvDok}"/> 
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10"> 
                         <Label Text="Серия:" VerticalOptions="Center"/>
                         <Entry WidthRequest="120" Text="{Binding SelectedKlient.ZvSrdok}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="20">
                         <Label Text="№:" VerticalOptions="Center"/>
                         <Entry WidthRequest="120" Text="{Binding SelectedKlient.ZvNdok}"/>
-                        <Label Text="Дата выд.:" VerticalOptions="Center" Margin="30,0,0,0"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="20"> 
+                        <Label Text="Дата выд.:" VerticalOptions="Center" Margin="0,0,0,0"/>
                         <DatePicker Date="{Binding SelectedKlient.ZvDatevp}" Format="dd.MM.yyyy" HorizontalOptions="Start" WidthRequest="200"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="10">
                         <Label Text="Орган выд.:" VerticalOptions="Center"/>
                         <Entry WidthRequest="120"  Text="{Binding SelectedKlient.ZvMvd}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10"> 
                         <Label Text="Годен до:" VerticalOptions="Center" Margin="4,0,0,0"/>
                         <DatePicker Date="{Binding SelectedKlient.ZvDokend}" Format="dd.MM.yyyy" HorizontalOptions="Start" WidthRequest="200"/>
                     </HorizontalStackLayout>

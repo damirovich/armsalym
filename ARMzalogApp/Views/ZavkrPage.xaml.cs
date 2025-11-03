@@ -88,6 +88,11 @@ public partial class ZavkrPage : ContentPage
 
     private async void OnResumePage(object sender, EventArgs e)
     {
+        if(_selectedZavkr.PositionalNumber == null)
+        {
+            await DisplayAlert("Ошибка", "Номер позиции не может быть пустым", "OK");
+            return;
+        }
         Navigation.PushAsync(new ResumeZarplPage(_selectedZavkr.PositionalNumber.ToString() ));
     }
 

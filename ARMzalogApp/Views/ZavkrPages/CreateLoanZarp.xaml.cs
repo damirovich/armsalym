@@ -30,21 +30,16 @@ public partial class CreateLoanZarp : ContentPage
             LoanTypeList = new ObservableCollection<LoanTypeResponse>();
             KlientList = new ObservableCollection<ZmainView>();
 
-            SubProductList = new ObservableCollection<Spr>();
+            SubProductList = SubProduct.DefaultList;
             PurposesList = new ObservableCollection<Spr>();
+            FamilyStatusList = FamilyStatus.DefaultList;
+            CurrencyList = CurrencyResponse.DefaultList;
 
-            await GetDataCurrencies();
+            //await GetDataCurrencies();
             await GetDataLoanType();
-            await GetDataSubProduct();
+            //await GetDataSubProduct();
             await GetDataPurpose();
-            FamilyStatusList = new ObservableCollection<FamilyStatus>
-        {
-            new FamilyStatus { Code = 1, Name = "женат" },
-            new FamilyStatus { Code = 2, Name = "не женат" },
-            new FamilyStatus { Code = 3, Name = "замужем" },
-            new FamilyStatus { Code = 4, Name = "не замужем" }
-        };
-            // Любые другие методы из вашего конструктора
+
         }
         catch (Exception ex)
         {
@@ -56,14 +51,41 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-
-    public ObservableCollection<CurrencyResponse> CurrencyList { get; set; }
     public ObservableCollection<LoanTypeResponse> LoanTypeList { get; set; }
     public ObservableCollection<ZmainView> KlientList { get; set; }
 
-    public ObservableCollection<Spr> SubProductList { get; set; }
+    private ObservableCollection<SubProduct> _subProductList;
+    public ObservableCollection<SubProduct> SubProductList
+    {
+        get => _subProductList;
+        set
+        {
+            _subProductList = value;
+            OnPropertyChanged();
+        }
+    }
     public ObservableCollection<Spr> PurposesList { get; set; }
-    public ObservableCollection<FamilyStatus> FamilyStatusList { get; set; }
+    private ObservableCollection<FamilyStatus> _familyStatusList;
+    public ObservableCollection<FamilyStatus> FamilyStatusList
+    {
+        get => _familyStatusList;
+        set
+        {
+            _familyStatusList = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ObservableCollection<CurrencyResponse> _currencyList;
+    public ObservableCollection<CurrencyResponse> CurrencyList
+    {
+        get => _currencyList;
+        set
+        {
+            _currencyList = value;
+            OnPropertyChanged();
+        }
+    }
 
     private bool _isLoading = false;
     public bool IsLoading
@@ -83,7 +105,7 @@ public partial class CreateLoanZarp : ContentPage
         set
         {
             _selectedCurrency = value;
-            OnPropertyChanged(nameof(CurrencyList)); // если INotifyPropertyChanged
+            OnPropertyChanged(nameof(CurrencyList));  
         }
     }
 
@@ -98,16 +120,17 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private Spr _selectedSubProduct;
-    public Spr SelectedSubProduct
+    private SubProduct _selectedSubProduct;
+    public SubProduct SelectedSubProduct
     {
         get => _selectedSubProduct;
         set
         {
             _selectedSubProduct = value;
-            OnPropertyChanged();
+            OnPropertyChanged(nameof(SubProductList));
         }
     }
+
     private Spr _selectedPurpose;
     public Spr SelectedPurpose
     {
@@ -137,6 +160,10 @@ public partial class CreateLoanZarp : ContentPage
         {
             _selectedFamilyStatus = value;
             OnPropertyChanged();
+            //if (value != null && SelectedKlient != null)
+            //{
+            //    SelectedKlient.BvFamSt = (int)value.Code;
+            //}
         }
     }
 
@@ -210,22 +237,22 @@ public partial class CreateLoanZarp : ContentPage
         }
     }
 
-    private async Task GetDataSubProduct()
-    {
-        using var httpClient = new HttpClient();
-        string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanSubProducts";
-        HttpResponseMessage response = await httpClient.GetAsync(url);
+    //private async Task GetDataSubProduct()
+    //{
+    //    using var httpClient = new HttpClient();
+    //    string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetLoanSubProducts";
+    //    HttpResponseMessage response = await httpClient.GetAsync(url);
 
-        if (response.IsSuccessStatusCode)
-        {
-            string responseData = await response.Content.ReadAsStringAsync();
-            List<Spr> dataList = JsonConvert.DeserializeObject<List<Spr>>(responseData);
-            foreach (var item in dataList)
-            {
-                SubProductList.Add(item);
-            }
-        }
-    }
+    //    if (response.IsSuccessStatusCode)
+    //    {
+    //        string responseData = await response.Content.ReadAsStringAsync();
+    //        List<Spr> dataList = JsonConvert.DeserializeObject<List<Spr>>(responseData);
+    //        foreach (var item in dataList)
+    //        {
+    //            SubProductList.Add(item);
+    //        }
+    //    }
+    //}
 
     private async Task GetDataPurpose()
     {
@@ -290,7 +317,7 @@ public partial class CreateLoanZarp : ContentPage
         }
 
         if (SelectedSubProduct != null)
-            SelectedKlient.BvSubProd = SelectedSubProduct.SKod;
+            SelectedKlient.BvSubProd = Convert.ToInt32(SelectedSubProduct.Code);
         else
         {
             await DisplayAlert("Ошибка", "Пожалуйста, выберите суб продукт", "OK");
