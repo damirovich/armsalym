@@ -59,24 +59,32 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 	  <CodesignResourceRules></CodesignResourceRules>
 	</PropertyGroup>
+	<!--<PropertyGroup>
+	-->
+	<!-- Включаем использование ключевого хранилища -->
+	<!--
+	<AndroidKeyStore>true</AndroidKeyStore>
 
-	<PropertyGroup>
-		<!-- Включаем использование ключевого хранилища -->
-		<AndroidKeyStore>true</AndroidKeyStore>
+	-->
+	<!-- Указываем путь к вашему файлу keystore -->
+	<!--
+	<AndroidSigningKeyStore>C:\Users\chmanapova\Key_Arm\upload-keystore.jks</AndroidSigningKeyStore>
 
-		<!-- Указываем путь к вашему файлу keystore -->
-		<AndroidSigningKeyStore>C:\Users\chmanapova\Key_Arm\upload-keystore.jks</AndroidSigningKeyStore>
+	-->
+	<!-- Alias ключа, который вы указали при создании keystore -->
+	<!--
+	<AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
 
-		<!-- Alias ключа, который вы указали при создании keystore -->
-		<AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
+	-->
+	<!-- Пароль к ключу (тот, который вы ввели при создании keystore) -->
+	<!--
+	<AndroidSigningKeyPass>User_123</AndroidSigningKeyPass>
 
-		<!-- Пароль к ключу (тот, который вы ввели при создании keystore) -->
-		<AndroidSigningKeyPass>User_123</AndroidSigningKeyPass>
-
-		<!-- Пароль от самого хранилища keystore -->
-		<AndroidSigningStorePass>User_123</AndroidSigningStorePass>
-	</PropertyGroup>
-
+	-->
+	<!-- Пароль от самого хранилища keystore -->
+	<!--
+	<AndroidSigningStorePass>User_123</AndroidSigningStorePass>
+</PropertyGroup>-->
 	
 	<ItemGroup>
 		<!-- App Icon -->
