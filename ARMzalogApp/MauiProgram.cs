@@ -5,6 +5,9 @@ using Microsoft.Extensions.Logging;
 using Plugin.FirebasePushNotification;
 using Plugin.LocalNotification;
 using CommunityToolkit.Maui;
+using ARMzalogApp.Sevices.Integrations;
+using Microsoft.Extensions.DependencyInjection;
+using ARMzalogApp.Constants;
 
 namespace ARMzalogApp
 {
@@ -31,6 +34,20 @@ namespace ARMzalogApp
             builder.Services.AddSingleton<User>();
 
             builder.Services.AddSingleton<LoginPageViewModel>();
+
+
+            builder.Services.AddHttpClient("PersonalAccountsApi", client =>
+            {
+                client.BaseAddress = new Uri(ServerConstants.SERVER_ROOT_URL);
+                client.Timeout = TimeSpan.FromSeconds(60);
+            });
+
+            builder.Services.AddScoped<IKibIntegrationService, KibIntegrationService>();
+            builder.Services.AddScoped<IGrsIkService, GrsIkService>();
+            builder.Services.AddScoped<ISocialFundIntegrationService, SocialFundIntegrationService>();
+
+            builder.Services.AddTransient<CheckClientViewModel>();
+            builder.Services.AddTransient<CheckClientPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

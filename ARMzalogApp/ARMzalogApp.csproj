@@ -59,24 +59,32 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 	  <CodesignResourceRules></CodesignResourceRules>
 	</PropertyGroup>
+	<!--<PropertyGroup>
+	-->
+	<!-- Включаем использование ключевого хранилища -->
+	<!--
+	<AndroidKeyStore>true</AndroidKeyStore>
 
-	<PropertyGroup>
-		<!-- Включаем использование ключевого хранилища -->
-		<AndroidKeyStore>true</AndroidKeyStore>
+	-->
+	<!-- Указываем путь к вашему файлу keystore -->
+	<!--
+	<AndroidSigningKeyStore>C:\Users\chmanapova\Key_Arm\upload-keystore.jks</AndroidSigningKeyStore>
 
-		<!-- Указываем путь к вашему файлу keystore -->
-		<AndroidSigningKeyStore>C:\Users\chmanapova\Key_Arm\upload-keystore.jks</AndroidSigningKeyStore>
+	-->
+	<!-- Alias ключа, который вы указали при создании keystore -->
+	<!--
+	<AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
 
-		<!-- Alias ключа, который вы указали при создании keystore -->
-		<AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
+	-->
+	<!-- Пароль к ключу (тот, который вы ввели при создании keystore) -->
+	<!--
+	<AndroidSigningKeyPass>User_123</AndroidSigningKeyPass>
 
-		<!-- Пароль к ключу (тот, который вы ввели при создании keystore) -->
-		<AndroidSigningKeyPass>User_123</AndroidSigningKeyPass>
-
-		<!-- Пароль от самого хранилища keystore -->
-		<AndroidSigningStorePass>User_123</AndroidSigningStorePass>
-	</PropertyGroup>
-
+	-->
+	<!-- Пароль от самого хранилища keystore -->
+	<!--
+	<AndroidSigningStorePass>User_123</AndroidSigningStorePass>
+</PropertyGroup>-->
 	
 	<ItemGroup>
 		<!-- App Icon -->
@@ -109,6 +117,7 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="FirebaseAdmin" Version="3.0.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -182,6 +191,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ChatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CheckClientPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateZalogPage.xaml">
