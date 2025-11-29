@@ -8,6 +8,8 @@ using CommunityToolkit.Maui;
 using ARMzalogApp.Sevices.Integrations;
 using Microsoft.Extensions.DependencyInjection;
 using ARMzalogApp.Constants;
+using ARMzalogApp.Sevices.Auth;
+using ARMzalogApp.Sevices.Context;
 
 namespace ARMzalogApp
 {
@@ -48,6 +50,9 @@ namespace ARMzalogApp
 
             builder.Services.AddTransient<CheckClientViewModel>();
             builder.Services.AddTransient<CheckClientPage>();
+
+            builder.Services.AddSingleton<IUserSessionService, UserSessionService>();
+            builder.Services.AddSingleton<IApplicationContext, ApplicationContext>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
