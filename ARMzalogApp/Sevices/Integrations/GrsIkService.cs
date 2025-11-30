@@ -14,7 +14,7 @@ public sealed class GrsIkService : IGrsIkService
 
     public async Task<GrsIkResponseDto?> SendIkAsync(GrsCheckDto dto, CancellationToken ct = default)
     {
-        using var response = await _client.PostAsJsonAsync("api/ik", dto, ct);
+        using var response = await _client.PostAsJsonAsync("api/short", dto, ct);
 
         // 4xx/5xx — кинем понятное исключение
         if (!response.IsSuccessStatusCode)

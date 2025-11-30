@@ -111,9 +111,9 @@ public partial class CheckClientViewModel : ObservableObject
                 PassportSeries = PassportSeries.Trim(),
                 PassportNumber = PassportNumber.Trim(),
                 // пока отправляем тех. значения, позже подставим реальные из авторизации
-                ZvPozn = 0,
-                TypeClient = 0,
-                UserId = 0
+                ZvPozn = 52174781 ,
+                TypeClient = 1,
+                UserId = 940
             };
 
             var res = await _grsIkService.SendIkAsync(dto);
