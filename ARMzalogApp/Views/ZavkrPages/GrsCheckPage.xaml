@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPages.GrsCheckPage"
+             Title="Проверка по ГРС">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="ГРС — запрос"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+
+            <Label Text="{Binding InfoText}" />
+
+            <Entry Placeholder="Серия паспорта (AN, ID)"
+                   Text="{Binding PassportSeries}" />
+
+            <Entry Placeholder="Номер паспорта"
+                   Keyboard="Numeric"
+                   Text="{Binding PassportNumber}" />
+
+            <!-- Кнопка отправки -->
+            <Button Text="Отправить запрос в ГРС"
+                    Command="{Binding CheckGrsCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}" />
+
+            <Label Text="{Binding ResultMessage}"
+                   TextColor="Green"
+                   LineBreakMode="WordWrap" />
+
+            <!-- Блок с данными клиента из InfoClientGRSZavkr -->
+            <VerticalStackLayout Spacing="4"
+                     IsVisible="{Binding HasResult}">
+
+                <Label Text="{Binding Fio, StringFormat='ФИО: {0}'}" />
+                <Label Text="{Binding BirthDate, StringFormat='Дата рождения: {0}'}" />
+                <Label Text="{Binding Address, StringFormat='Адрес: {0}'}" />
+
+                <!-- НОВОЕ: статус паспорта -->
+                <Label Text="{Binding PassportStatus, StringFormat='Статус паспорта: {0}'}" TextColor="Red" />
+
+                <Label Text="{Binding LastQueryDate, StringFormat='Последний запрос ГРС: {0:dd.MM.yyyy HH:mm}'}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

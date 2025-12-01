@@ -1,8 +1,6 @@
 ﻿using ARMzalogApp.Helpers;
 using ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
-using ARMzalogApp.Sevices.Auth;
-using ARMzalogApp.Views;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Plugin.LocalNotification;
@@ -43,10 +41,6 @@ namespace ARMzalogApp.ViewModels
                     };
                     LocalNotificationCenter.Current.Show(request);
                     await SaveSessionAsync(UserName, userInfo.UserNumber.ToString(), userInfo.otFio, userInfo.DepartmentId.ToString());
-
-                    var session = ServiceHelper.GetService<IUserSessionService>();
-                    session.SetSession(userInfo);
-
 
                     string ot_uid = userInfo.UserName ?? "";
                     string fio = userInfo.otFio ?? "";
