@@ -1,4 +1,4 @@
-using System.Globalization;
+п»їusing System.Globalization;
 using ARMzalogApp.Resources.Localization;
 using ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
@@ -19,12 +19,12 @@ public partial class AboutPage : ContentPage
         //titleLabel.Text = SessionManager.GetoFio();
 
         BindingContext = this;
-        versionLabel.Text = $"Версия {AppInfo.VersionString}";
+        versionLabel.Text = $"Р’РµСЂСЃРёСЏ {AppInfo.VersionString}";
         FontSizePicker.SelectedIndex = 0;
         var languages = new List<Language>
             {
-                new Language { Code = "ru-RU", Name = "Русский" },
-                new Language { Code = "ky-KY", Name = "Кыргызча" }
+               new Language { Code = "ru-RU", Name = "Р СѓСЃСЃРєРёР№" },
+               new Language { Code = "ky-KG", Name = "РљС‹СЂРіС‹Р·С‡Р°" }
             };
 
         foreach (var language in languages)
@@ -55,8 +55,8 @@ public partial class AboutPage : ContentPage
         var selectedLanguage = LanguagePicker.SelectedItem.ToString();
         var languages = new Dictionary<string, string>
             {
-                { "Русский", "ru-RU" },
-                { "Кыргызча", "ky-KY" }
+                { "Р СѓСЃСЃРєРёР№", "ru-RU" },
+                { "РљС‹СЂРіС‹Р·С‡Р°", "ky-KG" }
             };
 
         if (languages.TryGetValue(selectedLanguage, out var cultureCode))
@@ -70,11 +70,11 @@ public partial class AboutPage : ContentPage
     {
         if (FontSizePicker.SelectedIndex == 0)
         {
-            App.Settings.FontSize = 14; // маленький размер шрифта
+            App.Settings.FontSize = 14; // РјР°Р»РµРЅСЊРєРёР№ СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°
         }
         else if (FontSizePicker.SelectedIndex == 1)
         {
-            App.Settings.FontSize = 22; // Большой размер шрифта
+            App.Settings.FontSize = 22; // Р‘РѕР»СЊС€РѕР№ СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°
         }
     }
     private void ShowValuta(object sender, EventArgs e)
@@ -93,7 +93,7 @@ public partial class AboutPage : ContentPage
 
     private async void OnDelete(object sender, EventArgs e)
     {
-        bool isAgree = await DisplayAlert("Подтвердите действие", "Вы уверены что хотите удалить аккаунт", "Да", "Нет");
+        bool isAgree = await DisplayAlert("РџРѕРґС‚РІРµСЂРґРёС‚Рµ РґРµР№СЃС‚РІРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹ С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ Р°РєРєР°СѓРЅС‚", "Р”Р°", "РќРµС‚");
         if (isAgree)
         {
             var otNom = await SecureStorage.GetAsync("otNom") ?? "";
@@ -104,7 +104,7 @@ public partial class AboutPage : ContentPage
             {
                 SecureStorage.Default.RemoveAll();
                 // Preferences.Default.Clear();
-                await DisplayAlert("Успех", "Аккаунт удален", "Ок");
+                await DisplayAlert("РЈСЃРїРµС…", "РђРєРєР°СѓРЅС‚ СѓРґР°Р»С‘РЅ", "РћРє");
             }
 
         }

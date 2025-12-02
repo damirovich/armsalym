@@ -37,13 +37,13 @@ public partial class ZavkrPage : ContentPage
             }
             else
             {
-                await DisplayAlert("Ïðåäóïðåæäåíèå", "Ãåîëîêàöèÿ ó Âàñ íå ðàáîòàåò. Ôîòîãðàôèè áóäóò áåç ìåñòîïîëîæåíèÿ", "OK");
+                await DisplayAlert("Предупреждение", "Геолокация у вас не работает. Фотографии будут без местоположения", "OK");
             }
         }
         catch (FeatureNotEnabledException ex)
         {
-            await DisplayAlert("Îøèáêà", "Íå óäàëîñü ïîëó÷èòü ìåñòîïîëîæåíèå", "OK");
-            await DisplayAlert("Îøèáêà", "Âêëþ÷èòå ãåîëîêàöèþ", "OK");
+            await DisplayAlert("Ошибка", "Не удалось получить местоположение", "OK");
+            await DisplayAlert("Ошибка", "Включите геолокацию", "OK");
             await Shell.Current.GoToAsync("//HomePage");
         }
         catch (Exception ex)
@@ -107,7 +107,7 @@ public partial class ZavkrPage : ContentPage
     {
         if(_selectedZavkr.PositionalNumber == null)
         {
-            await DisplayAlert("Îøèáêà", "Íîìåð ïîçèöèè íå ìîæåò áûòü ïóñòûì", "OK");
+            await DisplayAlert("Ошибка", "Номер позиции не может быть пустым", "OK");
             return;
         }
         Navigation.PushAsync(new ResumeZarplPage(_selectedZavkr.PositionalNumber.ToString() ));

@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 
 
 namespace ARMzalogApp.Views.ZavkrPages;
@@ -22,7 +22,7 @@ public partial class OpiuPage : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? Несохраненные данные будут потеряны.", "Да", "Нет");
+        bool result = await DisplayAlert("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ РІРµСЂРЅСѓС‚СЊСЃСЏ? РќРµСЃРѕС…СЂР°РЅС‘РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РїРѕС‚РµСЂСЏРЅС‹.", "Р”Р°", "РќРµС‚");
         if (result)
         {
             await Navigation.PopAsync();

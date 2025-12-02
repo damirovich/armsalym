@@ -1,4 +1,4 @@
-using ARMzalogApp.Models.Responses;
+п»їusing ARMzalogApp.Models.Responses;
 using Newtonsoft.Json;
 using System.Windows.Input;
 using ARMzalogApp.Constants;
@@ -71,7 +71,7 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
         //}
         //else
         //{
-        //    DisplayAlert("Ошибка", "Введите числа!", "OK");
+        //    DisplayAlert("ГЋГёГЁГЎГЄГ ", "Г‚ГўГҐГ¤ГЁГІГҐ Г·ГЁГ±Г«Г !", "OK");
         //}
         _savedNumber = numberEntry.Text;
         GetDataFromFilter(_savedNumber.ToString());
@@ -101,7 +101,7 @@ public partial class ListDogkr : ContentPage, INotifyPropertyChanged
                 }
                 if (dataList.Count > 0)
                 {
-                    DisplayAlert("Успешно", "Кредитный договор найден", "OK");
+                    DisplayAlert("РЈСЃРїРµС€РЅРѕ", "РљСЂРµРґРёС‚РЅС‹Р№ РґРѕРіРѕРІРѕСЂ РЅР°Р№РґРµРЅ", "OK");
                 }
                 OnPropertyChanged(nameof(DogkrList));
 

@@ -1,6 +1,6 @@
-namespace ARMzalogApp.Views;
+п»їnamespace ARMzalogApp.Views;
 
-public partial class ChatPage : ContentPage // использовать для Чата 
+public partial class ChatPage : ContentPage // РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ С‡Р°С‚Р°
 {
     private readonly HttpClient _httpClient;
 
@@ -17,8 +17,8 @@ public partial class ChatPage : ContentPage // использовать для Чата
         if (!string.IsNullOrEmpty(userInput))
         {
             var response = ""; // FAQ_GPT.GetAnswer(userInput);
-            ChatOutput.Text += $"\n\nВопрос: {userInput}\nОтвет: {response}";
-            UserInput.Text = string.Empty; // Очистить поле ввода после отправки
+            ChatOutput.Text += $"\n\nР’РѕРїСЂРѕСЃ: {userInput}\nРћС‚РІРµС‚: {response}";
+            UserInput.Text = string.Empty; // РћС‡РёСЃС‚РёС‚СЊ РїРѕР»Рµ РІРІРѕРґР° РїРѕСЃР»Рµ РѕС‚РїСЂР°РІРєРё
         }
     }
 }

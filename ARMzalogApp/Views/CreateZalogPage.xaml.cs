@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
 
 namespace ARMzalogApp.Views;
@@ -9,15 +9,15 @@ public partial class CreateZalogPage : ContentPage
     private Dictionary<string, int> zalValues;
 
     public CreateZalogPage(Zavkr selectedZavkr)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _selectedZavkr = selectedZavkr;
         zalValues = new Dictionary<string, int>
         {
-            { "Земельный участок", 1 },
-            { "Жилая недвижимость", 3 },
-            { "Транспортное средство", 4 },
-            { "Другие", 5 }
+            { "Р—РµРјРµР»СЊРЅС‹Р№ СѓС‡Р°СЃС‚РѕРє", 1 },
+            { "Р–РёР»Р°СЏ РЅРµРґРІРёР¶РёРјРѕСЃС‚СЊ", 3 },
+            { "РўСЂР°РЅСЃРїРѕСЂС‚РЅРѕРµ СЃСЂРµРґСЃС‚РІРѕ", 4 },
+            { "Р”СЂСѓРіРёРµ", 5 }
         };
     }
 
@@ -31,20 +31,20 @@ public partial class CreateZalogPage : ContentPage
             loadingIndicator.IsVisible = true;
             int selectedValue = zalValues[selectedTeam];
             string _otNom = await SecureStorage.Default.GetAsync("otNom");
-            //DisplayAlert("Команда сохранена", $"Вы выбрали: {selectedTeam}", "OK");
+            //DisplayAlert("РљРѕРјР°РЅРґР° СЃРѕС…СЂР°РЅРµРЅР°", $"Р’С‹ РІС‹Р±СЂР°Р»Рё: {selectedTeam}", "OK");
             var service = new SavingService();
             string result = await service.SaveNewZalog(selectedValue, _selectedZavkr.PositionalNumber.ToString(), _otNom);
             loadingIndicator.IsRunning = false;
             loadingIndicator.IsVisible = false;
             if (result == "OK")
             {
-                await DisplayAlert("Успех", "Новый залог создан", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РќРѕРІС‹Р№ Р·Р°Р»РѕРі СЃРѕР·РґР°РЅ", "OK");
                 await Navigation.PushAsync(new ZavkrPage(_selectedZavkr));
             }
         }
         else
         {
-            DisplayAlert("Ошибка", "Пожалуйста, выберите команду", "OK");
+            DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєРѕРјР°РЅРґСѓ", "OK");
         }
     }
 

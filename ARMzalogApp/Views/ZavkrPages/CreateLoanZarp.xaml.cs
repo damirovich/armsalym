@@ -1,4 +1,4 @@
-using ARMzalogApp.Constants;
+п»їusing ARMzalogApp.Constants;
 using ARMzalogApp.Models;
 using ARMzalogApp.Models.Responses;
 using Newtonsoft.Json;
@@ -43,7 +43,7 @@ public partial class CreateLoanZarp : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Ошибка", $"Ошибка загрузки: {ex.Message}", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", $"РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё: {ex.Message}", "OK");
         }
         finally
         {
@@ -197,7 +197,7 @@ public partial class CreateLoanZarp : ContentPage
             }
             else
             {
-                await DisplayAlert("Информация", "Клиент не найден", "OK");
+                await DisplayAlert("РРЅС„РѕСЂРјР°С†РёСЏ", "РљР»РёРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ", "OK");
             }
         }
     }
@@ -275,22 +275,17 @@ public partial class CreateLoanZarp : ContentPage
     {
         if (SelectedKlient == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите клиента", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєР»РёРµРЅС‚Р°", "OK");
             return;
         }
         if (SelectedKlient.ZvNom == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите № заявления", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ в„– Р·Р°СЏРІР»РµРЅРёСЏ", "OK");
             return;
         }
         if (SelectedKlient.ZvSum == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, введите сумму", "OK");
-            return;
-        }
-        if (SelectedKlient.ZvSum == null)
-        {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите сумму", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ СЃСѓРјРјСѓ", "OK");
             return;
         }
 
@@ -298,13 +293,13 @@ public partial class CreateLoanZarp : ContentPage
             SelectedKlient.ZvKodv = SelectedCurrency.Code;
         else
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите валюту", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РІР°Р»СЋС‚Сѓ", "OK");
             return;
         }
 
         if (SelectedKlient.ZvSrok == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите срок в месяцах", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ СЃСЂРѕРє РІ РјРµСЃСЏС†Р°С…", "OK");
             return;
         }
 
@@ -312,7 +307,7 @@ public partial class CreateLoanZarp : ContentPage
             SelectedKlient.ZvKom = SelectedLoanType.Code;
         else
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите вид займа", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РІРёРґ Р·Р°Р№РјР°", "OK");
             return;
         }
 
@@ -320,115 +315,129 @@ public partial class CreateLoanZarp : ContentPage
             SelectedKlient.BvSubProd = Convert.ToInt32(SelectedSubProduct.Code);
         else
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите суб продукт", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ СЃСѓР± РїСЂРѕРґСѓРєС‚", "OK");
             return;
         }
         if (SelectedPurpose != null)
             SelectedKlient.CelKr = SelectedPurpose.SKod;
         else
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите цель", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ С†РµР»СЊ", "OK");
             return;
         }
 
         if (clientEntry == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, введите клиента", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РєР»РёРµРЅС‚Р°", "OK");
             return;
         }
+
         if (SelectedKlient.ZvDok == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите документ", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РґРѕРєСѓРјРµРЅС‚", "OK");
             return;
         }
+
         if (SelectedKlient.ZvSrdok == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите серию", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ СЃРµСЂРёСЋ", "OK");
             return;
         }
+
         if (SelectedKlient.ZvNdok == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите № документа", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ в„– РґРѕРєСѓРјРµРЅС‚Р°", "OK");
             return;
         }
+
         if (SelectedKlient.ZvDatevp == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите дату выдачи", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РґР°С‚Сѓ РІС‹РґР°С‡Рё", "OK");
             return;
         }
+
         if (SelectedKlient.ZvMvd == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите орган выдачи", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РѕСЂРіР°РЅ РІС‹РґР°С‡Рё", "OK");
             return;
         }
+
         if (SelectedKlient.ZvDokend == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите годен до", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ 'РіРѕРґРµРЅ РґРѕ'", "OK");
             return;
         }
+
         if (SelectedKlient.BvRabStaj == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите общий стаж работы", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РѕР±С‰РёР№ СЃС‚Р°Р¶ СЂР°Р±РѕС‚С‹", "OK");
             return;
         }
+
         if (SelectedKlient.ZvInn == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите ИНН", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РРќРќ", "OK");
             return;
         }
+
         if (SelectedKlient.Doljnoct == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите место работы и должность", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РјРµСЃС‚Рѕ СЂР°Р±РѕС‚С‹ Рё РґРѕР»Р¶РЅРѕСЃС‚СЊ", "OK");
             return;
         }
+
         if (SelectedKlient.FaktAdres == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите место факт.проживания", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹РІРµРґРёС‚Рµ РјРµСЃС‚Рѕ С„Р°РєС‚РёС‡. РїСЂРѕР¶РёРІР°РЅРёСЏ", "OK");
             return;
         }
+
         if (SelectedFamilyStatus != null)
             SelectedKlient.BvFamSt = SelectedFamilyStatus.Code.ToString();
         else
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выберите семейное пол-е", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ СЃРµРјРµР№РЅРѕРµ РїРѕР»-Рµ", "OK");
             return;
         }
 
         if (SelectedKlient.FioCupr == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите ФИО супруга(и)", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ Р¤РРћ СЃСѓРїСЂСѓРіР°(Рё)", "OK");
             return;
         }
+
         if (SelectedKlient.RabCupr == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите место работы супруга(и)", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РјРµСЃС‚Рѕ СЂР°Р±РѕС‚С‹ СЃСѓРїСЂСѓРіР°(Рё)", "OK");
             return;
         }
+
         if (SelectedKlient.DoljCup == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите должность супруга(и)", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РґРѕР»Р¶РЅРѕСЃС‚СЊ СЃСѓРїСЂСѓРіР°(Рё)", "OK");
             return;
         }
+
         if (SelectedKlient.BvTelefSupr == null)
         {
-            await DisplayAlert("Ошибка", "Пожалуйста, выведите телефон супруга(и)", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ С‚РµР»РµС„РѕРЅ СЃСѓРїСЂСѓРіР°(Рё)", "OK");
             return;
         }
 
         string _otNom = await SecureStorage.Default.GetAsync("otNom");
         var service = new SavingService();
-        string result = await service.SaveNewLoan(_otNom, SelectedKlient); 
+        string result = await service.SaveNewLoan(_otNom, SelectedKlient);
         //if (result == "OK")
         //{
-            await DisplayAlert("Ответ", result, "OK");
-            await Shell.Current.GoToAsync("HomePage");
+        await DisplayAlert("РћС‚РІРµС‚", result, "OK");
+        await Shell.Current.GoToAsync("HomePage");
         //}
 
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? Несохраненные данные будут потеряны.", "Да", "Нет");
+        bool result = await DisplayAlert("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ РІРµСЂРЅСѓС‚СЊСЃСЏ? РќРµСЃРѕС…СЂР°РЅС‘РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РїРѕС‚РµСЂСЏРЅС‹.", "Р”Р°", "РќРµС‚");
         if (result)
         {
             await Navigation.PopAsync();

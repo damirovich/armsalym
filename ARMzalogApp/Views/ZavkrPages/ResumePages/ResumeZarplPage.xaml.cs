@@ -1,4 +1,4 @@
-namespace ARMzalogApp.Views.ZavkrPages.ResumePages;
+п»їnamespace ARMzalogApp.Views.ZavkrPages.ResumePages;
 
 public partial class ResumeZarplPage : ContentPage
 {
@@ -15,7 +15,7 @@ public partial class ResumeZarplPage : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? ", "Да", "Нет");
+        bool result = await DisplayAlert("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹ С‡С‚Рѕ С…РѕС‚РёС‚Рµ РІРµСЂРЅСѓС‚СЊСЃСЏ? ", "Р”Р°", "РќРµС‚");
         if (result)
         {
             await Navigation.PopAsync();
