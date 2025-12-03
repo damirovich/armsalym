@@ -29,7 +29,7 @@
                     SelectedItem="{Binding SelectedIdNumberType}" />
 
             <Button Text="Поиск в КИБ (физлицо)"
-                    Command="{Binding SearchKibCommand}" />
+                    Command="{Binding CheckKibCommand}" />
 
             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}" />

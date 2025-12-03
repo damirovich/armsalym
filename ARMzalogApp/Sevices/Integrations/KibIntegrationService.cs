@@ -73,7 +73,7 @@ public sealed class KibIntegrationService : IKibIntegrationService
 
         // имя файла – либо из ответа сервера, либо генерируем
         var fileName = string.IsNullOrWhiteSpace(dto.FileName)
-            ? $"KIB_{inn}_{DateTime.Now:yyyyMMddHHmmss}.pdf"
+            ? $"KIB_{inn}_{DateTime.Now:yyyyMMddHHmmss}.zip"
             : dto.FileName;
 
         var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);

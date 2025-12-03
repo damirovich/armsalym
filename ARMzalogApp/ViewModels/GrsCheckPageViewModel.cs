@@ -25,7 +25,7 @@ public class GrsCheckPageViewModel : ObservableObject
         ZvPozn = (int)_zavkr.PositionalNumber;
 
         InfoText = $"ПИН: {Pin}, заявка № {ZvPozn}";
-        CheckCommand = new AsyncRelayCommand(CheckGrsAsync);
+        CheckGrsCommand = new AsyncRelayCommand(CheckGrsAsync);
     }
 
     // --- свойства для биндинга ---
@@ -73,7 +73,7 @@ public class GrsCheckPageViewModel : ObservableObject
 
     public bool HasResult => !string.IsNullOrWhiteSpace(Fio);
 
-    public IAsyncRelayCommand CheckCommand { get; }
+    public IAsyncRelayCommand CheckGrsCommand { get; }
 
     private async Task CheckGrsAsync()
     {
