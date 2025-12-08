@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPages.SocFondPage"
+             Title="Соц-Фонд">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Соцфонд — проверка клиента"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+
+            <Label Text="{Binding InfoText}" />
+
+            <!-- ==== БЛОК РАЗРЕШЕНИЯ (SMS-код) ==== -->
+            <Label Text="Разрешение на доступ к данным Соцфонда"
+                   FontAttributes="Bold"
+                   Margin="0,20,0,5" />
+
+            <Entry Placeholder="Фамилия"
+                   Text="{Binding LastName}" />
+
+            <Entry Placeholder="Имя"
+                   Text="{Binding FirstName}" />
+
+            <Entry Placeholder="Отчество"
+                   Text="{Binding Patronymic}" />
+
+            <Entry Placeholder="Номер телефона (996XXXXXXXXX)"
+                   Keyboard="Telephone"
+                   Text="{Binding PhoneNumber}" />
+
+            <Button Text="Отправить запрос на разрешение (SMS)"
+                    Command="{Binding InitializePermissionCommand}" />
+
+            <Entry Keyboard="Numeric"
+                   Placeholder="Код из SMS"
+                   Text="{Binding PermissionCode}" />
+
+            <Button Text="Подтвердить код"
+                    Command="{Binding ConfirmPermissionCommand}" />
+
+            <Label Text="{Binding PermissionStatus}"
+                   TextColor="Blue"
+                   LineBreakMode="WordWrap" />
+
+            <!-- ==== БЛОК ЗАПРОСОВ ПЕНСИЯ / ПЕРИОДЫ ==== -->
+
+            <Label Text="Запрос данных"
+                   FontAttributes="Bold"
+                   Margin="0,20,0,5" />
+
+            <Button Text="Получить пенсию + суммы"
+                    Command="{Binding GetPensionCommand}" />
+
+            <Button Text="Получить периоды работы"
+                    Command="{Binding GetWorkPeriodsCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}" />
+
+            <Label Text="{Binding ResultMessage}"
+                   TextColor="Green"
+                   LineBreakMode="WordWrap" />
+
+
+            <!-- ==== СПИСОК ПЕРИОДОВ РАБОТЫ ==== -->
+            <CollectionView ItemsSource="{Binding WorkPeriods}"
+                            Margin="0,20,0,0">
+                <CollectionView.EmptyView>
+                    <Label Text="Периоды работы ещё не загружены."
+                           HorizontalOptions="Center"
+                           TextColor="Gray" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,5" HasShadow="True">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding PeriodText}"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding EmployerText}"
+                                       FontSize="12" />
+                                <Label Text="{Binding SalaryText}"
+                                       FontSize="12" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

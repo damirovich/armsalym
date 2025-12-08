@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
 using Newtonsoft.Json;
 using ARMzalogApp.Constants;
@@ -19,7 +19,7 @@ public partial class ZalogPhoto : ContentPage
         InitializeComponent();
         _selectedZalog = selectedZalog;
         _ = LoadSessionDataAsync();
-        totalNum.Text = "загрузка общего количества фотографий ";
+        totalNum.Text = "Р·Р°РіСЂСѓР·РєР° РѕР±С‰РµРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С„РѕС‚РѕРіСЂР°С„РёР№";
         LoadDataFromService();
     }
 
@@ -62,7 +62,7 @@ public partial class ZalogPhoto : ContentPage
             loadingIndicator.IsVisible = false;
             if (result == "OK")
             {
-                await DisplayAlert("Успех", "Успешно отправлено", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
             }
         }
 
@@ -100,11 +100,11 @@ public partial class ZalogPhoto : ContentPage
 
             if (saved)
             {
-                await DisplayAlert("Успешно", "Фото сохранено в галерею", "OK");
+                await DisplayAlert("Г“Г±ГЇГҐГёГ­Г®", "Г”Г®ГІГ® Г±Г®ГµГ°Г Г­ГҐГ­Г® Гў ГЈГ Г«ГҐГ°ГҐГѕ", "OK");
             }
             else
             {
-                await DisplayAlert("Ошибка", "Ошибка при сохранении", "OK");
+                await DisplayAlert("ГЋГёГЁГЎГЄГ ", "ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®ГµГ°Г Г­ГҐГ­ГЁГЁ", "OK");
             }
 #endif
         }
@@ -145,13 +145,13 @@ public partial class ZalogPhoto : ContentPage
 
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно отправлено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
 
                 }
             }
             else
             {
-                await DisplayAlert("Ошибка", "Фотография без локации", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "Р¤РѕС‚РѕРіСЂР°С„РёСЏ Р±РµР· Р»РѕРєР°С†РёРё", "OK");
             }
             loadingIndicator.IsRunning = false;
             loadingIndicator.IsVisible = false;
@@ -163,7 +163,7 @@ public partial class ZalogPhoto : ContentPage
         string inn = _selectedZalog.zvInn;
         string ZvPozn = _selectedZalog.DgPozn.ToString();
         string id = _selectedZalog.ZalogId.ToString().Trim();
-        string path = $"{inn}\\ZAVKR\\{ZvPozn}\\Залоги\\{id}";
+        string path = $"{inn}\\ZAVKR\\{ZvPozn}\\Г‡Г Г«Г®ГЈГЁ\\{id}";
         //string path = $"11812199000548\\ZAVKR\\838091986\\ActivityPhoto";
         string typePhoto = "3";
 
@@ -178,11 +178,11 @@ public partial class ZalogPhoto : ContentPage
             var data = JsonConvert.DeserializeObject<int>(responseData);
             if (data >= 0)
             {
-                totalNum.Text = "Всего " + data.ToString() + " фотографий";
+                totalNum.Text = "Р’СЃРµРіРѕ " + data.ToString() + " С„РѕС‚РѕРіСЂР°С„РёР№";
             }
             else
             {
-                totalNum.Text = "не известно";
+                totalNum.Text = "РЅРµРёР·РІРµСЃС‚РЅРѕ";
             }
         }
     }

@@ -6,7 +6,6 @@ using Plugin.FirebasePushNotification;
 using Plugin.LocalNotification;
 using CommunityToolkit.Maui;
 using ARMzalogApp.Sevices.Integrations;
-using Microsoft.Extensions.DependencyInjection;
 using ARMzalogApp.Constants;
 
 namespace ARMzalogApp
@@ -46,8 +45,8 @@ namespace ARMzalogApp
             builder.Services.AddScoped<IGrsIkService, GrsIkService>();
             builder.Services.AddScoped<ISocialFundIntegrationService, SocialFundIntegrationService>();
 
-            builder.Services.AddTransient<CheckClientViewModel>();
-            builder.Services.AddTransient<CheckClientPage>();
+           
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

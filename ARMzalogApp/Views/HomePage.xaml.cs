@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 using Newtonsoft.Json;
 using ARMzalogApp.Views;
 using System.Windows.Input;
@@ -37,7 +37,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
-        // Загружаем данные только если не загружаем сейчас
+        // Р—Р°РіСЂСѓР¶Р°РµРј РґР°РЅРЅС‹Рµ С‚РѕР»СЊРєРѕ РµСЃР»Рё РЅРµ Р·Р°РіСЂСѓР¶Р°РµРј СЃРµР№С‡Р°СЃ
         if (!_isLoading)
         {
             LoadData();
@@ -79,7 +79,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
             //string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetReferencesOfEmployee?otNom=" + ot_nom;
             _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             HttpResponseMessage response = await httpClient.GetAsync(url, _cancellationTokenSource.Token);
-            _cancellationTokenSource.Token.ThrowIfCancellationRequested(); // Проверяем не была ли отменена операция
+            _cancellationTokenSource.Token.ThrowIfCancellationRequested(); // РџСЂРѕРІРµСЂСЏРµРј, РЅРµ Р±С‹Р»Р° Р»Рё РѕС‚РјРµРЅРµРЅР° РѕРїРµСЂР°С†РёСЏ
 
             if (response.IsSuccessStatusCode)
             {
@@ -99,7 +99,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
             else
             {
                 Console.WriteLine($"Error: {response.StatusCode}");
-                await DisplayAlert("Ошибка", $"Ошибка сервера: {response.StatusCode}", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", $"РћС€РёР±РєР° СЃРµСЂРІРµСЂР°: {response.StatusCode}", "OK");
             }
             activityIndicator.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -109,7 +109,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
         catch (Exception ex)
         {
             Console.WriteLine($"Exception: {ex.Message}");
-            await DisplayAlert("Ошибка", $"Exception: {ex.Message}", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", $"Exception: {ex.Message}", "OK");
         }
     }
 
@@ -131,7 +131,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
-            DisplayAlert("Ошибка", "Введите числа!", "OK");
+            DisplayAlert("РћС€РёР±РєР°", "Р’РІРµРґРёС‚Рµ С‡РёСЃР»Р°!", "OK");
         }
     }
 
@@ -164,7 +164,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
                 }
                 if (dataList.Count > 0)
                 {
-                    DisplayAlert("Успешно", "Заявка найдена ", "OK");
+                    DisplayAlert("РЈСЃРїРµС€РЅРѕ", "Р—Р°СЏРІРєР° РЅР°Р№РґРµРЅР°", "OK");
                 }
                 OnPropertyChanged(nameof(ZavkrList));
 
@@ -218,10 +218,10 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
     }
     #endregion
 
-    //protected async override void OnNavigatedTo(NavigatedToEventArgs args) // используется после полной загузки UI 
+    //protected async override void OnNavigatedTo(NavigatedToEventArgs args) // РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїРѕСЃР»Рµ РїРѕР»РЅРѕР№ Р·Р°РіСЂСѓР·РєРё UI
     //{
     //    base.OnNavigatedTo(args);
-        
+
     //}
 
 }

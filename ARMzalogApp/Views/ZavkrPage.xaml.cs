@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 using ARMzalogApp.Views.ZavkrPages;
 using ARMzalogApp.Views.ZavkrPages.ResumePages;
 
@@ -37,13 +37,13 @@ public partial class ZavkrPage : ContentPage
             }
             else
             {
-                await DisplayAlert("Предупреждение", "Геолокация у Вас не работает. Фотографии будут без местоположения", "OK");
+                await DisplayAlert("РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ", "Р“РµРѕР»РѕРєР°С†РёСЏ Сѓ РІР°СЃ РЅРµ СЂР°Р±РѕС‚Р°РµС‚. Р¤РѕС‚РѕРіСЂР°С„РёРё Р±СѓРґСѓС‚ Р±РµР· РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ", "OK");
             }
         }
         catch (FeatureNotEnabledException ex)
         {
-            await DisplayAlert("Ошибка", "Не удалось получить местоположение", "OK");
-            await DisplayAlert("Ошибка", "Включите геолокацию", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "Р’РєР»СЋС‡РёС‚Рµ РіРµРѕР»РѕРєР°С†РёСЋ", "OK");
             await Shell.Current.GoToAsync("//HomePage");
         }
         catch (Exception ex)
@@ -86,11 +86,28 @@ public partial class ZavkrPage : ContentPage
         await Shell.Current.GoToAsync("AnketaPage");
     }
 
+    // =========== РќРћР’РћР•: РЎРѕС†-С„РѕРЅРґ ===========
+    private async void OnSocFondClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new SocFondPage(_selectedZavkr));
+    }
+
+    // =========== РќРћР’РћР•: Р“Р РЎ (РїР°СЃРїРѕСЂС‚/IK) ===========
+    private async void OnPassportClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new GrsCheckPage(_selectedZavkr));
+    }
+
+    // =========== РќРћР’РћР•: РљРР‘ ===========
+    private async void OnKibClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new KibCheckPage(_selectedZavkr));
+    }
     private async void OnResumePage(object sender, EventArgs e)
     {
         if(_selectedZavkr.PositionalNumber == null)
         {
-            await DisplayAlert("Ошибка", "Номер позиции не может быть пустым", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РќРѕРјРµСЂ РїРѕР·РёС†РёРё РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј", "OK");
             return;
         }
         Navigation.PushAsync(new ResumeZarplPage(_selectedZavkr.PositionalNumber.ToString() ));

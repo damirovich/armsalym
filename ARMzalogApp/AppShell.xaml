@@ -44,11 +44,6 @@
             Route="AccountPage"
         />
 
-        <ShellContent
-            Title="Проверка клиента"
-            Icon="account_icon.png"
-            Route="check-client"
-            ContentTemplate="{DataTemplate views:CheckClientPage}" />
     </TabBar>
 
 </Shell>

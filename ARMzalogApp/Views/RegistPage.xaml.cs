@@ -1,4 +1,4 @@
-using ARMzalogApp.Views;
+п»їusing ARMzalogApp.Views;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -23,18 +23,20 @@ public partial class RegistPage : ContentPage
         DateTime birthDate = BirthDatePicker.Date;
         if (string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(phoneNumber))
         {
-            await Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля ", "Ok");
+            await Application.Current.MainPage.DisplayAlert("РћС€РёР±РєР°", "Р—Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РїРѕР»СЏ", "Ok");
             return;
         }
         var service = new LoginService();
         string result = await service.Registration(lastName, firstName, phoneNumber.Trim(), birthDate);
         if (result == "OK")
         {
-            await Application.Current.MainPage.DisplayAlert("Успешно", "Заявка на регистрацию отправлена. Подойти в офис Компании Салым Финанс для получения логина и пароля", "OK");
+            await Application.Current.MainPage.DisplayAlert("РЈСЃРїРµС€РЅРѕ", "Р—Р°СЏРІРєР° РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЋ РѕС‚РїСЂР°РІР»РµРЅР°. РџРѕРґРѕР№РґРёС‚Рµ РІ РѕС„РёСЃ РљРѕРјРїР°РЅРёРё РЎР°Р»С‹Рј Р¤РёРЅР°РЅСЃ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р»РѕРіРёРЅР° Рё РїР°СЂРѕР»СЏ", "OK");
+
         }
         else if (result == "not found")
         {
-            await Application.Current.MainPage.DisplayAlert("Ошибка", "Неправильный номер телефона. Подойти в офис Компании Салым Финанс для получения дополнительной информации", "OK");
+            await Application.Current.MainPage.DisplayAlert("РћС€РёР±РєР°", "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°. РџРѕРґРѕР№РґРёС‚Рµ РІ РѕС„РёСЃ РљРѕРјРїР°РЅРёРё РЎР°Р»С‹Рј Р¤РёРЅР°РЅСЃ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё", "OK");
+
         }
     }
 }

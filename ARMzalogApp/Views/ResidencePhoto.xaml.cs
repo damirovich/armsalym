@@ -1,4 +1,4 @@
-using ARMzalogApp.Constants;
+п»їusing ARMzalogApp.Constants;
 using ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
 using Newtonsoft.Json;
@@ -16,7 +16,7 @@ public partial class ResidencePhoto : ContentPage
         InitializeComponent();
         _selectedZavkr = selectedZavkr;
         _ = LoadSessionDataAsync();
-        totalNum.Text = "загрузка общего количества фотографий ";
+        totalNum.Text = "Р·Р°РіСЂСѓР·РєР° РѕР±С‰РµРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С„РѕС‚РѕРіСЂР°С„РёР№";
         LoadDataFromService();
 
     }
@@ -61,7 +61,7 @@ public partial class ResidencePhoto : ContentPage
             loadingIndicator.IsVisible = false;
             if (result == "OK")
             {
-                await DisplayAlert("Успех", "Успешно отправлено", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
             }
         }
 
@@ -99,11 +99,11 @@ public partial class ResidencePhoto : ContentPage
 
             if (saved)
             {
-                await DisplayAlert("Успешно", "Фото сохранено в галерею", "OK");
+               await DisplayAlert("РЈСЃРїРµС€РЅРѕ", "Р¤РѕС‚Рѕ СЃРѕС…СЂР°РЅРµРЅРѕ РІ РіР°Р»РµСЂРµСЋ", "OK");
             }
             else
             {
-                await DisplayAlert("Ошибка", "Ошибка при сохранении", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё", "OK");
             }
 #endif
         }
@@ -145,13 +145,12 @@ public partial class ResidencePhoto : ContentPage
                 if (result == "OK")
                 {
                     //var deleted = DeletePhoto(photo);
-                    await DisplayAlert("Успех", "Успешно отправлено", "OK");
-
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
                 }
             }
             else
             {
-                await DisplayAlert("Ошибка", "Фотография без локации", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "Р¤РѕС‚РѕРіСЂР°С„РёСЏ Р±РµР· Р»РѕРєР°С†РёРё", "OK");
             }
             loadingIndicator.IsRunning = false;
             loadingIndicator.IsVisible = false;
@@ -178,12 +177,11 @@ public partial class ResidencePhoto : ContentPage
             var data = JsonConvert.DeserializeObject<int>(responseData);
             if (data >= 0)
             {
-                totalNum.Text = "Всего " + data.ToString() + " фотографий";
+                totalNum.Text = "Р’СЃРµРіРѕ " + data + " С„РѕС‚РѕРіСЂР°С„РёР№";
             }
             else
             {
-                totalNum.Text = "не известно";
-            }
+                totalNum.Text = "РЅРµРёР·РІРµСЃС‚РЅРѕ";            }
         }
     }
 

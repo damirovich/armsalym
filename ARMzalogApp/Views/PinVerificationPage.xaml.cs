@@ -1,4 +1,4 @@
-using ARMzalogApp.Sevices;
+п»їusing ARMzalogApp.Sevices;
 using Plugin.Fingerprint.Abstractions;
 using Plugin.Fingerprint;
 using Microsoft.Maui.Controls.PlatformConfiguration;
@@ -32,21 +32,21 @@ public partial class PinVerificationPage : ContentPage
                 string ot_uid = await SecureStorage.Default.GetAsync("username") ?? "";
                 string fio = await SecureStorage.Default.GetAsync("fio") ?? "";
                 string otdel = await SecureStorage.Default.GetAsync("otdel") ?? "";
-                string uniq = "Aндроид";
+                string uniq = "РђРЅРґСЂРѕРёРґ";
                 var service = new LoginService();
                 if (!string.IsNullOrEmpty(pin) && enteredPin == pin)
                 {
-                    
-                    string result1 = "моб - Успешный вход (пин)";
+
+                    string result1 = "РјРѕР± вЂ” РЈСЃРїРµС€РЅС‹Р№ РІС…РѕРґ (РїРёРЅ)";
                     string result = await service.LoginLog(ot_uid, fio, otdel, uniq, result1);
                    
                     await Shell.Current.GoToAsync("//ChosePage");
                 }
                 else
                 {
-                    string result1 = "моб - Ошибка входа (пин)";
+                    string result1 = "РјРѕР± вЂ” РћС€РёР±РєР° РІС…РѕРґР° (РїРёРЅ)";
                     string result = await service.LoginLog(ot_uid, fio, otdel, uniq, result1);
-                    await DisplayAlert("Ошибка", "Неверный PIN-код", "OK");
+                    await DisplayAlert("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ PIN-РєРѕРґ", "OK");
                     enteredPin = string.Empty;
                     PinEntry.Text = string.Empty;
                 }
@@ -70,7 +70,7 @@ public partial class PinVerificationPage : ContentPage
     private void OnPinEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;
-        entry.Text = new string('•', e.NewTextValue.Length);
+        entry.Text = new string('вЂў', e.NewTextValue.Length);
     }
 
     private async void OnSubmitExitClicked(object sender, EventArgs e)
@@ -96,12 +96,12 @@ public partial class PinVerificationPage : ContentPage
 
         if (latestVersion == null) return;
 
-        //bool isUpdateAvailable = PlayStoreVersionChecker.IsNewVersionAvailable(currentVersion, latestVersion); // для playMarket
+        //bool isUpdateAvailable = PlayStoreVersionChecker.IsNewVersionAvailable(currentVersion, latestVersion); // Г¤Г«Гї playMarket
         //if (isUpdateAvailable)
 
         if (!currentVersion.Equals(latestVersion))
         {
-            var answer = await Shell.Current.DisplayAlert("Подтвердите действие", "Доступна новая версия приложения, хотите обновить?", "Да", "Нет");
+            var answer = await Shell.Current.DisplayAlert("РџРѕРґС‚РІРµСЂРґРёС‚Рµ РґРµР№СЃС‚РІРёРµ", "Р”РѕСЃС‚СѓРїРЅР° РЅРѕРІР°СЏ РІРµСЂСЃРёСЏ РїСЂРёР»РѕР¶РµРЅРёСЏ, С…РѕС‚РёС‚Рµ РѕР±РЅРѕРІРёС‚СЊ?", "Р”Р°", "РќРµС‚");
             if (answer)
             {
                 Uri uri = new Uri("https://play.google.com/store/apps/details?id=com.companyname.armzalogapp");
@@ -110,8 +110,7 @@ public partial class PinVerificationPage : ContentPage
         }
         else
         {
-            Console.WriteLine("Вы используете последнюю версию.");
-
+            Console.WriteLine("Р’С‹ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ РїРѕСЃР»РµРґРЅСЋСЋ РІРµСЂСЃРёСЋ.");
         }
     }
 
@@ -122,7 +121,12 @@ public partial class PinVerificationPage : ContentPage
 
     private async void OnFingerprintButtonClicked(object sender, EventArgs e)
     {
-        var result = await CrossFingerprint.Current.AuthenticateAsync(new AuthenticationRequestConfiguration("Вход с помощью отпечатка пальца", "Необходимо приложить палец для отпечатки пальца"));
+        var result = await CrossFingerprint.Current.AuthenticateAsync(
+                             new AuthenticationRequestConfiguration(
+                                 "Р’С…РѕРґ СЃ РїРѕРјРѕС‰СЊСЋ РѕС‚РїРµС‡Р°С‚РєР° РїР°Р»СЊС†Р°",
+                                 "РќРµРѕР±С…РѕРґРёРјРѕ РїСЂРёР»РѕР¶РёС‚СЊ РїР°Р»РµС† РґР»СЏ РѕС‚РїРµС‡Р°С‚РєР°")
+                             );
+
         if (result.Authenticated)
         {
             activityIndicator.IsVisible = true;
@@ -133,7 +137,7 @@ public partial class PinVerificationPage : ContentPage
         }
         else
         {
-            await DisplayAlert("Ошибка", "Не удалось распознать биометрические данные", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "РќРµ СѓРґР°Р»РѕСЃСЊ СЂР°СЃРїРѕР·РЅР°С‚СЊ Р±РёРѕРјРµС‚СЂРёС‡РµСЃРєРёРµ РґР°РЅРЅС‹Рµ", "OK");
         }
     }
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ARMzalogApp.Views.ZavkrPages.KibCheckPage"
+             Title="КИБ">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Проверка клиента через КИБ"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+            
+            <!-- Информация по заявке -->
+            <Label Text="{Binding InfoText}" />
+
+            <Entry Placeholder="ФИО"
+                   Text="{Binding FullName}" />
+
+            <Entry Placeholder="Дата рождения (yyyy-MM-dd)"
+                   Text="{Binding DateOfBirth}" />
+
+            <Entry Placeholder="Серия + номер паспорта (AA1234567)"
+                   Text="{Binding InternalPassport}" />
+
+            <!-- Тип номера -->
+            <Picker Title="Тип номера"
+                    ItemsSource="{Binding IdNumberTypes}"
+                    SelectedItem="{Binding SelectedIdNumberType}" />
+
+            <Button Text="Поиск в КИБ (физлицо)"
+                    Command="{Binding CheckKibCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}" />
+
+            
+
+            <!-- Результат из последней записи -->
+            <VerticalStackLayout Spacing="4"
+                                 IsVisible="{Binding HasResult}">
+
+                <Label Text="{Binding ResultFullName, StringFormat='ФИО: {0}'}" />
+                <Label Text="{Binding ResultDateOfBirth, StringFormat='Дата рождения: {0}'}" />
+                <Label Text="{Binding ResultInternalPassport, StringFormat='Паспорт: {0}'}" />
+                <Label Text="{Binding ResultCreditInfoId, StringFormat='CreditInfoId: {0}'}" />
+                <Label Text="{Binding ResultStatus, StringFormat='Статус: {0}'}" />
+                <Label Text="{Binding ResultSearchRuleApplied, StringFormat='Применённое правило: {0}'}" />
+                <Label Text="{Binding ResultDateOfQuery, StringFormat='Дата запроса: {0:dd.MM.yyyy HH:mm}'}" />
+
+                
+                <Button Text="Открыть PDF-отчет КИБ"
+            Command="{Binding DownloadPdfCommand}" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

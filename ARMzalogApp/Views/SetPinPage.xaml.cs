@@ -1,4 +1,4 @@
-namespace ARMzalogApp.Views;
+п»їnamespace ARMzalogApp.Views;
 
 public partial class SetPinPage : ContentPage
 {
@@ -19,19 +19,19 @@ public partial class SetPinPage : ContentPage
             {
                 //var session = await GetSessionAsync();
                 await SaveSessionAsync(pin1);
-                //await DisplayAlert("Успех", "PIN-код успешно установлен", "OK");
+                //await DisplayAlert("РЈСЃРїРµС…", "PIN-РєРѕРґ СѓСЃРїРµС€РЅРѕ СѓСЃС‚Р°РЅРѕРІР»РµРЅ", "OK");
                 await Shell.Current.GoToAsync(nameof(PinVerificationPage));
             }
             else
             {
-                await DisplayAlert("Ошибка", "PIN-коды не совпадают", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "PIN-РєРѕРґС‹ РЅРµ СЃРѕРІРїР°РґР°СЋС‚", "OK");
                 PinEntry1.Text = string.Empty;
                 PinEntry2.Text = string.Empty;
             }
         }
         else
         {
-            await DisplayAlert("Ошибка", "Введите действительный PIN-код из 4 цифр", "OK");
+            await DisplayAlert("РћС€РёР±РєР°", "Р’РІРµРґРёС‚Рµ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹Р№ PIN-РєРѕРґ РёР· 4 С†РёС„СЂ", "OK");
         }
     }
 

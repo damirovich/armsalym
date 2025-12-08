@@ -34,20 +34,39 @@
             </Button.ImageSource>
         </Button>
 
+
+        <!-- Блок действий по заявке -->
         <HorizontalStackLayout Spacing="10" Margin="10">
-            <Button Text="ОПиУ" Clicked="OnOpiuPage" BackgroundColor="#de8b43" TextColor="Black"/>
-            <Button Text="Анкета ФЛ" Clicked="OnAnketaPage" BackgroundColor="#aed930" TextColor="Black"/>
-            <Button Text="Соц фонд" BackgroundColor="Gray" TextColor="Black"/>
+            <Button Text="ОПиУ"
+                    Clicked="OnOpiuPage"
+                    BackgroundColor="#de8b43"
+                    TextColor="Black"/>
+            <Button Text="Анкета ФЛ"
+                    Clicked="OnAnketaPage"
+                    BackgroundColor="#aed930"
+                    TextColor="Black"/>
+            <Button Text="Соц фонд"
+                    Clicked="OnSocFondClicked"
+                    BackgroundColor="Gray"
+                    TextColor="Black"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Spacing="10" Margin="10">
-            <Button Text="Паспорт" BackgroundColor="Gray" TextColor="Black"/>
-            <Button Text="КИБ" BackgroundColor="Gray" TextColor="Black"/>
+            <Button Text="Паспорт"
+                    Clicked="OnPassportClicked"
+                    BackgroundColor="Gray"
+                    TextColor="Black"/>
+            <Button Text="КИБ"
+                    Clicked="OnKibClicked"
+                    BackgroundColor="Gray"
+                    TextColor="Black"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Spacing="10" Margin="10">
-            <Button Text="Резюме" Clicked="OnResumePage" BackgroundColor="#30cbd9" TextColor="Black"/>
+            <Button Text="Резюме"
+                    Clicked="OnResumePage"
+                    BackgroundColor="#30cbd9"
+                    TextColor="Black"/>
         </HorizontalStackLayout>
-
     </StackLayout>
 </ContentPage>

@@ -1,4 +1,4 @@
-using ARMzalogApp.Models;
+п»їusing ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
 using System.Diagnostics.Metrics;
 
@@ -38,10 +38,10 @@ public partial class PhotoClient : ContentPage
                 string result = await service.SaveAbsFile(inn, ZvPozn, longitude, latitude, photoData, type, id, otNom, token);
                 loadingIndicator.IsRunning = false;
                 loadingIndicator.IsVisible = false;
-                //await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                //await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 }
             }
         }
@@ -76,7 +76,7 @@ public partial class PhotoClient : ContentPage
                 loadingIndicator.IsVisible = false;
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 }
             }
         }
@@ -111,7 +111,7 @@ public partial class PhotoClient : ContentPage
                 loadingIndicator.IsVisible = false;
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 }
             }
         }

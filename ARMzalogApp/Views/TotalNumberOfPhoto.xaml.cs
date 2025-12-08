@@ -1,17 +1,17 @@
-using ARMzalogApp.Constants;
+п»їusing ARMzalogApp.Constants;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ARMzalogApp.Models;
 
 namespace ARMzalogApp.Views;
 
-public partial class TotalNumberOfPhoto : ContentPage // показывает количество фотографий на новой странице
+public partial class TotalNumberOfPhoto : ContentPage // ГЇГ®ГЄГ Г§Г»ГўГ ГҐГІ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГґГ®ГІГ®ГЈГ°Г ГґГЁГ© Г­Г  Г­Г®ГўГ®Г© Г±ГІГ°Г Г­ГЁГ¶ГҐ
 {
     private Zavkr _selectedZavkr;
     public TotalNumberOfPhoto(Zavkr selectedZavkr)
 	{
 		InitializeComponent();
-        totalNum.Text = "Загрузка общего количества фотографий ";
+        totalNum.Text = "Р—Р°РіСЂСѓР·РєР° РѕР±С‰РµРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С„РѕС‚РѕРіСЂР°С„РёР№";
         _selectedZavkr = selectedZavkr;
         LoadDataFromService();
     }
@@ -20,7 +20,7 @@ public partial class TotalNumberOfPhoto : ContentPage // показывает количество ф
         string inn = _selectedZavkr.Inn;
         string ZvPozn = _selectedZavkr.PositionalNumber.ToString();
         
-        string path = $"{inn}\\ZAVKR\\{ZvPozn}\\ResidencePhoto"; // передеать через сессию ! до открытия страницы
+        string path = $"{inn}\\ZAVKR\\{ZvPozn}\\ResidencePhoto"; // РїРµСЂРµРґР°С‚СЊ С‡РµСЂРµР· СЃРµСЃСЃРёСЋ! РґРѕ РѕС‚РєСЂС‹С‚РёСЏ СЃС‚СЂР°РЅРёС†С‹
         string typePhoto = await SecureStorage.GetAsync("typePhoto") ?? "";
         
         string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetCountOfImage?path=" + path + "&typePhoto=" + typePhoto;
@@ -34,11 +34,11 @@ public partial class TotalNumberOfPhoto : ContentPage // показывает количество ф
             var data = JsonConvert.DeserializeObject<int>(responseData);
             if (data >= 0)
             {
-                totalNum.Text = "Всего " + data.ToString() + " фотографий";
+                totalNum.Text = "Р’СЃРµРіРѕ " + data.ToString() + " С„РѕС‚РѕРіСЂР°С„РёР№";
             }
             else
             {
-                totalNum.Text = "не известно";
+                totalNum.Text = "РЅРµРёР·РІРµСЃС‚РЅРѕ";
             }
         }
     }

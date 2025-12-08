@@ -1,4 +1,4 @@
-using ARMzalogApp.Constants;
+п»їusing ARMzalogApp.Constants;
 using ARMzalogApp.Models;
 using ARMzalogApp.Sevices;
 using Newtonsoft.Json;
@@ -19,7 +19,7 @@ public partial class ActivityPhoto : ContentPage
         InitializeComponent();
         _selectedZavkr = selectedZavkr;
         _ = LoadSessionDataAsync();
-        totalNum.Text = "загрузка общего количества фотографий ";
+        totalNum.Text = "Р·Р°РіСЂСѓР·РєР° РѕР±С‰РµРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С„РѕС‚РѕРіСЂР°С„РёР№";
         LoadDataFromService();
 
     }
@@ -34,7 +34,8 @@ public partial class ActivityPhoto : ContentPage
     {
         var latitudeTask = SecureStorage.Default.GetAsync("Latitude");
         var longitudeTask = SecureStorage.Default.GetAsync("Longitude");
-        // Ожидание завершения обоих запросов
+
+        // РћР¶РёРґР°РЅРёРµ Р·Р°РІРµСЂС€РµРЅРёСЏ РѕР±РѕРёС… Р·Р°РїСЂРѕСЃРѕРІ
         await Task.WhenAll(latitudeTask, longitudeTask);
 
         return (await latitudeTask, await longitudeTask);
@@ -64,7 +65,7 @@ public partial class ActivityPhoto : ContentPage
             loadingIndicator.IsVisible = false;
             if (result == "OK")
             {
-                await DisplayAlert("Успех", "Успешно отправлено", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
             }
         }
 
@@ -101,11 +102,11 @@ public partial class ActivityPhoto : ContentPage
 
             if (saved)
             {
-                await DisplayAlert("Успешно", "Фото сохранено в галерею", "OK");
+                await DisplayAlert("Г“Г±ГЇГҐГёГ­Г®", "Г”Г®ГІГ® Г±Г®ГµГ°Г Г­ГҐГ­Г® Гў ГЈГ Г«ГҐГ°ГҐГѕ", "OK");
             }
             else
             {
-                await DisplayAlert("Ошибка", "Ошибка при сохранении", "OK");
+                await DisplayAlert("ГЋГёГЁГЎГЄГ ", "ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®ГµГ°Г Г­ГҐГ­ГЁГЁ", "OK");
             }
 #endif
         }
@@ -146,20 +147,19 @@ public partial class ActivityPhoto : ContentPage
 
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно отправлено", "OK");
-
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ", "OK");
                 }
             }
             else
             {
-                await DisplayAlert("Ошибка", "Фотография без локации", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "Р¤РѕС‚РѕРіСЂР°С„РёСЏ Р±РµР· Р»РѕРєР°С†РёРё", "OK");
             }
             loadingIndicator.IsRunning = false;
             loadingIndicator.IsVisible = false;
         }
     }
 
-    //private async void OnGetTotalNumClicked(object sender, EventArgs e) // для показа колич. фото на новой странице
+    //private async void OnGetTotalNumClicked(object sender, EventArgs e) // Г¤Г«Гї ГЇГ®ГЄГ Г§Г  ГЄГ®Г«ГЁГ·. ГґГ®ГІГ® Г­Г  Г­Г®ГўГ®Г© Г±ГІГ°Г Г­ГЁГ¶ГҐ
     //{
     //    await SecureStorage.SetAsync("typePhoto","2");
     //    await Navigation.PushAsync(new TotalNumberOfPhoto(_selectedZavkr));
@@ -184,11 +184,11 @@ public partial class ActivityPhoto : ContentPage
             var data = JsonConvert.DeserializeObject<int>(responseData);
             if (data >= 0)
             {
-                totalNum.Text = "Всего " + data.ToString() + " фотографий";
+                totalNum.Text = "Р’СЃРµРіРѕ " + data.ToString() + " С„РѕС‚РѕРіСЂР°С„РёР№";
             }
             else
             {
-                totalNum.Text = "не известно";
+                totalNum.Text = "РЅРµРёР·РІРµСЃС‚РЅРѕ";
             }
         }
     }

@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+п»їusing Microsoft.Maui.Controls;
 
 namespace ARMzalogApp.Views.ZavkrPages;
 
@@ -23,7 +23,7 @@ public partial class AnketaPage : ContentPage
         bool isYesSelected = Q1Yes?.IsChecked == true;
         bool isNoSelected = Q1No?.IsChecked == true;
 
-        // Вопросы 2-5: ПОКАЗЫВАТЬ только когда выбран "Нет"
+        // Р’РѕРїСЂРѕСЃС‹ 2-5: РџРћРљРђР—Р«Р’РђРўР¬ С‚РѕР»СЊРєРѕ РєРѕРіРґР° РІС‹Р±СЂР°РЅ "РќРµС‚"
         if (FrameQ2 != null)
             FrameQ2.IsVisible = isNoSelected;
         if (FrameQ3 != null)
@@ -33,7 +33,7 @@ public partial class AnketaPage : ContentPage
         if (FrameQ5 != null)
             FrameQ5.IsVisible = isNoSelected;
 
-        // Вопросы 7-12: ПОКАЗЫВАТЬ только когда выбран "Да"
+        // Р’РѕРїСЂРѕСЃС‹ 7вЂ“12: РџРћРљРђР—Р«Р’РђРўР¬ С‚РѕР»СЊРєРѕ РєРѕРіРґР° РІС‹Р±СЂР°РЅ "Р”Р°"
         if (FrameQ7 != null)
             FrameQ7.IsVisible = isYesSelected;
         if (FrameQ8 != null)
@@ -50,7 +50,7 @@ public partial class AnketaPage : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        bool result = await DisplayAlert("Подтверждение", "Вы уверены что хотите вернуться? Несохраненные данные будут потеряны.", "Да", "Нет");
+        bool result = await DisplayAlert("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ РІРµСЂРЅСѓС‚СЊСЃСЏ? РќРµСЃРѕС…СЂР°РЅС‘РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РїРѕС‚РµСЂСЏРЅС‹.", "Р”Р°", "РќРµС‚");
         if (result)
         {
             await Navigation.PopAsync();

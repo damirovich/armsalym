@@ -1,4 +1,4 @@
-using ARMzalogApp.Sevices;
+п»їusing ARMzalogApp.Sevices;
 using ARMzalogApp.Models;
 namespace ARMzalogApp.Views;
 
@@ -36,10 +36,10 @@ public partial class PoruchPhoto : ContentPage
                 string result = await service.SaveAbsFile(inn, ZvPozn, longitude, latitude, photoData, type, id, otNom, token);
                 loadingIndicator.IsRunning = false;
                 loadingIndicator.IsVisible = false;
-                //await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                //await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 }
             }
         }
@@ -74,7 +74,7 @@ public partial class PoruchPhoto : ContentPage
                 loadingIndicator.IsVisible = false;
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("Г“Г±ГЇГҐГµ", "Г“Г±ГЇГҐГёГ­Г® Г±Г®ГµГ°Г Г­ГҐГ­Г®", "OK");
                 }
             }
         }
@@ -109,7 +109,7 @@ public partial class PoruchPhoto : ContentPage
                 loadingIndicator.IsVisible = false;
                 if (result == "OK")
                 {
-                    await DisplayAlert("Успех", "Успешно сохранено", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ", "OK");
                 }
             }
         }

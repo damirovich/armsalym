@@ -1,4 +1,4 @@
-using ARMzalogApp.Constants;
+п»їusing ARMzalogApp.Constants;
 using ARMzalogApp.Models;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
@@ -41,7 +41,7 @@ public partial class Zalog : ContentPage
                 //BindingContext = dataList;
                 if(dataList.Count() == 0)
                 {
-                    emptyZalog.Text = "Залоги отсутствуют";
+                    emptyZalog.Text = "Р—Р°Р»РѕРіРё РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚";
                 }
                 else
                 {
