@@ -1,11 +1,13 @@
 ﻿using ARMzalogApp.Constants;
 using ARMzalogApp.Models;
+using ARMzalogApp.Models.Requests;
 using ARMzalogApp.Models.Responses;
 using ARMzalogApp.Sevices;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows.Input;
 
 namespace ARMzalogApp.ViewModels;
@@ -46,6 +48,10 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     public ObservableCollection<Spr> PurposesList { get; set; } = new();
     public ObservableCollection<FamilyStatus> FamilyStatusList { get; set; } = FamilyStatus.DefaultList;
 
+    public ObservableCollection<ClientType> ClientTypeList { get; set; } = ClientType.DefaultList;
+    public ObservableCollection<IncomeType> IncomeTypeList { get; set; } = IncomeType.DefaultList;
+
+
     private LoanTypeResponse _selectedLoanType;
     public LoanTypeResponse SelectedLoanType
     {
@@ -81,6 +87,46 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         set { _selectedFamilyStatus = value; OnPropertyChanged(); }
     }
 
+    private ClientType _selectedClientType;
+    public ClientType SelectedClientType
+    {
+        get => _selectedClientType;
+        set { _selectedClientType = value; OnPropertyChanged(); }
+    }
+
+    private IncomeType _selectedIncomeType;
+    public IncomeType SelectedIncomeType
+    {
+        get => _selectedIncomeType;
+        set { _selectedIncomeType = value; OnPropertyChanged(); }
+    }
+    private decimal _salaryAmount;
+    public decimal SalaryAmount
+    {
+        get => _salaryAmount;
+        set { _salaryAmount = value; OnPropertyChanged(); }
+    }
+
+    private decimal _monthlyExpenses;
+    public decimal MonthlyExpenses
+    {
+        get => _monthlyExpenses;
+        set { _monthlyExpenses = value; OnPropertyChanged(); }
+    }
+
+    private decimal _sfLoansService;
+    public decimal SfLoansService
+    {
+        get => _sfLoansService;
+        set { _sfLoansService = value; OnPropertyChanged(); }
+    }
+
+    private string _incomeDescription;
+    public string IncomeDescription
+    {
+        get => _incomeDescription;
+        set { _incomeDescription = value; OnPropertyChanged(); }
+    }
     private bool _isLoading;
     public bool IsLoading
     {
@@ -186,17 +232,63 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
 
     private async Task SaveAsync()
     {
-        // Здесь будет твоя логика:
-        // - проверить все поля
-        // - вызвать SavingService.SaveNewLoan()
-        // - вызвать POST /applications/{id}/salary-block
-
         var otNom = await SecureStorage.Default.GetAsync("otNom");
+       
+        var dto = new SaveZarpZayavkaDto
+        {
+            ZvPozn = SelectedKlient.ZvPozn,
+            OtNom = otNom,
 
-        var service = new SavingService();
-        var result = await service.SaveNewLoan(otNom, SelectedKlient);
+            // Паспорт
+            ZvDok = SelectedKlient.ZvDok,
+            ZvSrdok = SelectedKlient.ZvSrdok,
+            ZvNdok = SelectedKlient.ZvNdok,
+            ZvDatevp = SelectedKlient.ZvDatevp,
+            ZvDokend = SelectedKlient.ZvDokend,
+            ZvMvd = SelectedKlient.ZvMvd,
 
-        await App.Current.MainPage.DisplayAlert("Ответ", result, "OK");
+            // Клиент
+            KlFam = SelectedKlient.IFam,
+            KlName = SelectedKlient.KlName,
+            KlOtch = SelectedKlient.KlOtch,
+            ZvInn = SelectedKlient.ZvInn,
+            FaktAdres = SelectedKlient.FaktAdres,
+            Doljnoct = SelectedKlient.Doljnoct,
+            BvRabStaj = SelectedKlient.BvRabStaj,
+
+            // Семья
+            FamStat = SelectedFamilyStatus?.Code,
+            FioCupr = SelectedKlient.FioCupr,
+            RabCupr = SelectedKlient.RabCupr,
+            DoljCup = SelectedKlient.DoljCup,
+            BvTelefSupr = SelectedKlient.BvTelefSupr,
+
+            // Финансы
+            SalaryAmount = SalaryAmount,
+            MonthlyExpenses = MonthlyExpenses,
+            SfLoansService = SfLoansService,
+            ClientType = SelectedClientType?.Id,
+            IncomeType = SelectedIncomeType?.Id,
+            IncomeDescription = IncomeDescription,
+
+            // Кредит
+            ZvSum = SelectedKlient.ZvSum,
+            ZvSrok = SelectedKlient.ZvSrok,
+            CelKr = SelectedPurpose?.Id,
+            ZvVidkr = (byte?)SelectedLoanType?.Id
+        };
+
+        using var http = new HttpClient();
+        var url = $"{ServerConstants.SERVER_ROOT_URL}api/zavkr/save";
+
+        var json = JsonConvert.SerializeObject(dto);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await http.PostAsync(url, content);
+        var responseJson = await response.Content.ReadAsStringAsync();
+
+        await App.Current.MainPage.DisplayAlert("Ответ", responseJson, "OK");
+
     }
 
     private async Task GoBackAsync()
