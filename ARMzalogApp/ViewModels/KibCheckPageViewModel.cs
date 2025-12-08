@@ -25,10 +25,14 @@ public partial class KibCheckPageViewModel : ObservableObject
         {
             BaseAddress = new Uri(ServerConstants.SERVER_ROOT_URL)
         };
-        _inn = zavkr.Inn;
-        IdNumber = _zavkr.Inn;                // по умолчанию PIN/ИНН из заявки
+   
+        FullName = _zavkr.FullName;
+        DateOfBirth = _zavkr.BirthDate;
+        InternalPassport = $"{_zavkr.PassportSeries}{_zavkr.PassportNumber}";
+
+        IdNumber = _zavkr.Inn; // PIN/ИНН
         ZvPozn = (int)_zavkr.PositionalNumber;
-        TypeClient = 1;                       // пока считаем ФЛ
+        TypeClient = 1;
 
         InfoText = $"ПИН/ИНН: {IdNumber}, заявка № {ZvPozn}";
 
@@ -109,9 +113,6 @@ public partial class KibCheckPageViewModel : ObservableObject
 
     public bool IsBusy { get => _isBusy; set => SetProperty(ref _isBusy, value); }
     private bool _isBusy;
-
-    [ObservableProperty]
-    private string _inn;
 
     [ObservableProperty]
     private string _status;
@@ -205,7 +206,7 @@ public partial class KibCheckPageViewModel : ObservableObject
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(Inn))
+            if (string.IsNullOrWhiteSpace(IdNumber))
             {
                 await Application.Current.MainPage.DisplayAlert("Ошибка", "ИНН/ПИН пустой", "OK");
                 return;
@@ -222,7 +223,7 @@ public partial class KibCheckPageViewModel : ObservableObject
             var zvPozn = (int)_zavkr.PositionalNumber;
             var typeClient = 1; // физ. лицо
 
-            var filePath = await _kibService.DownloadPdfAsync(Inn.Trim(),zvPozn,userId,typeClient);
+            var filePath = await _kibService.DownloadPdfAsync(IdNumber.Trim(),zvPozn,userId,typeClient);
 
             if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
             {

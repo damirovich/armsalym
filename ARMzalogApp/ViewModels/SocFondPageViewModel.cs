@@ -21,8 +21,12 @@ public class SocFondPageViewModel : ObservableObject
         {
             BaseAddress = new Uri(ServerConstants.SERVER_ROOT_URL)
         };
-
         InfoText = $"ПИН: {_zavkr.Inn}, заявка № {_zavkr.PositionalNumber}";
+
+        LastName = _zavkr.KlFam;
+        FirstName = _zavkr.KlName;
+        Patronymic = _zavkr.KlOtch;
+        PhoneNumber = _zavkr.Phone;
 
         InitializePermissionCommand = new AsyncRelayCommand(InitializePermissionAsync);
         ConfirmPermissionCommand = new AsyncRelayCommand(ConfirmPermissionAsync);

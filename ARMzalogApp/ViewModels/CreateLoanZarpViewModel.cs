@@ -43,13 +43,16 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     }
 
     public ObservableCollection<LoanTypeResponse> LoanTypeList { get; set; } = new();
-    public ObservableCollection<CurrencyResponse> CurrencyList { get; set; } = new();
+    public ObservableCollection<CurrencyResponse> CurrencyList { get; set; } = CurrencyResponse.DefaultList;
     public ObservableCollection<SubProduct> SubProductList { get; set; } = SubProduct.DefaultList;
     public ObservableCollection<Spr> PurposesList { get; set; } = new();
     public ObservableCollection<FamilyStatus> FamilyStatusList { get; set; } = FamilyStatus.DefaultList;
 
     public ObservableCollection<ClientType> ClientTypeList { get; set; } = ClientType.DefaultList;
     public ObservableCollection<IncomeType> IncomeTypeList { get; set; } = IncomeType.DefaultList;
+    public ObservableCollection<Spr> NationalityList { get; set; } = new();
+    public ObservableCollection<CountryCode> CitizenshipList { get; set; } = new();
+
 
 
     private LoanTypeResponse _selectedLoanType;
@@ -120,7 +123,12 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         get => _sfLoansService;
         set { _sfLoansService = value; OnPropertyChanged(); }
     }
-
+    private decimal _parallelLoansService;
+    public decimal ParallelLoansService
+    {
+        get => _parallelLoansService;
+        set { _parallelLoansService = value; OnPropertyChanged(); }
+    }
     private string _incomeDescription;
     public string IncomeDescription
     {
@@ -132,6 +140,29 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     {
         get => _isLoading;
         set { _isLoading = value; OnPropertyChanged(); }
+    }
+   
+    // Выбранные значения
+    private Spr _selectedNationality;
+    public Spr SelectedNationality
+    {
+        get => _selectedNationality;
+        set { _selectedNationality = value; OnPropertyChanged(); }
+    }
+
+    private CountryCode _selectedCitizenship;
+    public CountryCode SelectedCitizenship
+    {
+        get => _selectedCitizenship;
+        set { _selectedCitizenship = value; OnPropertyChanged(); }
+    }
+
+    // Для пола мы используем просто строку, так как в XAML жестко прописали "Мужской"/"Женский"
+    private string _selectedGender;
+    public string SelectedGender
+    {
+        get => _selectedGender;
+        set { _selectedGender = value; OnPropertyChanged(); }
     }
 
     #endregion
@@ -157,8 +188,18 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
 
         try
         {
-            await GetDataLoanType();
-            await GetDataPurpose();
+            // Создаем задачи для загрузки всех справочников
+            var t1 = GetDataLoanType();      // Виды кредитов
+            var t2 = GetDataPurpose();       // Цели кредита
+            var t3 = GetNationalities();     // Национальности (новое)
+            var t4 = GetCitizenship();       // Гражданство (новое)
+
+            // Запускаем их все одновременно и ждем, пока завершатся
+            await Task.WhenAll(t1, t2, t3, t4);
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Ошибка", "Не удалось загрузить справочники: " + ex.Message, "OK");
         }
         finally
         {
@@ -169,32 +210,82 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
 
     public async Task SearchClientAsync()
     {
-        if (string.IsNullOrWhiteSpace(KlientFullName))
-            return;
+        if (string.IsNullOrWhiteSpace(KlientFullName)) return;
 
-        using var httpClient = new HttpClient();
-        var url = $"{ServerConstants.SERVER_ROOT_URL}api/LoanReference/GetClientByFullName?fullName={KlientFullName}";
-        var response = await httpClient.GetAsync(url);
-
-        if (!response.IsSuccessStatusCode)
-            return;
-
-        var json = await response.Content.ReadAsStringAsync();
-        var klient = JsonConvert.DeserializeObject<Klient>(json);
-
-        if (klient == null) return;
-
-        SelectedKlient = new ZmainView
+        IsLoading = true;
+        try
         {
-            ZvNdok = klient.KlNdok,
-            ZvSrdok = klient.KlSrdok,
-            ZvDok = klient.KlDok?.Trim(),
-            ZvMvd = klient.KlMvd,
-            ZvDatevp = klient.KlDatevp,
-            ZvDokend = klient.KlDokend
-        };
+            using var httpClient = new HttpClient();
+            var url = $"{ServerConstants.SERVER_ROOT_URL}api/LoanReference/GetClientByFullName?fullName={KlientFullName}";
+            var response = await httpClient.GetAsync(url);
 
-        OnPropertyChanged(nameof(SelectedKlient));
+            if (!response.IsSuccessStatusCode)
+            {
+                await App.Current.MainPage.DisplayAlert("Инфо", "Клиент не найден", "OK");
+                return;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var klientDb = JsonConvert.DeserializeObject<Klient>(json); // Твоя модель из БД
+
+            if (klientDb == null) return;
+
+            // 1. Заполняем текстовые поля
+            SelectedKlient.ZvInn = klientDb.KlInn;
+            SelectedKlient.ZvDok = klientDb.KlDok?.Trim();
+            SelectedKlient.ZvSrdok = klientDb.KlSrdok;
+            SelectedKlient.ZvNdok = klientDb.KlNdok;
+            SelectedKlient.ZvMvd = klientDb.KlMvd;
+            SelectedKlient.ZvDatevp = klientDb.KlDatevp;
+            SelectedKlient.RegAdres = klientDb.KlAdr; // Адрес
+            SelectedKlient.ZvTel = klientDb.KlTel1;   // Телефон
+            SelectedKlient.ZvFmr = klientDb.Fmr;      // Место рождения
+            SelectedKlient.Doljnoct = klientDb.KlDolgn; // Должность
+            SelectedKlient.ZvDokend = klientDb.KlDokend;
+
+            // 2. Выбираем значения в списках (Pickers)
+
+            // Пол (1-М, 2-Ж)
+            if (klientDb.KlGr == 1) SelectedGender = "Мужской";
+            else if (klientDb.KlGr == 2) SelectedGender = "Женский";
+
+            // Гражданство (Ищем по названию, т.к. в БД Klient поле Grajd - это строка)
+            if (!string.IsNullOrEmpty(klientDb.Grajd))
+            {
+                SelectedCitizenship = CitizenshipList
+                    .FirstOrDefault(x => x.Name.Equals(klientDb.Grajd, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Национальность (KlNational - это int ID)
+            if (klientDb.KlNational.HasValue)
+            {
+                // В модели Spr у тебя скорее всего Id или S_Kod
+                SelectedNationality = NationalityList
+                    .FirstOrDefault(x => x.SKod == klientDb.KlNational);
+            }
+
+            // Семейное положение
+            if (klientDb.KlSempolog.HasValue)
+            {
+                SelectedFamilyStatus = FamilyStatusList
+                    .FirstOrDefault(x => x.Code == (FamilyStatusType)klientDb.KlSempolog);
+            }
+
+            // Обновляем UI
+            OnPropertyChanged(nameof(SelectedKlient));
+            OnPropertyChanged(nameof(SelectedGender));
+            OnPropertyChanged(nameof(SelectedCitizenship));
+            OnPropertyChanged(nameof(SelectedNationality));
+            OnPropertyChanged(nameof(SelectedFamilyStatus));
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Ошибка", ex.Message, "OK");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
 
@@ -228,7 +319,39 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         foreach (var item in list)
             PurposesList.Add(item);
     }
+    private async Task GetNationalities()
+    {
+        using var httpClient = new HttpClient();
+        // В веб-версии: s_tip == 36
+        var url = $"{ServerConstants.SERVER_ROOT_URL}api/Reference/GetSpr?tip=36";
 
+        var response = await httpClient.GetAsync(url);
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var list = JsonConvert.DeserializeObject<List<Spr>>(json);
+
+            NationalityList.Clear();
+            foreach (var item in list) NationalityList.Add(item);
+        }
+    }
+
+    private async Task GetCitizenship()
+    {
+        using var httpClient = new HttpClient();
+        // В веб-версии: таблица country_codes
+        var url = $"{ServerConstants.SERVER_ROOT_URL}api/Reference/GetCountries";
+
+        var response = await httpClient.GetAsync(url);
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var list = JsonConvert.DeserializeObject<List<CountryCode>>(json);
+
+            CitizenshipList.Clear();
+            foreach (var item in list) CitizenshipList.Add(item);
+        }
+    }
 
     private async Task SaveAsync()
     {
@@ -290,7 +413,7 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         await App.Current.MainPage.DisplayAlert("Ответ", responseJson, "OK");
 
     }
-
+   
     private async Task GoBackAsync()
     {
         bool result = await App.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены, что хотите вернуться? Несохранённые данные будут потеряны.", "Да", "Нет");
@@ -298,6 +421,8 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         if (result)
             await Shell.Current.GoToAsync("..");
     }
+
+
 
     #endregion
 }

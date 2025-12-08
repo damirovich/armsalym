@@ -21,6 +21,15 @@ namespace ARMzalogApp.Models
         public string ZV_DATE { get; set; }
         public string ZV_SUM { get; set; }
 
+        public string PassportSeries { get; set; }
+        public string PassportNumber { get; set; }
+        public string BirthDate { get; set; }
+        public string FullName { get; set; }
+        public string KlFam { get; set; }
+        public string KlName { get; set; }
+        public string KlOtch { get; set; }
+        public string Phone { get; set; }
+
         public bool IsSecretHidden
         {
             get => isSecretHidden;

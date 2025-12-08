@@ -4,10 +4,17 @@ namespace ARMzalogApp.Views.ZavkrPages;
 
 public partial class CreateLoanZarp : ContentPage
 {
+   private readonly CreateLoanZarpViewModel _viewModel;
+
     public CreateLoanZarp()
     {
         InitializeComponent();
-        BindingContext = new CreateLoanZarpViewModel();
+
+        // Создаем ViewModel
+        _viewModel = new CreateLoanZarpViewModel();
+        
+        // Привязываем контекст данных
+        BindingContext = _viewModel;
     }
 
 }

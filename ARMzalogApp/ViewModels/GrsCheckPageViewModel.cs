@@ -24,6 +24,9 @@ public class GrsCheckPageViewModel : ObservableObject
         Pin = _zavkr.Inn;
         ZvPozn = (int)_zavkr.PositionalNumber;
 
+        PassportSeries = _zavkr.PassportSeries ?? string.Empty;
+        PassportNumber = _zavkr.PassportNumber ?? string.Empty;
+
         InfoText = $"ПИН: {Pin}, заявка № {ZvPozn}";
         CheckGrsCommand = new AsyncRelayCommand(CheckGrsAsync);
     }
