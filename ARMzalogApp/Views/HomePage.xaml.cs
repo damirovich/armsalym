@@ -140,9 +140,9 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
         try
         {
             string departmentId = await SecureStorage.Default.GetAsync("otdel");
-            // string departmentId = UserData.CurrentUser.DepartmentId.ToString();
+           
             using var httpClient = new HttpClient();
-            /*"http://localhost:5145/"*/
+      
             string url = ServerConstants.SERVER_ROOT_URL + "api/LoanReference/GetOneZalog?pozn=" + pozn+"/"+departmentId;
 
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -150,7 +150,7 @@ public partial class HomePage : ContentPage, INotifyPropertyChanged
             if (response.IsSuccessStatusCode)
             {
                 string responseData = await response.Content.ReadAsStringAsync();
-                ZavkrList.Clear();
+                    ZavkrList.Clear();
 
                 var dataList = JsonConvert.DeserializeObject<List<Zavkr>>(responseData);
                 //BindingContext = dataList;
