@@ -356,7 +356,12 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     private async Task SaveAsync()
     {
         var otNom = await SecureStorage.Default.GetAsync("otNom");
-       
+        DateTime? parsedDokEnd = null;
+
+        if (DateTime.TryParse(SelectedKlient.ZvDokend, out var d2))
+        {
+            parsedDokEnd = d2;
+        }
         var dto = new SaveZarpZayavkaDto
         {
             ZvPozn = SelectedKlient.ZvPozn,
@@ -367,7 +372,7 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
             ZvSrdok = SelectedKlient.ZvSrdok,
             ZvNdok = SelectedKlient.ZvNdok,
             ZvDatevp = SelectedKlient.ZvDatevp,
-            ZvDokend = SelectedKlient.ZvDokend,
+            ZvDokend = parsedDokEnd,
             ZvMvd = SelectedKlient.ZvMvd,
 
             // Клиент
@@ -391,7 +396,7 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
             MonthlyExpenses = MonthlyExpenses,
             SfLoansService = SfLoansService,
             ClientType = SelectedClientType?.Id,
-            IncomeType = SelectedIncomeType?.Id,
+            IncomeType = SelectedIncomeType?.Id.ToString(),
             IncomeDescription = IncomeDescription,
 
             // Кредит

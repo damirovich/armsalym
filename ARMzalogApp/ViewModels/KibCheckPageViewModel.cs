@@ -4,9 +4,8 @@ using ARMzalogApp.Models;
 using ARMzalogApp.Sevices.Integrations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using System.IO.Compression;
 using System.Net.Http.Json;
-using System.Xml;
 
 namespace ARMzalogApp.ViewModels;
 
@@ -27,7 +26,7 @@ public partial class KibCheckPageViewModel : ObservableObject
         };
    
         FullName = _zavkr.FullName;
-        DateOfBirth = _zavkr.BirthDate;
+        DateOfBirth = DateTime.TryParse(_zavkr.BirthDate, out var tempDate) ? tempDate.ToString("yyyy-MM-dd") : _zavkr.BirthDate;
         InternalPassport = $"{_zavkr.PassportSeries}{_zavkr.PassportNumber}";
 
         IdNumber = _zavkr.Inn; // PIN/ИНН
@@ -212,31 +211,94 @@ public partial class KibCheckPageViewModel : ObservableObject
                 return;
             }
 
-            // UserId из SecureStorage через SessionManager
             var otNomString = await SessionManager.GetOtNomAsync();
             if (!int.TryParse(otNomString, out var userId))
             {
-                await Application.Current.MainPage.DisplayAlert("Ошибка", "Не удалось определить код сотрудника. Повторите вход.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Не удалось определить код сотрудника.", "OK");
                 return;
             }
 
             var zvPozn = (int)_zavkr.PositionalNumber;
-            var typeClient = 1; // физ. лицо
+            var typeClient = 1;
 
-            var filePath = await _kibService.DownloadPdfAsync(IdNumber.Trim(),zvPozn,userId,typeClient);
+            IsBusy = true; // Показываем крутилку, если есть индикатор
 
-            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            // 1. Скачиваем ZIP файл (Service должен сохранить его как .zip во временную папку)
+            // Убедись, что _kibService.DownloadPdfAsync сохраняет файл с расширением .zip!
+            var zipFilePath = await _kibService.DownloadPdfAsync(IdNumber.Trim(), zvPozn, userId, typeClient);
+
+            if (string.IsNullOrWhiteSpace(zipFilePath) || !File.Exists(zipFilePath))
             {
-                await Application.Current.MainPage.DisplayAlert("Ошибка", "Не удалось получить PDF из КИБ", "OK");
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Файл не был загружен", "OK");
                 return;
             }
 
-            await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(filePath), Title = "Отчёт КИБ" });
+            // 2. Проверяем расширение. Если это ZIP — распаковываем.
+            string fileToOpen = zipFilePath;
+
+            if (Path.GetExtension(zipFilePath).ToLower().EndsWith("zip"))
+            {
+                fileToOpen = await ExtractPdfFromZipAsync(zipFilePath);
+
+                if (string.IsNullOrEmpty(fileToOpen))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Ошибка", "В архиве не найден PDF файл", "OK");
+                    return;
+                }
+            }
+
+            // 3. Открываем итоговый файл (PDF)
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(fileToOpen),
+                Title = "Отчёт КИБ"
+            });
         }
         catch (Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Ошибка", $"Ошибка при получении PDF: {ex.Message}", "OK");
+            await Application.Current.MainPage.DisplayAlert("Ошибка", $"Ошибка при открытии отчета: {ex.Message}", "OK");
         }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    // Вспомогательный метод для распаковки
+    private async Task<string?> ExtractPdfFromZipAsync(string zipPath)
+    {
+        return await Task.Run(() =>
+        {
+            try
+            {
+                // Создаем папку для распаковки (в кэше приложения)
+                var extractPath = Path.Combine(FileSystem.CacheDirectory, "kib_extracted_" + Guid.NewGuid().ToString());
+
+                if (Directory.Exists(extractPath))
+                    Directory.Delete(extractPath, true);
+
+                Directory.CreateDirectory(extractPath);
+
+                // Распаковываем
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+                // Ищем PDF файл внутри (берем первый попавшийся)
+                var pdfFile = Directory.GetFiles(extractPath, "*.pdf", SearchOption.AllDirectories).FirstOrDefault();
+
+                // Если PDF нет, ищем HTML (иногда отчеты бывают в HTML)
+                if (string.IsNullOrEmpty(pdfFile))
+                {
+                    pdfFile = Directory.GetFiles(extractPath, "*.html", SearchOption.AllDirectories).FirstOrDefault();
+                }
+
+                return pdfFile;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка распаковки: {ex.Message}");
+                return null;
+            }
+        });
     }
 
 }

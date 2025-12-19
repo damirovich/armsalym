@@ -23,9 +23,7 @@ public class SocFondPageViewModel : ObservableObject
         };
         InfoText = $"ПИН: {_zavkr.Inn}, заявка № {_zavkr.PositionalNumber}";
 
-        LastName = _zavkr.KlFam;
-        FirstName = _zavkr.KlName;
-        Patronymic = _zavkr.KlOtch;
+        ParseFullNameToProperties(_zavkr.FullName);
         PhoneNumber = _zavkr.Phone;
 
         InitializePermissionCommand = new AsyncRelayCommand(InitializePermissionAsync);
@@ -132,7 +130,39 @@ public class SocFondPageViewModel : ObservableObject
 
 
     // ==================  РАЗРЕШЕНИЕ (инициализация) ==================
+    private void ParseFullNameToProperties(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+        {
+            LastName = _zavkr.KlFam;
+            FirstName = _zavkr.KlName;
+            Patronymic = _zavkr.KlOtch;
+            return;
+        }
 
+        var parts = fullName.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        int count = parts.Length;
+
+        if (count == 0) return;
+
+        LastName = parts[0];
+
+        if (count == 1)
+        {
+            FirstName = string.Empty;
+            Patronymic = string.Empty;
+        }
+        else if (count == 2)
+        {
+            FirstName = parts[1];
+            Patronymic = string.Empty;
+        }
+        else
+        {
+            Patronymic = parts[count - 1];
+            FirstName = string.Join(" ", parts.Skip(1).Take(count - 2));
+        }
+    }
     private async Task InitializePermissionAsync()
     {
         if (IsBusy) return;

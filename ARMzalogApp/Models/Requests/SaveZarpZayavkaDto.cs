@@ -10,7 +10,7 @@ public class SaveZarpZayavkaDto
     public string? ZvSrdok { get; set; }
     public string? ZvNdok { get; set; }
     public DateTime? ZvDatevp { get; set; }
-    public string? ZvDokend { get; set; }
+    public DateTime? ZvDokend { get; set; }
     public string? ZvMvd { get; set; }
 
     // Клиент
@@ -34,7 +34,7 @@ public class SaveZarpZayavkaDto
     public decimal? MonthlyExpenses { get; set; }
     public decimal? SfLoansService { get; set; }
     public int? ClientType { get; set; }
-    public int? IncomeType { get; set; }
+    public string? IncomeType { get; set; }
     public string? IncomeDescription { get; set; }
 
     // Кредит

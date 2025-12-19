@@ -1,8 +1,5 @@
 ﻿using ARMzalogApp.Integrations.Dtos.KibDtos;
 using System.Net.Http.Json;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
-using static System.Net.WebRequestMethods;
 using System.Text.Json;
 using System.Text;
 
