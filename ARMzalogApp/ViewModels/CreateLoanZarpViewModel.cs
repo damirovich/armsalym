@@ -14,8 +14,7 @@ using System.Windows.Input;
 namespace ARMzalogApp.ViewModels;
 
 
-[QueryProperty(nameof(BvTypRez), "typRez")]
-[QueryProperty(nameof(BvTypRez1), "typRez1")]
+
 public class CreateLoanZarpViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
@@ -166,6 +165,66 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     private int _bvTypRez1;
     public int BvTypRez1 { get => _bvTypRez1; set { _bvTypRez1 = value; OnPropertyChanged(); } }
 
+    public ObservableCollection<Sprnam> ResumeGroupList { get; set; } = new()
+    {
+        new Sprnam { s_tip = 50, s_name = "Залоговые резюме" },
+        new Sprnam { s_tip = 60, s_name = "Беззалоговые резюме" },
+        new Sprnam { s_tip = 70, s_name = "Зарплатные резюме" }
+    };
+
+    private readonly List<Spr> _staticResumeTypes = new()
+    {
+        // Группа 60 (STip = 60) - Беззалоговые
+        new Spr { SKod = 61, SNam = "Работник организации", STip = 60 },
+        new Spr { SKod = 62, SNam = "Частный предприниматель", STip = 60 },
+        new Spr { SKod = 63, SNam = "Сельский житель", STip = 60 },
+
+        // Группа 50 (STip = 50) - Залоговые
+        new Spr { SKod = 51, SNam = "Работник организации (Залог)", STip = 50 },
+        new Spr { SKod = 52, SNam = "Частный предприниматель (Залог)", STip = 50 },
+        new Spr { SKod = 53, SNam = "Сельский житель (Залог)", STip = 50 },
+        new Spr { SKod = 54, SNam = "Юридическое лицо", STip = 50 },
+
+        // Группа 70 (STip = 70) - Зарплатные
+        new Spr { SKod = 71, SNam = "Зарплатный проект", STip = 70 }
+    };
+    private ObservableCollection<Spr> _resumeTypeList = new();
+    public ObservableCollection<Spr> ResumeTypeList
+    {
+        get => _resumeTypeList;
+        set { _resumeTypeList = value; OnPropertyChanged(); }
+    }
+
+    private Sprnam _selectedResumeGroup;
+    public Sprnam SelectedResumeGroup
+    {
+        get => _selectedResumeGroup;
+        set
+        {
+            _selectedResumeGroup = value;
+            OnPropertyChanged();
+
+            if (value != null) BvTypRez = value.s_tip;
+
+            UpdateResumeTypes(); // Обновляем второй список при смене группы
+        }
+    }
+
+    private Spr _selectedResumeType;
+    public Spr SelectedResumeType
+    {
+        get => _selectedResumeType;
+        set
+        {
+            _selectedResumeType = value;
+            OnPropertyChanged();
+
+            // Записываем код режима (61, 62 и т.д.) в поле для DTO
+            if (value != null) BvTypRez1 = value.SKod;
+        }
+    }
+
+  
     #endregion
 
     #region Commands
@@ -546,7 +605,28 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         }
         finally { IsLoading = false; }
     }
+    private void UpdateResumeTypes()
+    {
+        if (SelectedResumeGroup == null)
+        {
+            ResumeTypeList.Clear();
+            return;
+        }
 
+        // Фильтруем ваш хардкод-список _staticResumeTypes по полю STip
+        var filtered = _staticResumeTypes
+            .Where(x => x.STip == (byte)SelectedResumeGroup.s_tip)
+            .ToList();
+
+        ResumeTypeList.Clear();
+        foreach (var item in filtered) ResumeTypeList.Add(item);
+
+        // Если в списке только один вариант (как в Зарплатных), выбираем его сразу
+        if (ResumeTypeList.Count == 1)
+        {
+            SelectedResumeType = ResumeTypeList[0];
+        }
+    }
     private async Task GoBackAsync()
     {
         bool result = await App.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены, что хотите вернуться? Несохранённые данные будут потеряны.", "Да", "Нет");
