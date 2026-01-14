@@ -125,4 +125,8 @@ public class SaveZarpZayavkaDto
     public string? Path3 { get; set; }
     public string? Path4 { get; set; }
     public string? Path5 { get; set; }
+
+
+    public int BvTypRez { get; set; }  
+    public int BvTypRez1 { get; set; } 
 }
