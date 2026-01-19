@@ -2,6 +2,8 @@
 using ARMzalogApp.Models;
 using ARMzalogApp.Models.Requests;
 using ARMzalogApp.Models.Responses;
+using ARMzalogApp.Views.Popups;
+using CommunityToolkit.Maui.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,6 +12,8 @@ using System.Text;
 using System.Windows.Input;
 
 namespace ARMzalogApp.ViewModels;
+
+
 
 public class CreateLoanZarpViewModel : INotifyPropertyChanged
 {
@@ -23,6 +27,9 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         SearchClientCommand = new Command(async () => await SearchClientAsync());
         SaveCommand = new Command(async () => await SaveAsync());
         BackCommand = new Command(async () => await GoBackAsync());
+
+        OpenCitizenshipSearchCommand = new Command(async () => await OpenCountrySearchAsync());
+        SearchCountryCommand = new Command<string>((text) => FilterCountries(text));
 
         SelectedKlient = new ZmainView();
 
@@ -64,6 +71,10 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     // НОВЫЕ СПИСКИ
     public ObservableCollection<Spr> KredurList { get; set; } = new(); // Уровень КК (s_tip = 27)
     public ObservableCollection<Spr> RegionsList { get; set; } = new(); // Подразделения
+    public ObservableCollection<Spr> VidClientList { get; set; } = new();
+
+    private ObservableCollection<CountryCode> _filteredCitizenshipList;
+    public ObservableCollection<CountryCode> FilteredCitizenshipList { get => _filteredCitizenshipList; set { _filteredCitizenshipList = value; OnPropertyChanged(); } }
 
     // --- Выбранные значения ---
     private LoanTypeResponse _selectedLoanType;
@@ -90,8 +101,12 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     private Spr _selectedNationality;
     public Spr SelectedNationality { get => _selectedNationality; set { _selectedNationality = value; OnPropertyChanged(); } }
 
+
     private CountryCode _selectedCitizenship;
     public CountryCode SelectedCitizenship { get => _selectedCitizenship; set { _selectedCitizenship = value; OnPropertyChanged(); } }
+
+    private Spr _selectedVidClient;
+    public Spr SelectedVidClient { get => _selectedVidClient; set { _selectedVidClient = value; OnPropertyChanged(); } }
 
     // НОВЫЕ ВЫБРАННЫЕ ПОЛЯ
     private Spr _selectedKredur;
@@ -144,6 +159,72 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     private bool _isLoading;
     public bool IsLoading { get => _isLoading; set { _isLoading = value; OnPropertyChanged(); } }
 
+    private int _bvTypRez;
+    public int BvTypRez { get => _bvTypRez; set { _bvTypRez = value; OnPropertyChanged(); } }
+
+    private int _bvTypRez1;
+    public int BvTypRez1 { get => _bvTypRez1; set { _bvTypRez1 = value; OnPropertyChanged(); } }
+
+    public ObservableCollection<Sprnam> ResumeGroupList { get; set; } = new()
+    {
+        new Sprnam { s_tip = 50, s_name = "Залоговые резюме" },
+        new Sprnam { s_tip = 60, s_name = "Беззалоговые резюме" },
+        new Sprnam { s_tip = 70, s_name = "Зарплатные резюме" }
+    };
+
+    private readonly List<Spr> _staticResumeTypes = new()
+    {
+        // Группа 60 (STip = 60) - Беззалоговые
+        new Spr { SKod = 61, SNam = "Работник организации", STip = 60 },
+        new Spr { SKod = 62, SNam = "Частный предприниматель", STip = 60 },
+        new Spr { SKod = 63, SNam = "Сельский житель", STip = 60 },
+
+        // Группа 50 (STip = 50) - Залоговые
+        new Spr { SKod = 51, SNam = "Работник организации (Залог)", STip = 50 },
+        new Spr { SKod = 52, SNam = "Частный предприниматель (Залог)", STip = 50 },
+        new Spr { SKod = 53, SNam = "Сельский житель (Залог)", STip = 50 },
+        new Spr { SKod = 54, SNam = "Юридическое лицо", STip = 50 },
+
+        // Группа 70 (STip = 70) - Зарплатные
+        new Spr { SKod = 71, SNam = "Зарплатный проект", STip = 70 }
+    };
+    private ObservableCollection<Spr> _resumeTypeList = new();
+    public ObservableCollection<Spr> ResumeTypeList
+    {
+        get => _resumeTypeList;
+        set { _resumeTypeList = value; OnPropertyChanged(); }
+    }
+
+    private Sprnam _selectedResumeGroup;
+    public Sprnam SelectedResumeGroup
+    {
+        get => _selectedResumeGroup;
+        set
+        {
+            _selectedResumeGroup = value;
+            OnPropertyChanged();
+
+            if (value != null) BvTypRez = value.s_tip;
+
+            UpdateResumeTypes(); // Обновляем второй список при смене группы
+        }
+    }
+
+    private Spr _selectedResumeType;
+    public Spr SelectedResumeType
+    {
+        get => _selectedResumeType;
+        set
+        {
+            _selectedResumeType = value;
+            OnPropertyChanged();
+
+            // Записываем код режима (61, 62 и т.д.) в поле для DTO
+            if (value != null) BvTypRez1 = value.SKod;
+        }
+    }
+
+  
     #endregion
 
     #region Commands
@@ -151,6 +232,8 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
     public ICommand SearchClientCommand { get; }
     public ICommand SaveCommand { get; }
     public ICommand BackCommand { get; }
+    public ICommand OpenCitizenshipSearchCommand { get; }
+    public ICommand SearchCountryCommand { get; }
     #endregion
 
     #region Methods
@@ -160,15 +243,17 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
         IsLoading = true;
         try
         {
-            // Запускаем все загрузки параллельно
-            var t1 = GetDataLoanType();
-            var t2 = GetDataPurpose();
-            var t3 = GetNationalities();
-            var t4 = GetCitizenship();
-            var t5 = GetKredur();        // Новое
-            var t6 = GetRegions();       // Новое (Подразделения)
+            var tasks = new List<Task> {
+                GetDataLoanType(),
+                GetDataPurpose(),
+                GetNationalities(),
+                GetCitizenship(),
+                GetKredur(),        // Новое
+                GetRegions(),       // Новое (Подразделения)
+                GetVidClient(), //Вид Клиента
+            };
 
-            await Task.WhenAll(t1, t2, t3, t4, t5, t6);
+            await Task.WhenAll(tasks);
         }
         catch (Exception ex)
         {
@@ -256,7 +341,40 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
             foreach (var item in list) KredurList.Add(item);
         }
     }
+    private void FilterCountries(string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            FilteredCitizenshipList = new ObservableCollection<CountryCode>(CitizenshipList);
+        }
+        else
+        {
+            var filtered = CitizenshipList
+                .Where(x => x.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            FilteredCitizenshipList = new ObservableCollection<CountryCode>(filtered);
+        }
+    }
+    private async Task OpenCountrySearchAsync()
+    {
+        // 1. Создаем экземпляр всплывающего окна и передаем в него полный список стран
+        // CitizenshipList — это ваш существующий список из ViewModel
+        var popup = new CountrySearchPopup(CitizenshipList);
 
+        // 2. Отображаем окно поверх текущей страницы и ждем результат
+        // Метод ShowPopupAsync вернет то, что выберет пользователь
+        var result = await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+
+        // 3. Проверяем, что пользователь действительно выбрал страну, а не просто закрыл окно
+        if (result is CountryCode selectedCountry)
+        {
+            // Присваиваем выбранное значение основному свойству
+            SelectedCitizenship = selectedCountry;
+
+            // Уведомляем систему, что данные изменились (если не используется [ObservableProperty])
+            OnPropertyChanged(nameof(SelectedCitizenship));
+        }
+    }
     private async Task GetRegions()
     {
         using var httpClient = new HttpClient();
@@ -285,7 +403,22 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
             }
         }
     }
+    private async Task GetVidClient()
+    {
+        using var httpClient = new HttpClient();
+        // Обычно вид клиента - это tip=11 (физ/юр/ип) или tip=32. 
+        // Если есть спец. эндпоинт как у КК, используй его.
+        var url = $"{ServerConstants.SERVER_ROOT_URL}api/LoanReference/GetVidClient";
+        var response = await httpClient.GetAsync(url);
 
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var list = JsonConvert.DeserializeObject<List<Spr>>(json);
+            VidClientList.Clear();
+            foreach (var item in list) VidClientList.Add(item);
+        }
+    }
     public async Task SearchClientAsync()
     {
         if (string.IsNullOrWhiteSpace(KlientFullName)) return;
@@ -321,6 +454,7 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
             SelectedKlient.Doljnoct = klientDb.KlDolgn;
             SelectedKlient.ZvDokend = klientDb.KlDokend;
             SelectedKlient.ZvFdr = klientDb.Fdr;
+            SelectedKlient.Atyjoni = klientDb.KlNam;
 
             IdProch = klientDb.KlAdr;
             Darek = klientDb.KlAdr;
@@ -352,98 +486,147 @@ public class CreateLoanZarpViewModel : INotifyPropertyChanged
 
     private async Task SaveAsync()
     {
-        var otNom = await SecureStorage.Default.GetAsync("otNom");
-
-        DateTime? parsedDokEnd = null;
-        if (DateTime.TryParse(SelectedKlient.ZvDokend, out var d2)) parsedDokEnd = d2;
-
-        var dto = new SaveZarpZayavkaDto
+        IsLoading = true;
+        try
         {
-            ZvPozn = SelectedKlient.ZvPozn,
-            OtNom = otNom,
+            var otNom = await SecureStorage.Default.GetAsync("otNom");
 
-            // Кредит
-            ZvSum = SelectedKlient.ZvSum,
-            ZvSrok = SelectedKlient.ZvSrok,
-            CelKr = SelectedPurpose?.Id,
-            ZvVidkr = (byte?)SelectedLoanType?.Id,
-            ZvKom = SelectedLoanType?.Id.ToString(),
-            ZvKredur = (byte?)SelectedKredur?.SKod,
-            ZvKodv = SelectedCurrency?.Code ?? "KGS",
-            CelIsp = SelectedSubProduct?.Name,
+            DateTime? parsedDokEnd = null;
+            if (DateTime.TryParse(SelectedKlient.ZvDokend, out var d2)) parsedDokEnd = d2;
 
-            // Паспорт
-            ZvDok = SelectedKlient.ZvDok,
-            ZvSrdok = SelectedKlient.ZvSrdok,
-            ZvNdok = SelectedKlient.ZvNdok,
-            ZvDatevp = SelectedKlient.ZvDatevp,
-            ZvDokend = parsedDokEnd,
-            ZvMvd = SelectedKlient.ZvMvd,
-            ZvGrajd = SelectedCitizenship?.Code,
-            ZvNational = SelectedNationality?.SKod,
+            var dto = new SaveZarpZayavkaDto
+            {
+                ZvPozn = SelectedKlient.ZvPozn,
+                OtNom = otNom,
 
-            // Клиент
-            KlFam = SelectedKlient.IFam,
-            KlName = SelectedKlient.KlName,
-            KlOtch = SelectedKlient.KlOtch,
-            ZvNamkl = KlientFullName,
-            ZvInn = SelectedKlient.ZvInn,
-            ZvFdr = SelectedKlient.ZvFdr,
-            ZvFmr = SelectedKlient.ZvFmr,
-            ZvGr = SelectedGender == "Мужской" ? 1 : 2,
-            ZvKl = SelectedClientType?.Id ?? 1,
-            Atyjoni = SelectedKlient.Atyjoni,
+                // Кредит
+                ZvSum = SelectedKlient.ZvSum,
+                ZvSrok = SelectedKlient.ZvSrok,
+                CelKr = SelectedPurpose?.Id,
+                ZvVidkr = (byte?)SelectedLoanType?.Id,
+                ZvKom = SelectedLoanType?.Id.ToString(),
+                ZvKredur = (byte?)SelectedKredur?.SKod,
+                ZvKodv = SelectedCurrency?.Code ?? "KGS",
+                CelIsp = SelectedSubProduct?.Name,
 
-            // Адреса
-            RegAdres = SelectedKlient.RegAdres,
-            FaktAdres = SelectedKlient.FaktAdres,
-            ZvAdr = SelectedKlient.RegAdres,
-            IdProch = IdProch,
-            Darek = Darek,
-            ZvTel = SelectedKlient.ZvTel,
-            ZvTelfax = SelectedKlient.ZvTelfax,
+                // Паспорт
+                ZvDok = SelectedKlient.ZvDok,
+                ZvSrdok = SelectedKlient.ZvSrdok,
+                ZvNdok = SelectedKlient.ZvNdok,
+                ZvDatevp = SelectedKlient.ZvDatevp,
+                ZvDokend = parsedDokEnd,
+                ZvMvd = SelectedKlient.ZvMvd,
+                ZvGrajd = SelectedCitizenship?.Code,
+                ZvNational = SelectedNationality?.SKod,
 
-            // Работа
-            Doljnoct = SelectedKlient.Doljnoct,
-            BvRabStaj = SelectedKlient.BvRabStaj,
+                // Клиент
+                KlFam = SelectedKlient.IFam,
+                KlName = SelectedKlient.KlName,
+                KlOtch = SelectedKlient.KlOtch,
+                ZvNamkl = KlientFullName,
+                ZvInn = SelectedKlient.ZvInn,
+                ZvFdr = SelectedKlient.ZvFdr,
+                ZvFmr = SelectedKlient.ZvFmr,
+                ZvGr = SelectedGender == "Мужской" ? 1 : 2,
+                ZvKl = SelectedClientType?.Id ?? 1,
+                Atyjoni = SelectedKlient.Atyjoni,
+                Z1Vid = SelectedVidClient.SNam,
 
-            // Семья
-            FamStat = SelectedFamilyStatus?.Code,
-            FioCupr = SelectedKlient.FioCupr,
-            RabCupr = SelectedKlient.RabCupr,
-            DoljCup = SelectedKlient.DoljCup,
-            BvTelefSupr = SelectedKlient.BvTelefSupr,
-            DetKol = ChildrenCount,
+                // Адреса
+                RegAdres = SelectedKlient.RegAdres,
+                FaktAdres = SelectedKlient.FaktAdres,
+                ZvAdr = SelectedKlient.RegAdres,
+                IdProch = IdProch,
+                Darek = Darek,
+                ZvTel = SelectedKlient.ZvTel,
+                ZvTelfax = SelectedKlient.ZvTelfax,
 
-            // Родственники
-            DbTipbis = DbTipbis,
-            DbPeriod = DbPeriod,
-            DbGeogr = DbGeogr,
-            DbPoctavka = DbPoctavka,
-            DbPoruchRods1 = IsRelativeGuarantor ? (short)1 : (short)2,
+                // Работа
+                Doljnoct = SelectedKlient.Doljnoct,
+                BvRabStaj = SelectedKlient.BvRabStaj,
 
-            // Финансы
-            SalaryAmount = SalaryAmount,
-            MonthlyExpenses = MonthlyExpenses,
-            SfLoansService = SfLoansService,
-            IncomeType = SelectedIncomeType?.Id.ToString(),
-            IncomeDescription = IncomeDescription,
+                // Семья
+                FamStat = SelectedFamilyStatus?.Code,
+                FioCupr = SelectedKlient.FioCupr,
+                RabCupr = SelectedKlient.RabCupr,
+                DoljCup = SelectedKlient.DoljCup,
+                BvTelefSupr = SelectedKlient.BvTelefSupr,
+                DetKol = ChildrenCount,
 
-            // Прочее
-            Refund = SelectedRegion?.SKod ?? 0
-        };
+                // Родственники
+                DbTipbis = DbTipbis,
+                DbPeriod = DbPeriod,
+                DbGeogr = DbGeogr,
+                DbPoctavka = DbPoctavka,
+                DbPoruchRods1 = IsRelativeGuarantor ? (short)1 : (short)2,
 
-        using var http = new HttpClient();
-        var url = $"{ServerConstants.SERVER_ROOT_URL}api/zavkr/save";
-        var json = JsonConvert.SerializeObject(dto);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+                // Финансы
+                SalaryAmount = SalaryAmount,
+                MonthlyExpenses = MonthlyExpenses,
+                SfLoansService = SfLoansService,
+                IncomeType = SelectedIncomeType?.Id.ToString(),
+                IncomeDescription = IncomeDescription,
 
-        var response = await http.PostAsync(url, content);
-        var responseJson = await response.Content.ReadAsStringAsync();
+                // Прочее
+                Refund = SelectedRegion?.SKod ?? 0,
 
-        await App.Current.MainPage.DisplayAlert("Ответ", responseJson, "OK");
+                BvTypRez = this.BvTypRez,
+                BvTypRez1 = this.BvTypRez1,
+            };
+
+            using var http = new HttpClient();
+            var url = $"{ServerConstants.SERVER_ROOT_URL}api/zavkr/save";
+            var json = JsonConvert.SerializeObject(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await http.PostAsync(url, content);
+            var responseJson = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<dynamic>(responseJson);
+
+            if (response.IsSuccessStatusCode && result != null && (bool)result.success)
+            {
+                // Если успех — берем текст из поля message, пришедшего с сервера
+                await App.Current.MainPage.DisplayAlert("Успешно", (string)result.message, "ОК");
+
+                // Возвращаемся назад к списку
+                await Shell.Current.GoToAsync("..");
+            }
+            else
+            {
+                // Если сервер вернул ошибку в поле message
+                string errorText = result?.message ?? "Ошибка при сохранении";
+                await App.Current.MainPage.DisplayAlert("Внимание", errorText, "ОК");
+            }
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Ошибка сети", ex.Message, "ОК");
+        }
+        finally { IsLoading = false; }
     }
+    private void UpdateResumeTypes()
+    {
+        if (SelectedResumeGroup == null)
+        {
+            ResumeTypeList.Clear();
+            return;
+        }
 
+        // Фильтруем ваш хардкод-список _staticResumeTypes по полю STip
+        var filtered = _staticResumeTypes
+            .Where(x => x.STip == (byte)SelectedResumeGroup.s_tip)
+            .ToList();
+
+        ResumeTypeList.Clear();
+        foreach (var item in filtered) ResumeTypeList.Add(item);
+
+        // Если в списке только один вариант (как в Зарплатных), выбираем его сразу
+        if (ResumeTypeList.Count == 1)
+        {
+            SelectedResumeType = ResumeTypeList[0];
+        }
+    }
     private async Task GoBackAsync()
     {
         bool result = await App.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены, что хотите вернуться? Несохранённые данные будут потеряны.", "Да", "Нет");

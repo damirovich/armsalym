@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="ARMzalogApp.Views.Popups.CountrySearchPopup"
+               Size="320, 550">
+
+  <Border StrokeShape="RoundRectangle 20" BackgroundColor="White" Padding="15">
+    <VerticalStackLayout Spacing="10">
+
+      <Label Text="Поиск страны"
+             FontAttributes="Bold"
+             FontSize="18"
+             HorizontalOptions="Center"
+             TextColor="#333"/>
+
+      <SearchBar x:Name="CountrySearchBar"
+                 Placeholder="Введите название..."
+                 TextChanged="OnTextChanged"
+                 BackgroundColor="#F5F5F5"
+                 TextColor="Black"/>
+
+      <CollectionView x:Name="CountriesList"
+                      HeightRequest="380"
+                      ItemsSource="{Binding FilteredCountries}"
+                      SelectionMode="Single"
+                      SelectionChanged="OnSelectionChanged">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid Padding="10">
+              <Label Text="{Binding Name}" FontSize="16" TextColor="Black"/>
+              <BoxView HeightRequest="1"
+                       BackgroundColor="#EEEEEE"
+                       VerticalOptions="End"/>
+            </Grid>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+
+      <Button Text="Закрыть"
+              Clicked="OnCloseClicked"
+              BackgroundColor="#D32F2F"
+              TextColor="White"
+              CornerRadius="10"
+              HeightRequest="45"
+              FontAttributes="Bold"/>
+
+    </VerticalStackLayout>
+  </Border>
+</toolkit:Popup>
