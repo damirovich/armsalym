@@ -12,6 +12,30 @@
     <!-- <key>LSApplicationCategoryType</key> -->
     <!-- <string>public.app-category.YOUR-CATEGORY-HERE</string> -->
 	<key>UIDeviceFamily</key>
+	<key>NSContactsUsageDescription</key>
+<string>Доступ к контактам позволяет быстро добавлять данные клиентов для оформления договоров залога.</string>
+
+<key>NSMicrophoneUsageDescription</key>
+<string>Микрофон может использоваться для записи видео-отчетов в процессе осмотра и оценки залогового имущества.</string>
+
+<key>NSSiriUsageDescription</key>
+<string>Интеграция с Siri позволяет управлять функциями АРМ с помощью голосовых команд для удобства работы.</string>
+
+<key>NSAppleMusicUsageDescription</key>
+<string>Доступ к медиатеке необходим для выбора и загрузки прикрепленных документов или файлов к карточке залога.</string>
+
+<key>NSCalendarsUsageDescription</key>
+<string>Календарь используется для планирования дат будущих осмотров залогов и встреч с клиентами.</string>
+
+<key>NSCameraUsageDescription</key>
+<string>Камера необходима для фотографирования заложенного имущества и оригиналов документов в реальном времени.</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Доступ к галерее требуется для выбора и загрузки ранее сделанных фотографий объектов залога.</string>
+
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>Приложению требуется разрешение на сохранение сделанных снимков залогов в галерею вашего устройства.</string>
+
 	<array>
 		<integer>2</integer>
 	</array>
